@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br /><br />
+
+@*<img src="~/images/candies.jpg" alt="candies" />*@
+<img src="https://contosocandies-cdnep.azureedge.net/cdn/candies.jpg" alt="candies" />
+
+<span style="font-size:xx-large">We trade candies all over the world!</span>
+<br /><br /><br />
+
+<div class="row">
+    <div class="col-md-4">
+        @*<h2>Candies!</h2>*@
+        <h2><a asp-area="" asp-controller="Candies" asp-action="Index">Candies</a></h2>
+        <ul>
+            <li>We love all candies!</li>
+            <li>Caramel Candie</li>
+            <li>Dark Chocolate</li>
+            <li>Milk Chocolate</li>
+            <li>Gummi Bears</li>
+            <li>You name it, we love them!</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2><a asp-area="" asp-controller="Stores" asp-action="Index">Stores</a></h2>
+        <ul>
+            <li>Register your store to order Candies</li>
+        </ul>
+    </div>
+    <div class="col-md-4">
+        <h2>We are</h2>
+        <ul>
+            <li>Candies R Us</li>
+            <li>We deliver candies to your stores</li>
+            <li>All over the world</li>
+            <li>In 150 countries!!!</li>
+        </ul>
+    </div>
+</div>

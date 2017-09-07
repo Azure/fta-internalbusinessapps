@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Contoso.Expense.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="ExpenseId" />
+          </Key>
+          <Property Name="ExpenseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="256" />
+          <Property Name="ExpenseDate" Type="datetime" />
+          <Property Name="Amount" Type="float" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="60" />
+          <Property Name="EmployeeEmail" Type="nvarchar" MaxLength="120" />
+          <Property Name="ApproverName" Type="nvarchar" MaxLength="60" />
+          <Property Name="ApproverEmail" Type="nvarchar" MaxLength="120" />
+          <Property Name="Receipt" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityContainer Name="ContosoExpenseDatabaseModelStoreContainer">
+          <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Contoso.Expense.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="ExpenseId" />
+          </Key>
+          <Property Name="ExpenseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Purpose" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ExpenseDate" Type="DateTime" Precision="3" />
+          <Property Name="Amount" Type="Double" />
+          <Property Name="EmployeeName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="ApproverName" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="ApproverEmail" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+          <Property Name="Receipt" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ContosoExpenseDataEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Expenses" EntityType="Self.Expense" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContosoExpenseDatabaseModelStoreContainer" CdmEntityContainer="ContosoExpenseDataEntities">
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="Contoso.Expense.DatabaseModel.Expense">
+              <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="ExpenseId" ColumnName="ExpenseId" />
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="ApproverName" ColumnName="ApproverName" />
+                <ScalarProperty Name="ApproverEmail" ColumnName="ApproverEmail" />
+                <ScalarProperty Name="Receipt" ColumnName="Receipt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
