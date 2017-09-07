@@ -1,3 +1,11 @@
+# FastTrack for Azure
+
+See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackForAzure) for more information.
+
+# Internal Business Apps Scenarios
+
+* [App Modernization](appmodernization/walkthrough.md)
+* [Lift & Shift](liftandshift/walkthrough.md)
 
 # Contributing
 
