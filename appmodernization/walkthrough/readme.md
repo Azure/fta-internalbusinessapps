@@ -17,7 +17,7 @@ After completing the exercises in this module, you will be able to:
 3.5 hours
 
 ## Open application with Visual Studio
-* Copy the project to a working folder.
+* Copy the project's [source code](../src) to a working folder.
 * From the working folder, open **Contoso.Expenses.sln** with Visual Studio.
 
   ![Screenshot](images/Pic-0100.png)
