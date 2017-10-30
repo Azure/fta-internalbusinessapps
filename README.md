@@ -4,7 +4,7 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 
 # Internal Business Apps Scenarios
 
-* [App Modernization](appmodernization/articles/internal-business-application-on-paas.md)
+* [App Modernization](appmodernization/articles/)
 * Lift & Shift
 
 # Contributing
