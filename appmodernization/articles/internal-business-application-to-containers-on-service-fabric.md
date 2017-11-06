@@ -6,6 +6,7 @@
 * [Create a Team Project and Repository](#create-a-team-project-and-initial-code)
 * [Configure Container Register](#configure-container-registry)
 * [Create Service Fabric Cluster](#create-service-fabric-cluster)
+* [Create a SQL Azure database](#create-a-sql-azure-database)
 * [Containerize the Application](#containerize-the-application)
 * [Create Service Fabric Solution](#create-service-fabric-solution)
 
@@ -31,6 +32,7 @@ To complete this POC, you will need
   > ```
   > powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force -Scope CurrentUser
   > ```
+* [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
 
 ## Create a Team Project and Initial Code
 1. From the VSTS portal, click **New Project**
@@ -102,6 +104,26 @@ In order to run the application now, we will need to create a cluster to deploy 
 5. On the *Summary* blade, click **Create**.
     > Note: This will take several minutes and even once the creation of the cluster is complete, it will still need a few more minutes to perform some internal updates.
 
+## Create a SQL Azure database
+When we deploy the application to Azure, we will want our existing database to be moved over as well. There are a number of ways to approach this problem and we are going to take a simplistic approach here which will use SSMS to export our database directly to SQL Azure.
+
+1. In the Azure Portal, click **New**, search for **SQL Server** and then select **SQL Server (logical server)**. Click **Create**.
+
+    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-21.png)
+
+2. Fill out the details for the server and click **Create**.
+3. Once the server is created, we will need to allow for your local computer to access it. In the SQL server settings blade in the portal, go to the **Firewall** settings and then click **Add Client IP**. Click **Save**.
+
+    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-22.png)
+4. In SQL Server Management Studio, connect to your local database that was used when testing the application earlier.
+5. In the *Object Explorer*, expand **Databases**, right-click on the database that was created, select **Tasks** and then **Deploy Database to Microsoft Azure SQL Database**. Click **Next** on the *Introduction* page.
+6. On the *Deployment Settings* page, click **Connect** and fill in the details for the server you just created.
+
+    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-23.png)
+7. Give the database the name that it will have in SQL Azure and then click **Next**.
+8. On the *Summary* page, click **Finish** and the database will begin migrating to SQL Azure. Once it is done, click **Close**.
+9. In the Azure portal, navigate to the database that was just created and in the settings, grab the current connection string and save for later.
+
 ## Containerize the Application
 The application as it exists today would be considered a traditional "monolithic" application. We now need to containerize the application so it can work on Docker. With the Docker Tools for Windows, we can do some basic Docker scaffolding of our project.
 
@@ -130,6 +152,13 @@ We will now create a Service Fabric project for our solution and configure it to
     ```xml
     <Endpoint Name="ContosoExpensesWebTypeEndpoint" UriScheme="http" Port="8080" Protocol="http" />
     ```
+4. In the *EnvironmentVariables* section, add the following using the connection string you saved earlier.
+    ```xml
+    <EnvironmentVariables>
+      <EnvironmentVariable Name="ConnectionStrings__DefaultConnection" Value="Server=tcp:modapp-sf-dev.database.windows.net,1433;Initial Catalog=ContosoExpenses;Persist Security Info=False;User ID=__YOUR_USERID__;Password=__YOUR_PASSWORD__;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"/>
+    </EnvironmentVariables>
+    ```
+    > Note: Make sure you update the server, user id, and password for your database.
 4. In the *ApplicationManifest.xml* file make the following changes:
     * Edit the *ServiceManfiestImport* block to add the following element:
         ```xml
