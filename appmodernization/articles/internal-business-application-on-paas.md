@@ -15,7 +15,7 @@ After completing the exercises in this module, you will be able to:
     * Download Proof-of-concept project from [here](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip)
       
 # Estimated time to complete this module
-3.5 hours
+2 hours
 
 ## Open application with Visual Studio
 * Copy the project to a working folder.
