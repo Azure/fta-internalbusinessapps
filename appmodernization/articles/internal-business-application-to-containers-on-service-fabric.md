@@ -63,6 +63,7 @@ To complete this POC, you will need
     
 8. Give a name for your project e.g. *ContosoExpensesWeb* and set the location to be the folder you cloned your repository to. Click **Ok**.
 9. In the project template dialog, select **Web Application**, and then click **Change Authentication** and select **Individual User Accounts** and then click **Ok** and then **Ok** again.
+    > Note: You may Enable Docker Support by clicking the checkbox or you can add it later to the project once created.
 
     ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-8.png)
     
