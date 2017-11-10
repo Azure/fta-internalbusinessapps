@@ -71,7 +71,7 @@ After completing the exercises in this module, you will be able to:
 * Move the **DTU** slider to **20**.
   * Note: DTU's are Database Transaction Units and measure database performance with a blended measure of CPU, memory, I/O.  For more information on DTU's, see [Explaining Database Transaction Units](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-what-is-a-dtu).
 
-* Move the **Storage** slider to **5**.
+* Move the **Storage** slider to **5GB**.
 * Click **Apply**.
 * Click **Create** to create a new SQL Database Server & Database.
 
