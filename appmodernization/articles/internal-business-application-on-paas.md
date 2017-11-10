@@ -555,14 +555,6 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 
     ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0252.png)
 
-## Coming soon...
-* Console, show Kudu!
-* Deployment Slots for Staging!
-* Deployment Slot Swap!
-* Monitoring and Diagnostics!
-* Automation using ARM Templates!
-* SSL Certs!
-
 ## Useful References
 * [Visual Studio Team Services, Getting Started](https://www.visualstudio.com/)
 * [Visual Studio Team Services, Product Updates](https://www.visualstudio.com/team-services/updates/)
