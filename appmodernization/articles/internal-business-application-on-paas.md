@@ -23,6 +23,8 @@ After completing the exercises in this module, you will be able to:
 * Connect the Web App to Azure SQL DB
 * Deploy the API app project from Visual Studio to Azure API App
 * Create a storage account to hold the messages using Queue
+* Create a SendGrid Email account
+* Create a function to pick up the message from the Queue and send email using SendGrid
 
 
 ## Open application with Visual Studio
