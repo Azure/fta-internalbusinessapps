@@ -17,6 +17,14 @@ After completing the exercises in this module, you will be able to:
 # Estimated time to complete this module
 2 hours
 
+# High level process
+* Create Azure SQL DB and publish database project from Visual Studio to Azure SQL DB
+* Deploy an ASP.Net MVC project from Visual Studio to Azure Web App
+* Connect the Web App to Azure SQL DB
+* Deploy the API app project from Visual Studio to Azure API App
+* Create a storage account to hold the messages using Queue
+
+
 ## Open application with Visual Studio
 * Copy the project to a working folder.
 * From the working folder, open **Contoso.Expenses.sln** with Visual Studio.
