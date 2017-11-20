@@ -29,7 +29,7 @@ After completing the exercises in this module, you will be able to:
 
 
 ## Open application with Visual Studio
-* Unblock the file in Windows Explorer properties (Right Click on the zip file in explorer and select 'Properties', then click 'unblock'.
+* Unblock the file in Windows Explorer properties (Right Click on the zip file in explorer and select 'Properties', then click 'unblock')
 * Extract the zip file to a working folder.
 * From the working folder, open **Contoso.Expenses.sln** with Visual Studio.
 
