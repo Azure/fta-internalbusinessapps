@@ -1,3 +1,4 @@
+
 # POC Scenario Contoso Expenses: Deploying Website on Azure PaaS
 
 # Abstract
@@ -28,7 +29,8 @@ After completing the exercises in this module, you will be able to:
 
 
 ## Open application with Visual Studio
-* Copy the project to a working folder.
+* Unblock the file in Windows Explorer properties (Right Click on the zip file in explorer and select 'Properties', then click 'unblock'.
+* Extract the zip file to a working folder.
 * From the working folder, open **Contoso.Expenses.sln** with Visual Studio.
 
   ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0100.png)
