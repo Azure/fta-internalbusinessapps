@@ -5,6 +5,9 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 # Internal Business Apps Scenarios
 
 * [App Modernization](appmodernization/articles/)
+    * [Internal business app on AppService](appmodernization/app-service/articles/)
+    * [Internal business app on Service Fabric](appmodernization/service-fabric/articles/)
+    * [Internal Business app to Containers on Service Fabric](appmodernization/containers-on-service-fabric/articles/)
 * Lift & Shift
 
 # Contributing
