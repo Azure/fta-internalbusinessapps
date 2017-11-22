@@ -283,7 +283,7 @@ C:\..\Contoso.Expenses.Web>docker build -t [YOUR-REGISTRY]/contoso.expenses.web:
 ````
 > Replace [YOUR-REGISTRY] with your own registry name. This is recommended pattern for images that are pulled from or pushed to external registries. 
 
-11. Repeat step 7 for project **contoso.expenses.api**.
+11. Repeat step 10 for project **contoso.expenses.api**.
 
 12. List all images available in your local repository. Run the following command and you should see the 2 images built during the last step(contoso.expenses.web and contoso.expenses.api).
 ````docker
