@@ -37,7 +37,8 @@ $storagecontainer = New-AzureStorageContainer -Name $storagecontainername `
 Write-host "Created storage container" -f Cyan
 
 # Download sample database from Github
-Invoke-WebRequest -Uri "https://github.com/Azure/fta-internalbusinessapps/appmodernization/app-service/src/Contoso.Expenses.ARM/raw/master/database/ContosoExpensesDB.bacpac" -OutFile $bacpacfilename
+
+Invoke-WebRequest -Uri "https://github.com/Azure/fta-internalbusinessapps/raw/master/appmodernization/app-service/src/Contoso.Expenses.ARM/database/ContosoExpensesDB.bacpac" -OutFile $bacpacfilename
 
 # Upload sample database into storage container
 $storageaccountkey = $(Get-AzureRmStorageAccountKey -ResourceGroupName $resourcegroupname -StorageAccountName $storageaccountname).Value[0]
