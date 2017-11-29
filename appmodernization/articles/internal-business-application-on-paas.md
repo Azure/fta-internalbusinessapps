@@ -11,9 +11,22 @@ After completing the exercises in this module, you will be able to:
 
 ## Pre-Requisites
 * To complete this PoC, you will need:
-    * Visual Studio 2017
     * Download Proof-of-concept project from [here](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip)
       
+    * A Microsoft Azure subscription (with Contributor access)
+
+    * Install Visual Studio 2017 version 15.4 (or latest) with following Workloads 
+      * .NET desktop development 
+      * ASP.NET and web development 
+      * Azure development  
+      * Data storage and processing 
+
+    * Ensure the SSDT package is installed (Download SSDT for Visual Studio 2017 (15.4.0 preview)):  
+      https://docs.microsoft.com/en-us/sql/ssdt/download-sql-server-data-tools-ssdt    
+
+    * Download latest SQL Server Management Studio here and install:
+    https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms
+
 # Estimated time to complete this module
 2 hours
 
