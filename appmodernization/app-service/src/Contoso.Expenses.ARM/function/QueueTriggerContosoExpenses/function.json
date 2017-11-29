@@ -1,0 +1,18 @@
+{
+  "bindings": [
+    {
+      "name": "QueueTriggerContosoExpenses",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "contosoexpenses",
+      "connection": "contosoexpenses_STORAGE"
+    },
+    {
+      "type": "sendGrid",
+      "name": "emailMesssage",
+      "apiKey": "SendGridApiKey",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
