@@ -37,35 +37,35 @@ To complete this POC, you will need
 ## Create a Team Project and Initial Code
 1. From the VSTS portal, click **New Project**
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-1.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-1.png)
 
 2. Give it a project name and make sure *Version Control* is set to **Git**, then click **Create**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-2.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-2.png)
     
 3. On the welcome page, click on the down arrow to initialize the Git repository with a gitignore file and set the gitignore type to VisualStudio. Click **Initialize**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-3.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-3.png)
     
 4. Click the **Code** hub at the top of the page and then click **Clone** at the top right.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-4.png)
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-5.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-4.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-5.png)
     
 5. In the *Clone repo* dialog, click **Clone in Visual Studio**
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-6.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-6.png)
     
 6. Complete the clone dialog in Visual Studio and click **Clone**.
 7. In Visual Studio, click **File** -> **New Project** and select **ASP.NET Core Web Application**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-7.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-7.png)
     
 8. Give a name for your project e.g. *ContosoExpensesWeb* and set the location to be the folder you cloned your repository to. Click **Ok**.
 9. In the project template dialog, select **Web Application**, and then click **Change Authentication** and select **Individual User Accounts** and then click **Ok** and then **Ok** again.
     > Note: You may Enable Docker Support by clicking the checkbox or you can add it later to the project once created.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-8.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-8.png)
     
 10. Build and run your application to make sure everything is ready to go.
     > Note: Make sure you try creating an account as well to verify the identity pieces are working.
@@ -76,22 +76,22 @@ We will need a place to store the containers that we are creating for this appli
 1. Log into the [Azure portal](https://portal.azure.com).
 2. Create a new resource and search the marketplace for **Azure Container** and select **Azure Container Registry**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-9.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-9.png)
 
 3. Give the registry a name and assign it to a resource group. Click **Create**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-10.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-10.png)
 
 ## Create Service Fabric Cluster
 In order to run the application now, we will need to create a cluster to deploy to.
 
 1. In the Azure portal, click **New**, search for **Service Fabric**, and then select **Service Fabric Cluster**. Click **Create**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-18.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-18.png)
 2. On the *Basics* blade, fill in the appropriate information for the cluster and assign it to the resource group we have already created. Click **Ok**.
     > Note: Make sure for *Operating system*, you choose **WindowsServer 2016-Datacenter- with-Containers**
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-19.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-19.png)
 3. On the *Cluster configuration* blade, leave **Node type** as 1, then click to configure the node type. Provide the following details:
     * **Node type name** - BaseNode
     * **Durability tier** - Bronze
@@ -110,17 +110,17 @@ When we deploy the application to Azure, we will want our existing database to b
 
 1. In the Azure Portal, click **New**, search for **SQL Server** and then select **SQL Server (logical server)**. Click **Create**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-21.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-21.png)
 
 2. Fill out the details for the server and click **Create**.
 3. Once the server is created, we will need to allow for your local computer to access it. In the SQL server settings blade in the portal, go to the **Firewall** settings and then click **Add Client IP**. Click **Save**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-22.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-22.png)
 4. In SQL Server Management Studio, connect to your local database that was used when testing the application earlier.
 5. In the *Object Explorer*, expand **Databases**, right-click on the database that was created, select **Tasks** and then **Deploy Database to Microsoft Azure SQL Database**. Click **Next** on the *Introduction* page.
 6. On the *Deployment Settings* page, click **Connect** and fill in the details for the server you just created.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-23.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-23.png)
 7. Give the database the name that it will have in SQL Azure and then click **Next**.
 8. On the *Summary* page, click **Finish** and the database will begin migrating to SQL Azure. Once it is done, click **Close**.
 9. In the Azure portal, navigate to the database that was just created and in the settings, grab the current connection string and save for later.
@@ -133,21 +133,21 @@ The application as it exists today would be considered a traditional "monolithic
     > Note: Attempting to run the application again will not currently work because the application will not be able to connect to the SQL instance running on *localhost*.
 3. In Visual Studio, Right-click the web application and click **Publish**. In the publish dialog, select **Container Registry** and then **Select Existing Container Registry**. Click **Publish** and fill out the connection information to your subscription and container registry created in the previous step. Click **Ok**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-11.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-11.png)
 
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-12.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-12.png)
 
 ## Create Service Fabric Solution
 We will now create a Service Fabric project for our solution and configure it to pull the Docker image we just published.
 
 1. In Visual Studio, right-click the solution and click **Add** and then **New Project**. Choose **Service Fabric Application**, give it an appropriate name and click **Ok**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-13.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-13.png)
 
 2. In the *New Service Fabric Service* dialog, give the image name based on your full container registry: e.g. *modapponsfdevcr.azurecr.io/contosoexpensesweb:20171030081652*. Provide a service name of **ContosoExpensesWeb**. Click **Ok**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-14.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-14.png)
 
 3. In the *ServiceManifest.xml* file under *ContosoExpensesWebPkg*, edit the endpoint called *ContosoExpensesWebTypeEndpoint*.
     ```xml
@@ -172,10 +172,10 @@ We will now create a Service Fabric project for our solution and configure it to
         ```
         > Note: The password you use here comes from password listed in the *Access Keys* section of the Azure Container Registry.
     
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-15.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-15.png)
 5. Right-click the Service Fabric project in Visual Studio and select **Publish**.
 6. In the *Publish Service Fabric Application* dialog, select the Service Fabric instance you created earlier and then click **Publish**.
 
-    ![Screenshot](media/internal-business-application-to-containers-on-service-fabric/mod-sf-20.png)
+    ![Screenshot](media/containers-on-service-fabric/mod-sf-20.png)
 7. Once the publish is complete, you can check the status of the deploying in the Service Fabric explorer (e.g. [http://modapponsf-dev-sf.eastus.cloudapp.azure.com:19080/Explorer/index.html#/](http://modapponsf-dev-sf.eastus.cloudapp.azure.com:19080/Explorer/index.html#/)).
 8. When the application is deployed you should be able to navigate to your URL (e.g. [modapponsf-dev-sf.eastus.cloudapp.azure.com:8080/](modapponsf-dev-sf.eastus.cloudapp.azure.com:8080/))

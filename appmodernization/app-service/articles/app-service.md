@@ -1,3 +1,4 @@
+
 # POC Scenario Contoso Expenses: Deploying Website on Azure PaaS
 
 # Abstract
@@ -41,15 +42,16 @@ After completing the exercises in this module, you will be able to:
 
 
 ## Open application with Visual Studio
-* Copy the project to a working folder.
+* Unblock the file in Windows Explorer properties (Right Click on the zip file in explorer and select 'Properties', then click 'unblock')
+* Extract the zip file to a working folder.
 * From the working folder, open **Contoso.Expenses.sln** with Visual Studio.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0100.png)
+  ![Screenshot](media/app-service/appmod-pic-0100.png)
 
 * Build the Project in Visual Studio.
   * **Right-Click** on the Solution **Contoso.Expenses**, select **Build Solution**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0102.png)
+  ![Screenshot](media/app-service/appmod-pic-0102.png)
 
   * There are 4 projects that are in Visual Studio.
   * **Contoso.Expenses.API** - This is a Web API project that provides helper logic to the main web app.
@@ -66,15 +68,15 @@ After completing the exercises in this module, you will be able to:
 * Select your **Resource Group Location** (e.g. West US 2).
 * Click **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0104.png)
+  ![Screenshot](media/app-service/appmod-pic-0104.png)
 
 * Navigate to the resource group **ContosoExpenses-RG-WestUS2**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0106.png)
+  ![Screenshot](media/app-service/appmod-pic-0106.png)
 
 * Click **+Add**, type in **SQL Database** in the search area, press **Enter** and click on **SQL Database**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0108.png)
+  ![Screenshot](media/app-service/appmod-pic-0108.png)
 
 * Click **Create**.
 * Enter **contosoexpensesdb** as the **Database Name**.
@@ -88,7 +90,7 @@ After completing the exercises in this module, you will be able to:
 * For Location select the same location as before (e.g. **West US 2**).
 * Click **Select** to save the server settings.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0110.png)
+  ![Screenshot](media/app-service/appmod-pic-0110.png)
 
 * Click on **Pricing Tier**.
 * Move the **DTU** slider to **20**.
@@ -98,37 +100,37 @@ After completing the exercises in this module, you will be able to:
 * Click **Apply**.
 * Click **Create** to create a new SQL Database Server & Database.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0111.png)
+  ![Screenshot](media/app-service/appmod-pic-0111.png)
 
   * Note: The Azure alert bell will indicate that the deployment is in progress.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0112.png)
+  ![Screenshot](media/app-service/appmod-pic-0112.png)
 
 ## Client IP in Firewall Settings for SQL Server
 To add the **IP address** of the client you access the database from, do the following steps:
 * Under the SQL Server Settings, click on **Firewall**.
 * Click on **Add client IP** and click **Save**. This will add your current IP as a new rule on the Firewall.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0116.png)
+  ![Screenshot](media/app-service/appmod-pic-0116.png)
 
 ## Publish the Database into Azure SQL DB
 * From Visual Studio, expand the project **Contoso.Expenses.Database**.
 * Click on the **Seed.sql** file under the **Scripts folder**, and look at content in the preview window.
   * Note: This file will get executed post-deployment and add test data to the database.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0118.png)
+  ![Screenshot](media/app-service/appmod-pic-0118.png)
 
 * **Right-click** on the project **Contoso.Expenses.Database** and select **Publish** to publish the database.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0120.png)
-  ![Screenshot](media/internal-business-application-on-paas/appmod-publishdatabasescreen.png)
+  ![Screenshot](media/app-service/appmod-pic-0120.png)
+  ![Screenshot](media/app-service/appmod-publishdatabasescreen.png)
   
 * On **Target database connection** click **Edit**, then click **Browse**.
 
 * From the list presented, expand **Azure**.
 * Select the **Database** created on the SQL Server in the previous steps.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0122.png)
+  ![Screenshot](media/app-service/appmod-pic-0122.png)
 
 * For the **Server Name**, confirm or enter the server name previously saved to the clipboard (e.g. **contosoexpensesdbserver1.database.windows.net**).
 * Set **Authentication** to **SQL Server Authentication**.
@@ -137,40 +139,40 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click **Test Connection**.
 * You may get prompted to add a firewall rule so that your computer is allowed to access the database server. If so, click **Ok** to allow the firewall rule to be created.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0123.png)
+  ![Screenshot](media/app-service/appmod-pic-0123.png)
 * The result should be **Test connection succeeded**, then click **Ok**.
 * Click **Ok** to close the connect window.
 
 * Click on **Publish** to publish the database to Azure.
   * The database will be published to Azure and give you the results.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0124.png)
+  ![Screenshot](media/app-service/appmod-pic-0124.png)
 
 * The status and progress will be displayed in the Data Tools Operations window.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0125.png)
+  ![Screenshot](media/app-service/appmod-pic-0125.png)
 
 ## View the database using Visual Studio Tools
 * From **Visual Studio**, select **View** | **SQL Server Object Explorer**.
 * Expand the **SQL Server** node to view the connection.
 * Expand the connection **contosoexpensesdbserver1.database.windows.net**, and then **Databases | contosoexpensesdb | Tables**. Confirm the existence of the **dbo.Expense** table.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0130.png)
+  ![Screenshot](media/app-service/appmod-pic-0130.png)
 
 ## Publish the Business Web App
 
 * From Visual Studio, **right-click** on the Web Project, **Contoso.Expenses.Web**.
 * Select **Publish** from context menu, to pick a new publish target.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0132.png)
+  ![Screenshot](media/app-service/appmod-pic-0132.png)
 
 * Click on **Create new Profile** from the **Publish dialog**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0134.png)
+  ![Screenshot](media/app-service/appmod-pic-0134.png)
 
 * Create a new **Microsoft Azure App Service**, click **Ok**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0136.png)
+  ![Screenshot](media/app-service/appmod-pic-0136.png)
 
 ## Create App Service
 * Login into the correct **Subscription** from the dropdown list.
@@ -178,7 +180,7 @@ To add the **IP address** of the client you access the database from, do the fol
 * Select the correct **Subscription** from the dropdown list.
 * Select the correct **Resource Group** from the dropdown list, e.g. **ContosoExpenses-RG-WestUS2**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0138.png)
+  ![Screenshot](media/app-service/appmod-pic-0138.png)
 
 * For the App Service Plan, click **New**.
 * To configure the app service plan, enter a name or use the default. e.g. **ContosoExpensesWeb20170710012420Plan**.
@@ -186,20 +188,20 @@ To add the **IP address** of the client you access the database from, do the fol
 * For **Size**, select **S1 (1 core, 1.75 GB RAM)**.
 * Click **OK**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0139.png)
+  ![Screenshot](media/app-service/appmod-pic-0139.png)
 
 * Make sure the correct **App Service Plan** is selected in the dropdown list. e.g. **ContosoExpensesWeb20170710012420Plan**.
 * Click **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0140.png)
+  ![Screenshot](media/app-service/appmod-pic-0140.png)
 
 * Once the **App Service Plan** is created, click on **Publish**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0141.png)
+  ![Screenshot](media/app-service/appmod-pic-0141.png)
 
   * The output window will give you progress of the deployment.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0142.png)
+  ![Screenshot](media/app-service/appmod-pic-0142.png)
   
   * At the end of the deployment, Visual Studio should automatically launch your default browser to show your published web app.
 
@@ -208,13 +210,13 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on **Resource Group**, select **ContosoExpenses-RG-WestUS2**.
 * Click on the **App Service name** you deployed, e.g. **ContosoExpensesWeb20170710012420**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0143.png)
+  ![Screenshot](media/app-service/appmod-pic-0143.png)
 
 * Click on **Overview** then the **URL** to launch the website.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0144.png)
+  ![Screenshot](media/app-service/appmod-pic-0144.png)
   
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0146.png)
+  ![Screenshot](media/app-service/appmod-pic-0146.png)
 
 ## Update the Connection String in App Settings
 * First, let's capture the database server name to the clipboard.
@@ -224,14 +226,14 @@ To add the **IP address** of the client you access the database from, do the fol
   * Click on **Properties**.
   * Highlight the database Server Name and **right-click** to select **Copy** to save it on the clipboard.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0150.png)
+  ![Screenshot](media/app-service/appmod-pic-0150.png)
 
 * Navigate back to your **Resource Group**.
 * Click on the **App Service name** you deployed, e.g. **ContosoExpensesWeb20170710012420**.
 * From the Settings area, click on **Application settings**.
 * On the **Connection strings** area, type **ContosoExpensesDataEntities** as the connection string name.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0152.png)
+  ![Screenshot](media/app-service/appmod-pic-0152.png)
 
 * Provide the connection string value in Connection Strings in the portal for the WebApp.
   * Note: Modify the following <**marked**> items with your server name, database name and login credentials, used in above steps.
@@ -241,28 +243,28 @@ To add the **IP address** of the client you access the database from, do the fol
     metadata=res://*/Models.ContosoExpensesModel.csdl|res://*/Models.ContosoExpensesModel.ssdl|res://*/Models.ContosoExpensesModel.msl;provider=System.Data.SqlClient;provider connection string="data source=tcp:contosoexpensesdbserver1.database.windows.net;initial catalog=contosoexpensesdb;Integrated Security=False;User Id=Username;Password=Password;MultipleActiveResultSets=True;App=EntityFramework"
    ```
 
-   ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0154.png)
+   ![Screenshot](media/app-service/appmod-pic-0154.png)
 
 * **Copy** the new connection string from Notepad into the clipboard.
 * **Paste** into the **Value** textbox, alongside of the name **ContosoExpensesDataEntities** entered above.
 * Select **Custom**, from the dropdown list.
 * Click on **Save**.
 
-    ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0156.png)
+    ![Screenshot](media/app-service/appmod-pic-0156.png)
 
 ## Deploy the API app
 * From Visual Studio, **right-click** on the Web Project, **Contoso.Expenses.API**.
 * Select **Publish** from context menu, to pick a new publish target.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0160.png)
+  ![Screenshot](media/app-service/appmod-pic-0160.png)
 
 * Click on **Create new Profile** from the **Publish dialog**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0162.png)
+  ![Screenshot](media/app-service/appmod-pic-0162.png)
 
 * Create a new **Microsoft Azure App Service**, click **Ok**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0136.png)
+  ![Screenshot](media/app-service/appmod-pic-0136.png)
 
 ## Create App Service
 * Login into the correct **Subscription** from the dropdown list.
@@ -272,15 +274,15 @@ To add the **IP address** of the client you access the database from, do the fol
 * Select the correct **App Service Plan** from the dropdown list, e.g. **ContosoExpensesWeb20170710012420Plan** from a previous step.
 * Click **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0164.png)
+  ![Screenshot](media/app-service/appmod-pic-0164.png)
 
 * Once the **App Service Plan** is created, click on **Publish**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0166.png)
+  ![Screenshot](media/app-service/appmod-pic-0166.png)
 
   * The output window will give you progress of the deployment.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0168.png)
+  ![Screenshot](media/app-service/appmod-pic-0168.png)
   
   * At the end of the deployment, Visual Studio should automatically launch your default browser to show your published web app.
 
@@ -290,7 +292,7 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on the **App Service** you deployed for the API app, e.g. **ContosoExpensesAPI20170711011807**.
 * Click on **Overview** and copy the URL to the clipboard.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0170.png)
+  ![Screenshot](media/app-service/appmod-pic-0170.png)
 
 * Go back to the **Resource Group** and now select the **App Service** for the Expense web app, e.g. **ContosoExpensesWeb20170710012420**.
 * From the **Settings area**, click on **Application Settings**.
@@ -299,7 +301,7 @@ To add the **IP address** of the client you access the database from, do the fol
   * Type **EmployeeApiUri** and paste in the URL of the API app, e.g. **http://contosoexpensesapi20170711011807.azurewebsites.net**
 * Click **Save**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0172.png)
+  ![Screenshot](media/app-service/appmod-pic-0172.png)
 
 ## Create a Storage Account
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
@@ -307,7 +309,7 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on **Storage Account  - blob, file, table, queue**.
 * Click on **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0180.png)
+  ![Screenshot](media/app-service/appmod-pic-0180.png)
 
 * Type in **contosoexpensesUNIQUEIDsa** (e.g. **contosoexpenses123sa**) for the **Name**. The name of a storage account needs to be globally unique.
 * If needed, change **Replication** to **Locally-redundant storage (LRS)**.
@@ -315,24 +317,24 @@ To add the **IP address** of the client you access the database from, do the fol
 * Leave other fields with default options.
 * Click on **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0182.png)
+  ![Screenshot](media/app-service/appmod-pic-0182.png)
 
 ## Update the web.config for Storage Account
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
 * Click on the **Storage Account** you deployed, e.g. **contosoexpensessa**.
 * Under **Settings**, click on **Access keys**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0186.png)
+  ![Screenshot](media/app-service/appmod-pic-0186.png)
 
 * From **Key1**, copy the **Key** to the clipboard, paste into a Notepad.
 * From **Key1**, copy the **Connection** to the clipboard, paste into a Notepad.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0188.png)
+  ![Screenshot](media/app-service/appmod-pic-0188.png)
   
 * From **Visual Studio**, open up the **web.config** under **Contoso.Expenses.Web**.
 * Scroll down and locate **StorageConnectionString**, then paste the connection string from the clipboard between the quotes. Save the changes on the file.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0190.png)
+  ![Screenshot](media/app-service/appmod-pic-0190.png)
 
 ## Setup a Sendgrid Email Account
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
@@ -340,7 +342,7 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on **SendGrid Email Delivery**.
 * Click on **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0194.png)
+  ![Screenshot](media/app-service/appmod-pic-0194.png)
 
 * Type **DemoSendGridEmail** for the **Name**.
 * Type in a **Password**.
@@ -349,22 +351,22 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on **Pricing Tier**, select **F1 Free**.
 * Click **Select**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0196.png)
+  ![Screenshot](media/app-service/appmod-pic-0196.png)
 
 * Click on **Contact Information**.
 * Enter **First Name**, **Last Name**, **Email**, **Company**.
 * Click **Ok**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0198.png)
+  ![Screenshot](media/app-service/appmod-pic-0198.png)
 
 * Click on **Legal Terms**, view, then click **Purchase**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0200.png)
+  ![Screenshot](media/app-service/appmod-pic-0200.png)
 
 * Click **Create**, to create the SendGrid Email Account.
 
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0202.png)
+  ![Screenshot](media/app-service/appmod-pic-0202.png)
 
 ## Create an Azure Function
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
@@ -372,7 +374,7 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on **Function App**.
 * Click **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0210.png)
+  ![Screenshot](media/app-service/appmod-pic-0210.png)
 
 * Enter **ContosoExpensesUNIQUEIDFunction** for the **App Name**. The Function App name needs to be globally unique.
 * For **Location** select **West US 2** (or the same used previously).
@@ -380,11 +382,11 @@ To add the **IP address** of the client you access the database from, do the fol
 * Leave other fields with the defaults.
 * Click on **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0212.png)
+  ![Screenshot](media/app-service/appmod-pic-0212.png)
 
 * You may get an error under certain circumstances that the Function App could not be created with a **Consumption** pricing tier.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0213.png)
+  ![Screenshot](media/app-service/appmod-pic-0213.png)
 
   * This is a temporary constraint that will get resolved over time; open the URL mentioned in the error message to learn more.
   * If you have this situation, simply change the **Hosting Plan** to an **App Service Plan** instead of a **Consumption Plan**.
@@ -393,18 +395,18 @@ To add the **IP address** of the client you access the database from, do the fol
 * Click on the **Function** you just created, e.g. **ContosoExpensesFunction**.
 * Click on **Functions +**, to add a new function.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0214.png)
+  ![Screenshot](media/app-service/appmod-pic-0214.png)
 
 * Scroll down and click on **Custom Function**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0216.png)
+  ![Screenshot](media/app-service/appmod-pic-0216.png)
 
 * Click on **Queue Trigger – C#**.
 * Scroll down and type in **QueueTriggerContosoExpenses** for the Name your Function.
 * Set the **Queue name** to **contosoexpenses**.
 * Click **Create**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0218.png)
+  ![Screenshot](media/app-service/appmod-pic-0218.png)
 
 * Delete everything from the textbox.
 * Copy the following into the clipboard, then paste into text area.
@@ -458,7 +460,7 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 }
  ``` 
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0220.png)
+  ![Screenshot](media/app-service/appmod-pic-0220.png)
 
 * Click **Save**.
 
@@ -468,7 +470,7 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 * Select an existing storage account name. e.g. **contosoexpensessa**.
 * Click **Save**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0222.png)
+  ![Screenshot](media/app-service/appmod-pic-0222.png)
 
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
 * Select the **DemoSendGridEmail** SendGrid Account.
@@ -478,52 +480,52 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 * Login using the **Username** from clipboard and type the **Password** you created earlier.
   * You will see the Sendgrid dashboard/portal.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0224.png)
+  ![Screenshot](media/app-service/appmod-pic-0224.png)
 
 * From the left-hand panel, click on **Settings** | **API Keys**.
 * Click the button **Create API Key**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0225.png)
+  ![Screenshot](media/app-service/appmod-pic-0225.png)
 
 * Type in **SendGridAPIKey** for the **API Key Name**.
 * Select **Full Access**, then click **Create & View**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0226.png)
+  ![Screenshot](media/app-service/appmod-pic-0226.png)
 
 * Click on the generated key and copy to the clipboard, paste it into Notepad.
   * Note: This key will **NOT** be available to copy after this blade is closed.
 * Click **Done**.
 
-    ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0227.png)
+    ![Screenshot](media/app-service/appmod-pic-0227.png)
 
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
 * Select the **ContosoExpensesFunction** function app.
 * From the left side panel, select **QueueTriggerContosoExpenses** | **Integrate**.
 * Click on **Outputs** | **+ New Output** | **SendGrid**, click **Select**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0228.png)
+  ![Screenshot](media/app-service/appmod-pic-0228.png)
 
 * Enter **emailMessage** in the Message Parameter Name, click **Save**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0230.png)
+  ![Screenshot](media/app-service/appmod-pic-0230.png)
 
 * Click on the **ContosoExpensesFunction** (lighting bolt) Function App.
 * From the top menu bar, click on **Settings**.
 * Under **Applications Settings**, click **Manage Application Settings**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0232.png)
+  ![Screenshot](media/app-service/appmod-pic-0232.png)
 
 * Scroll down to **App Settings**.
 * Add new setting, type in **SendGridApiKey** in the **Key** field, and paste in the generated key copied to the clipboard from above step to the **Value** field.
 * Click **Save**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0234.png)
+  ![Screenshot](media/app-service/appmod-pic-0234.png)
 
 * Close this blade by clicking on the **X** from upper right-hand corner.
 * In the left panel, click on **Integrate**, notice under Outputs you will see **SendGrid (emailMessage)** shows up.
   * Note: What this function is doing is monitoring at the storage queue called **contosoexpenses**. Every time a message comes in to that queue, this function will pick that message up and email it to an email address.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0236.png)
+  ![Screenshot](media/app-service/appmod-pic-0236.png)
 
 ## Review the Contoso.Expenses.API app
 * In Visual Studio, select the project **Contoso.Expenses.API**.
@@ -541,11 +543,11 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 * Click on **Employee**, and then click on **GET**.
 * Under **Parameters,** type in **Randy** for the **employeeName** parameter and then click **Try it Out!**
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0240.png)
+  ![Screenshot](media/app-service/appmod-pic-0240.png)
 
   * The response body will return **ManagerName** with a response code of 200.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0241.png)
+  ![Screenshot](media/app-service/appmod-pic-0241.png)
 
 ## Test out the Website
 * From Visual Studio, right-click on the Web Project, **Contoso.Expenses.Web**.
@@ -560,23 +562,23 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 * From the website, click on **Expenses**.
 * Click on **Create New**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0244.png)
+  ![Screenshot](media/app-service/appmod-pic-0244.png)
 
 * Type in values for a test record and click **Create**.
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0245.png)
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0246.png)
+  ![Screenshot](media/app-service/appmod-pic-0245.png)
+  ![Screenshot](media/app-service/appmod-pic-0246.png)
 
 ## View the Queue from Visual Studio
 * From Visual Studio, select the menu item **View** | **Cloud Explorer**.
 * Select the correct subscription, and click **Apply**.
 
-  ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0250.png)
+  ![Screenshot](media/app-service/appmod-pic-0250.png)
 
 * Expand the nodes to **Storage Accounts** | YourStorageAccountName (e.g. contosoexpensessa) | **Queues**.
 * Right-click on **contosoexpenses** and select **Open Queue Editor**.
   * Note: The email message has been processed and de-queued.
 
-    ![Screenshot](media/internal-business-application-on-paas/appmod-pic-0252.png)
+    ![Screenshot](media/app-service/appmod-pic-0252.png)
 
 ## Useful References
 * [Visual Studio Team Services, Getting Started](https://www.visualstudio.com/)
