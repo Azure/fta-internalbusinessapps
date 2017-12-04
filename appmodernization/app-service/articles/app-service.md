@@ -1,5 +1,5 @@
 
-# POC Scenario Contoso Expenses: Deploying Website on Azure PaaS
+# App Modernization using App Service : Contoso Expenses POC
 
 # Abstract
 
