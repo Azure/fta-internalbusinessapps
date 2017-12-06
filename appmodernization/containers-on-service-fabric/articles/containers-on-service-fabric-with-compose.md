@@ -77,9 +77,9 @@ To complete this POC, you will need
 13. For **Server**, click **Configure required settings**.
 14. Click **Create a new Server**.
 15. For **Server Name**, your SQL Server Name (e.g. **contosoexpensesdbsrv**).
-> Note: The server name needs to be globally unique, so add a number to the end of name.
+> **Note:** The server name needs to be globally unique, so add a number to the end of name.
 16. Enter a **Server admin login** and **Password**.
-> Note: Save the **Login name** and **Password**, as you’ll need it later.
+> **Note:** Save the **Login name** and **Password**, as you’ll need it later.
 17. For Location select the same location as before (e.g. **West Europe**).
 18. Click **Select** to save the server settings.
 
@@ -87,7 +87,7 @@ To complete this POC, you will need
 
 19. Click on **Pricing Tier**.
 20. Move the **DTU** slider to **20**.
-> Note: DTU's are Database Transaction Units and measure database performance with a blended measure of CPU, memory, I/O.  For more information on DTU's, see [Explaining Database Transaction Units](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-what-is-a-dtu).
+> **Note:** DTU's are Database Transaction Units and measure database performance with a blended measure of CPU, memory, I/O.  For more information on DTU's, see [Explaining Database Transaction Units](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-what-is-a-dtu).
 
 21. Move the **Storage** slider to **5GB**.
 22. Click **Apply**.
@@ -96,7 +96,7 @@ To complete this POC, you will need
 
 23. Click **Create** to create a new SQL Database Server & Database.
 
-> Note: The Azure alert bell will indicate that the deployment is in progress.
+> **Note:** The Azure alert bell will indicate that the deployment is in progress.
 
   ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose007.png)
 
@@ -113,7 +113,7 @@ To add the **IP address** of the client you access the database from, do the fol
 ## Publish the Database into Azure SQL DB
 1. From Visual Studio, expand the project **Contoso.Expenses.Database**.
 2. Click on the **Seed.sql** file under the **Scripts folder**, and look at content in the preview window.
-> Note: This file will get executed post-deployment and add test data to the database.
+> **Note:** This file will get executed post-deployment and add test data to the database.
 
   ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose010.png)
 
@@ -134,7 +134,7 @@ To add the **IP address** of the client you access the database from, do the fol
 9. Enter the database server **User Name** and **Password**. Select the checkbox **Remember Password**.
 10. Select the database name **contosoexpensesdb**.
 11. Click **Test Connection**.
-> You may get prompted to add a firewall rule so that your computer is allowed to access the database server. If so, click **Ok** to allow the firewall rule to be created.
+> **Note:** You may get prompted to add a firewall rule so that your computer is allowed to access the database server. If so, click **Ok** to allow the firewall rule to be created.
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose014.png)
 12. The result should be **Test connection succeeded**, then click **Ok**.
  Click **Ok** to close the connect window.
@@ -167,7 +167,7 @@ You will create a new Azure Storage Account because the Application uses Azure S
 
   ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose031.png)
 
-> The storage account name needs to be unique, and only supports lowercase letters and numbers.
+> **Note:** The storage account name needs to be unique, and only supports lowercase letters and numbers.
 
 4. After the creation of the storage account, navigate to it, click on **Access Keys** and copy the first connection string. We will need it further on.
 
@@ -182,7 +182,7 @@ We will need a place to store the containers that we are creating for this appli
     ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose018.png)
 
 3. Give the registry a name and assign it to a resource group. Click **Create**.
-> This name must be unique in the Azure platform.
+> **Note:** This name must be unique in the Azure platform.
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose019.png)
 
@@ -193,7 +193,7 @@ In order to run the application now, we will need to create a cluster to deploy 
 
     ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose020.png)
 2. On the *Basics* blade, fill in the appropriate information for the cluster and assign it to the resource group we have already created. Click **Ok**.
-    > Note: Make sure for *Operating system*, you choose **WindowsServer 2016-Datacenter- with-Containers**
+    > **Note:** Make sure for *Operating system*, you choose **WindowsServer 2016-Datacenter- with-Containers**
 
     ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose021.png)
 3. On the *Cluster configuration* blade, leave **Node type count** as 1, then click to configure the node type. Provide the following details:
@@ -209,7 +209,7 @@ In order to run the application now, we will need to create a cluster to deploy 
 
 4. On the *Security* blade, select **Unsecure** and then click **Ok**.
 5. On the *Summary* blade, click **Create**.
-    > Note: This will take several minutes and even once the creation of the cluster is complete, it will still need a few more minutes to perform some internal updates.
+    > **Note:** This will take several minutes and even once the creation of the cluster is complete, it will still need a few more minutes to perform some internal updates.
 
 ## Migrate Application to Containers
 Now that all the infrastructure and dependencies are deployed it's time to start modernizing the application.
@@ -222,7 +222,7 @@ Now that all the infrastructure and dependencies are deployed it's time to start
 <add name="ContosoExpensesDataEntities" connectionString="metadata=res://*/Models.ContosoExpensesModel.csdl|res://*/Models.ContosoExpensesModel.ssdl|res://*/Models.ContosoExpensesModel.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=tcp:contosoexpensesdbsrv.database.windows.net,1433;Initial Catalog=contosoexpensesdb;Persist Security Info=False;User ID={your_username};Password={your_password};MultipleActiveResultSets=False;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
     
 ````
-> The connection string for your SQL Database is in the Azure Portal.
+> **Note:** The connection string for your SQL Database is in the Azure Portal.
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose023.png)
 
@@ -230,20 +230,20 @@ Now that all the infrastructure and dependencies are deployed it's time to start
 ````XML
 <add key="EmployeeApiUri" value="http://contoso.expenses.api:8123" />
 ````
-> This value should reflect the api **container name** and **node port**. The **node port** will be configured in the compose file.
+> **Note:** This value should reflect the api **container name** and **node port**. The **node port** will be configured in the compose file.
 
 4. Update the Storage Account Connection String to the value you copied during the Storage Account creation step.
 
 ````XML
 <add key="StorageConnectionString" value="DefaultEndpointsProtocol=https;AccountName=[ACCOUNT-NAME];AccountKey=[ACCOUNT-KEY];EndpointSuffix=core.windows.net" />
 ````
-> This will add support to Azure Storage Queues to the Contoso.Expenses application.
+> **Note:** This will add support to Azure Storage Queues to the Contoso.Expenses application.
 
 5. Right-click **Contoso.Expenses.Web** project, select **Add** and then **Docker Support**.
 
     ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose024.png)
 
-> Visual Studio will automatically create a new project (**[docker-compose](https://docs.docker.com/compose/overview/)**) and a **[Dockerfile](https://docs.docker.com/engine/reference/builder/)** in **Contoso.Expenses.Web** project.
+> **Note:** Visual Studio will automatically create a new project (**[docker-compose](https://docs.docker.com/compose/overview/)**) and a **[Dockerfile](https://docs.docker.com/engine/reference/builder/)** in **Contoso.Expenses.Web** project.
 
 6. Notice the **docker-compose** project and the Dockerfile that were create by Visual Studio.
 
@@ -269,10 +269,10 @@ services:
       context: .\Contoso.Expenses.API
       dockerfile: Dockerfile
 ````
-> This file is the declaration of the services that compose our application and how each of them are built. 
+> **Note:** This file is the declaration of the services that compose our application and how each of them are built. 
 
 9. Right-click your Solution and select **Build Solution**.
-> In order to build the solution successfuly you need to make sure you have installed **Docker for Windows** and configured it to run in **Windows Containers**.
+> **Note:** In order to build the solution successfuly you need to make sure you have installed **Docker for Windows** and configured it to run in **Windows Containers**.
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose026.png)
 
@@ -295,7 +295,7 @@ COPY /obj/Docker/publish .
 ````docker
 C:\..\Contoso.Expenses.Web>docker build -t [YOUR-REGISTRY]/contoso.expenses.web:1.0 .
 ````
-> Replace [YOUR-REGISTRY] with your own registry name. This is recommended pattern for images that are pulled from or pushed to external registries. 
+> **Note:** Replace [YOUR-REGISTRY] with your own registry name (e.g. sfcomposedevcr.azurecr.io). This is recommended pattern for images that are pulled from or pushed to external registries. 
 
 11. Repeat step 10 for project **contoso.expenses.api**.
 
@@ -303,7 +303,7 @@ C:\..\Contoso.Expenses.Web>docker build -t [YOUR-REGISTRY]/contoso.expenses.web:
 ````docker
 docker images
 ````
-> During the building process of new images some base images may be downloaded (e.g. **microsoft/aspnet:4.7**)
+> **Note:** During the building process of new images some base images may be downloaded (e.g. **microsoft/aspnet:4.7**)
 
 ````BASH
 C:\..\Contoso.Expenses.Web>docker images
@@ -362,6 +362,8 @@ At this point the images are already hosted in Azure Container Registry so the n
 
 2. **Update the image names** and ports. This is the file we will use to deploy the application to Azure Service Fabric.
 
+> **Note:** Make sure that your container registry is correct (e.g. sfcomposedevcr.azurecr.io)
+
 ````YML
 version: '3'
 
@@ -382,7 +384,7 @@ services:
     ports:
       - "8123:80"
 ````
-> [Port definition](https://docs.docker.com/compose/compose-file/#ports) is composed of **[NODE PORT]:[CONTAINER PORT]**. 
+> **Note:** [Port definition](https://docs.docker.com/compose/compose-file/#ports) is composed of **[NODE PORT]:[CONTAINER PORT]**. 
 3. Open PowerShell and navigate to the **docker-compose project root folder**.
 
 4. Connect to your Azure Service Fabric Cluster
@@ -390,7 +392,7 @@ services:
 ````POWERSHELL
 Connect-ServiceFabricCluster -ConnectionEndpoint composeapps-sf.westeurope.cloudapp.azure.com:19000
 ````
-> The Service Fabric Connection Endpoint is shown in the Azure Portal. Navigate to your Service Fabric instance and find it in the overview tab.
+> **Note:** The Service Fabric Connection Endpoint is shown in the Azure Portal. Navigate to your Service Fabric instance and find it in the overview tab.
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose029.png)
 
@@ -406,13 +408,13 @@ New-ServiceFabricComposeDeployment -DeploymentName Contoso -Compose docker-compo
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose033.png)
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose034.png)
-> Please allow some minutes for the nodes to be ready since this is the first deployment to these nodes and the image is pretty large. Every node has its own image repository so deployment times may change depending on whether layers already exist in the node or not.
+> **Note:** Please allow some minutes for the nodes to be ready since this is the first deployment to these nodes and the image is pretty large. Every node has its own image repository so deployment times may change depending on whether layers already exist in the node or not.
 
 > If you see the application status changing to error please validate the node status. It may simply be because your download is taking to long. If that is the case there is no action needed on your side other than waiting. 
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose035.png)
 
-> A **best practice** for this scenario where images are very large would be to pull the images in every node prior to deployment. 
+> **Note:** A **best practice** for this scenario where images are very large would be to pull the images in every node prior to deployment. 
 
 7. Access the application externally once the deployment ends. During the walkthrough we configured the external load balancer to expose port 80 and we did the same when deployment the images for Contoso.Expenses.Web. Go to your Public IP Address Configuration in Azure and navigate to specified DNS name label (e.g. http://composeapps-sf.westeurope.cloudapp.azure.com)
 
@@ -468,12 +470,12 @@ docker push sfcomposedevcr.azurecr.io/contoso.expenses.api:1.1
 # UPGRADE SERVICE
 Start-ServiceFabricComposeDeploymentUpgrade -DeploymentName contoso -Compose docker-compose.yml -Monitored -FailureAction Rollback -RegistryUserName [REGISTRY-USERNAME] -RegistryPassword [REGISTRY-PASSWORD]
 ````
-> The [Start-ServiceFabricComposeDeploymentUpgrade](https://docs.microsoft.com/en-us/powershell/module/servicefabric/start-servicefabriccomposedeploymentupgrade?view=azureservicefabricps) Cmdlet contains multiple parameter variations that allow for different deployment types and failover mechanisms.
+> **Note:** The [Start-ServiceFabricComposeDeploymentUpgrade](https://docs.microsoft.com/en-us/powershell/module/servicefabric/start-servicefabriccomposedeploymentupgrade?view=azureservicefabricps) Cmdlet contains multiple parameter variations that allow for different deployment types and failover mechanisms.
 
 5. Validate that the upgrade is in progress
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose037.png)
 
-> The upgrade time may depend on the downloading time for the images. Still since we configured the deployment to be monitored it should only destroy previous instances when the new version is up and running.
+> **Note:** The upgrade time may depend on the downloading time for the images. Still since we configured the deployment to be monitored it should only destroy previous instances when the new version is up and running.
 
 ## Scale Application Services
 Service Fabric allows you to scale services independently. This way you can scale based on current load in each service.
