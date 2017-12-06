@@ -276,6 +276,20 @@ services:
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose026.png)
 
+> **Note:** If you are running Docker for Windows and you used the Docker Tools in Visual Studio your may get the following error.
+
+```` DOCKER
+**Step 5/6 : COPY ${source:-obj/Docker/publish} .
+COPY failed: GetFileAttributesEx \\?\C:\Windows\TEMP\docker-builder460102490\obj\Docker\publish: The system cannot find the file specified.**
+````
+
+> **Solution:** Update the existing DockerFile (in both Web and API projects) with the following and try to rebuild the solution.
+````DOCKERFILE
+FROM microsoft/aspnet:4.7
+WORKDIR /inetpub/wwwroot
+COPY /obj/Docker/publish .
+````
+
 10. Build the container images. **Open a command prompt** in the contoso.expenses.web folder and run the following command
 
 ````docker
