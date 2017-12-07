@@ -5,6 +5,7 @@
 
 During this module, you will learn about bringing together PaaS App Services components to build a sample application, Contoso Expenses, and making it scalable, highly available and secure.
 
+![Screenshot](media/app-service/appmod-pic-visio.png)
 # Learning objectives
 After completing the exercises in this module, you will be able to:
 * **Azure PaaS Fundamentals** – Understand base PaaS concepts, as well as features and frameworks for creating enterprise line-of-business applications on Azure or modernizing existing apps using Azure App Service (Web Apps and API Apps). 
