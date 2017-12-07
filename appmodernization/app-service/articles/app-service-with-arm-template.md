@@ -45,6 +45,9 @@ To deploy the ARM template click the _Deploy to Azure_ button. Fill in the requi
 
 ![Screenshot](media/app-service-with-arm-template/img08.png)
 
+After the deployment is complete, make sure you have the following resources:
+
+![Screenshot](media/app-service-with-arm-template/img09.png)
 
 
 ## Configure SendGrid
