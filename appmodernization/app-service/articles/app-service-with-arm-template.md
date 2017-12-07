@@ -82,7 +82,7 @@ After deploying the template successfuly the SendGrid resource is already deploy
 
 ![Screenshot](media/app-service-with-arm-template/img06.png)
 
-9. Update the **SendGridApiKey** with the value you copied from the SendGrid portal and **Save**
+9. Update the **SendGridApiKey** with the value you copied from the SendGrid portal and **Save** at the top.
 
 ![Screenshot](media/app-service-with-arm-template/img07.png)
 
