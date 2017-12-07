@@ -39,11 +39,12 @@ Successfully uploaded .bacpac to storage account
 ## Deploy the template
 To deploy the ARM template click the _Deploy to Azure_ button. Fill in the required fields.
 
+> Make sure the information copied previously is used in this deployment phase for the **Resource Group Name**, **Db Import Storage Account Name** and **Db Import Storage Account Key**. **DB Admin Login**, **DB Admin Password** and **Sendgrid Password** should be defined here.
+
 [![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://azuredeploy.net/)
 
 ![Screenshot](media/app-service-with-arm-template/img08.png)
 
-> Make sure the information copied previously is used in the this deployment phase.
 
 
 ## Configure SendGrid
