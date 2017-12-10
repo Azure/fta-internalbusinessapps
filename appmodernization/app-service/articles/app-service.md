@@ -362,9 +362,27 @@ To add the **IP address** of the client you access the database from, do the fol
   ![Screenshot](media/app-service/appmod-pic-0200.png)
 
 * Click **Create**, to create the SendGrid Email Account.
-
-
+  * Note down the USERNAME from the Configuration blade. We need the UserName & Password to login to SendGrid site to generate API Key.
   ![Screenshot](media/app-service/appmod-pic-0202.png)
+
+* Using a **Microsoft Edge or Google Chrome browser**, navigate to **http://app.sendgrid.com**.
+* Login using the **Username** &  **Password** you created earlier.
+  * You will see the SendGrid dashboard/portal.
+  ![Screenshot](media/app-service/appmod-pic-0224.png)
+
+* From the left-hand panel, click on **Settings** | **API Keys**.
+* Click the button **Create API Key**.
+  ![Screenshot](media/app-service/appmod-pic-0225.png)
+
+* Type in **SendGridAPIKey** for the **API Key Name**.
+* Select **Full Access**, then click **Create & View**.
+  ![Screenshot](media/app-service/appmod-pic-0226.png)
+
+* Click on the generated key and save it in Notepad. We will use this key in the Functions AppSettings.
+  * Note: This key will **NOT** be available to copy after this blade is closed.
+* Click **Done**.
+    ![Screenshot](media/app-service/appmod-pic-0227.png)
+
 
 ## Create an Azure Function
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
@@ -470,31 +488,6 @@ public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollecto
 
   ![Screenshot](media/app-service/appmod-pic-0222.png)
 
-* From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
-* Select the **DemoSendGridEmail** SendGrid Account.
-* Under **Settings**, click on **Configurations**.
-* Copy the **Username** to the clipboard.
-* Using a browser, navigate to **http://app.sendgrid.com**.
-* Login using the **Username** from clipboard and type the **Password** you created earlier.
-  * You will see the Sendgrid dashboard/portal.
-
-  ![Screenshot](media/app-service/appmod-pic-0224.png)
-
-* From the left-hand panel, click on **Settings** | **API Keys**.
-* Click the button **Create API Key**.
-
-  ![Screenshot](media/app-service/appmod-pic-0225.png)
-
-* Type in **SendGridAPIKey** for the **API Key Name**.
-* Select **Full Access**, then click **Create & View**.
-
-  ![Screenshot](media/app-service/appmod-pic-0226.png)
-
-* Click on the generated key and copy to the clipboard, paste it into Notepad.
-  * Note: This key will **NOT** be available to copy after this blade is closed.
-* Click **Done**.
-
-    ![Screenshot](media/app-service/appmod-pic-0227.png)
 
 * From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
 * Select the **ContosoExpensesFunction** function app.
