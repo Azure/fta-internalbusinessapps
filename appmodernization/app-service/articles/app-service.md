@@ -434,8 +434,8 @@ To add the **IP address** of the client you access the database from, do the fol
 * Once you create an expense successfully, if your function is stopped, you can head to the **Storage account** and check the **Queue**, a message will be sitting there. 
 ![Screenshot](media/app-service/appmod-pic-0260.png)
 
-* If you start the function, it should pick up the message and email will go out 
-
+* If you start the function, it should pick up the message and email will go out.
+![Screenshot](media/app-service/appmod-pic-0261.png)
 
 
 ## Review the Contoso.Expenses.API app
