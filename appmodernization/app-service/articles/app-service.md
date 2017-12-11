@@ -157,7 +157,7 @@ To add the **IP address** of the client you access the database from, do the fol
 
   ![Screenshot](media/app-service/appmod-pic-0130.png)
 
-## Publish the Business Web App
+## Publish the Web App
 
 * From Visual Studio, **right-click** on the Web Project, **Contoso.Expenses.Web**.
 * Select **Publish** from context menu, to pick a new publish target.
@@ -385,138 +385,58 @@ To add the **IP address** of the client you access the database from, do the fol
 
 
 ## Create an Azure Function
-* From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
-* Click on the **+ Add**, type **Function App** and press **Enter**.
-* Click on **Function App**.
-* Click **Create**.
 
-  ![Screenshot](media/app-service/appmod-pic-0210.png)
+* From Visual Studio, **right-click** on the Web Project, **Contoso.Expenses.Functions**.
+* Select **Publish** from context menu, to pick a new publish target.
 
-* Enter **ContosoExpensesUNIQUEIDFunction** for the **App Name**. The Function App name needs to be globally unique.
-* For **Location** select **West US 2** (or the same used previously).
-* For **Storage**, select **Select existing**, and select from the dropdown list the storage account previously created (e.g. **contosoexpensessa**).
-* Leave other fields with the defaults.
-* Click on **Create**.
+* Click on **Create new Profile** from the **Publish dialog**.
 
-  ![Screenshot](media/app-service/appmod-pic-0212.png)
+* In the **Pick a publish target** dialog, select **Create New** and click **OK**
 
-* You may get an error under certain circumstances that the Function App could not be created with a **Consumption** pricing tier.
+* In the **Create App Service** dialog box, enter the following:
+  * Unique function App Name, example **ContosoExpensesEmailFunction**
+  * Select your subscription
+  * Resource Group: Select appropriate existing Resource Group
+  * App Service Plan: Click New and select **Size** as **Consumption**
+  ![Screenshot](media/app-service/appmod-pic-0253.png)  
 
-  ![Screenshot](media/app-service/appmod-pic-0213.png)
+  ![Screenshot](media/app-service/appmod-pic-0254.png)
 
-  * This is a temporary constraint that will get resolved over time; open the URL mentioned in the error message to learn more.
-  * If you have this situation, simply change the **Hosting Plan** to an **App Service Plan** instead of a **Consumption Plan**.
+  * Click **Create**
 
-* From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
-* Click on the **Function** you just created, e.g. **ContosoExpensesFunction**.
-* Click on **Functions +**, to add a new function.
+* Once the **App Service Plan** is created, click on **Publish**.
 
-  ![Screenshot](media/app-service/appmod-pic-0214.png)
+  ![Screenshot](media/app-service/appmod-pic-0255.png)
 
-* Scroll down and click on **Custom Function**.
+* The output window will give you progress of the deployment. Make sure its successfully published.
 
-  ![Screenshot](media/app-service/appmod-pic-0216.png)
+* Launch Azure Portal and navigate to **Function Apps**
 
-* Click on **Queue Trigger – C#**.
-* Scroll down and type in **QueueTriggerContosoExpenses** for the Name your Function.
-* Set the **Queue name** to **contosoexpenses**.
-* Click **Create**.
+* Select your function and click on **Application Settings**
+  ![Screenshot](media/app-service/appmod-pic-0256.png)
 
-  ![Screenshot](media/app-service/appmod-pic-0218.png)
+* Under **Applications Settings**, add the following two settings and appropriate values from above. 
+  * **StorageConnectionString**
+  * **AzureWebJobsSendGridApiKey**
 
-* Delete everything from the textbox.
-* Copy the following into the clipboard, then paste into text area.
+  ![Screenshot](media/app-service/appmod-pic-0257.png)
 
- ```
-#r "Newtonsoft.Json"
-#r "SendGrid"
+* Restart the function
+![Screenshot](media/app-service/appmod-pic-0258.png)
 
-using System;
-using System.Net;
-using Newtonsoft.Json;
-using SendGrid.Helpers.Mail;
+## Testing
 
-public class ExpenseExtended
-{
-    public int ExpenseId { get; set; }
-    public string Purpose { get; set; }
-    public Nullable<System.DateTime> Date { get; set; }
-    public string Cost_Center { get; set; }
-    public Nullable<double> Amount { get; set; }
-    public string Approver { get; set; }
-    public string Receipt { get; set; }
-    public string ApproverEmail { get; set; }
-}
+* If you have an expense message already sitting in the storage queue, the function will automatically trigger and send an email. Check your inbox, it might take up to 5 minutest to receive the email.
 
-public static async Task Run(string expenseItem, TraceWriter log, IAsyncCollector<Mail> emailMessage)
-{
-    var expense = JsonConvert.DeserializeObject<ExpenseExtended>(expenseItem);
+* Alternatively you can also create a new expense by going through the web app. 
+![Screenshot](media/app-service/appmod-pic-0259.png)
 
-    var emailFrom = "expense@contoso.com";
+* Once you create an expense successfully, if your function is stopped, you can head to the **Storage account** and check the **Queue**, a message will be sitting there. 
+![Screenshot](media/app-service/appmod-pic-0260.png)
 
-    var emailTo = expense.ApproverEmail;
-    var emailBody = $"Hello {expense.Approver}, \r\n New Expense report submitted for the purpose of: {expense.Purpose}. \r\n Please review as soon as possible.\r\n This is a auto generated email, please do not reply to this email";
-    var emailSubject = $"New Expense for the amount of ${expense.Amount} submitted";
-
-    log.Info($"Email To: {emailTo}");
-    log.Info($"Email Subject: {emailSubject}");
-    log.Info($"Email Body: {emailBody}");
-
-    Mail expenseMessage = new Mail();
-    var personalization = new Personalization();
-    personalization.AddTo(new Email(emailTo));
-    expenseMessage.AddPersonalization(personalization);
-
-    var messageContent = new Content("text/html", emailBody);
-    expenseMessage.AddContent(messageContent);
-    expenseMessage.Subject = emailSubject;
-    expenseMessage.From = new Email(emailFrom);
-
-    await emailMessage.AddAsync(expenseMessage);
-}
- ``` 
-
-  ![Screenshot](media/app-service/appmod-pic-0220.png)
-
-* Click **Save**.
-
-* In the left panel, click on **Integrate**.
-* Type in **expenseItem** for the **Message Parameter Name**.
-* For the **Storage Account Connection**, Click on **New**.
-* Select an existing storage account name. e.g. **contosoexpensessa**.
-* Click **Save**.
-
-  ![Screenshot](media/app-service/appmod-pic-0222.png)
+* If you start the function, it should pick up the message and email will go out 
 
 
-* From the Azure Portal, click on **Resource Groups**, **ContosoExpenses-RG-WestUS2**.
-* Select the **ContosoExpensesFunction** function app.
-* From the left side panel, select **QueueTriggerContosoExpenses** | **Integrate**.
-* Click on **Outputs** | **+ New Output** | **SendGrid**, click **Select**.
-
-  ![Screenshot](media/app-service/appmod-pic-0228.png)
-
-* Enter **emailMessage** in the Message Parameter Name, click **Save**.
-
-  ![Screenshot](media/app-service/appmod-pic-0230.png)
-
-* Click on the **ContosoExpensesFunction** (lighting bolt) Function App.
-* From the top menu bar, click on **Settings**.
-* Under **Applications Settings**, click **Manage Application Settings**.
-
-  ![Screenshot](media/app-service/appmod-pic-0232.png)
-
-* Scroll down to **App Settings**.
-* Add new setting, type in **SendGridApiKey** in the **Key** field, and paste in the generated key copied to the clipboard from above step to the **Value** field.
-* Click **Save**.
-
-  ![Screenshot](media/app-service/appmod-pic-0234.png)
-
-* Close this blade by clicking on the **X** from upper right-hand corner.
-* In the left panel, click on **Integrate**, notice under Outputs you will see **SendGrid (emailMessage)** shows up.
-  * Note: What this function is doing is monitoring at the storage queue called **contosoexpenses**. Every time a message comes in to that queue, this function will pick that message up and email it to an email address.
-
-  ![Screenshot](media/app-service/appmod-pic-0236.png)
 
 ## Review the Contoso.Expenses.API app
 * In Visual Studio, select the project **Contoso.Expenses.API**.
