@@ -1,0 +1,384 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dbAdminLogin": {
+      "type": "string"
+    },
+    "dbAdminPassword": {
+      "type": "securestring"
+    },
+    "dbImportStorageAccountName": {
+      "type": "string"
+    },
+    "dbImportStorageAccountKey": {
+      "type": "securestring"
+    },
+    "sendgridPassword": {
+      "type": "securestring"
+    }
+  },
+  "variables": {
+    "databaseName": "contosoexpensesdb",
+    "DBImportStorageUri": "[concat('https://', parameters('dbImportStorageAccountName'), '.blob.core.windows.net/importcontainer/ContosoExpensesDB.bacpac')]",
+    "hostingPlanName": "[concat('contosoexasp', uniqueString(resourceGroup().id))]",
+    "consumptionPlanName": "[concat('contosoexcp', uniqueString(resourceGroup().id))]",
+    "apiSiteName": "[concat('contosoexpapi', uniqueString(resourceGroup().id))]",
+    "webSiteName": "[concat('contosoexpweb', uniqueString(resourceGroup().id))]",
+    "sqlserverName": "[concat('contosoexpdbsrv', uniqueString(resourceGroup().id))]",
+    "functionAppName": "[concat('contosoexpfunc', uniqueString(resourceGroup().id))]",
+    "contosoexpensessaName": "[concat('sa', uniqueString(resourceGroup().id))]",
+    "sendgridAccountName": "[concat('sendgrid', uniqueString(resourceGroup().id))]",
+    "functionRepoUrl": "https://github.com/t1agob/azurefunctionsendgrid.git",
+    "contosoExpensesRepoUrl": "https://github.com/Azure/fta-internalbusinessapps",
+    "branch": "master"
+  },
+  "resources": [
+    {
+      "name": "[variables('sqlserverName')]",
+      "type": "Microsoft.Sql/servers",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "SqlServer"
+      },
+      "apiVersion": "2014-04-01-preview",
+      "properties": {
+        "administratorLogin": "[parameters('dbAdminLogin')]",
+        "administratorLoginPassword": "[parameters('dbAdminPassword')]"
+      },
+      "resources": [
+        {
+          "name": "[variables('databaseName')]",
+          "type": "databases",
+          "location": "[resourceGroup().location]",
+          "tags": {
+            "displayName": "Database"
+          },
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))]"
+          ],
+          "properties": {
+            "edition": "Standard",
+            "collation": "SQL_Latin1_General_CP1_CI_AS",
+            "maxSizeBytes": "1073741824",
+            "requestedServiceObjectiveName": "S1"
+          },
+          "resources": [
+            {
+              "name": "DBImport",
+              "type": "extensions",
+              "apiVersion": "2014-04-01-preview",
+              "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers/databases', split(concat(variables('sqlserverName'), '/', variables('databaseName')), '/')[0], split(concat(variables('sqlserverName'), '/', variables('databaseName')), '/')[1])]"
+              ],
+              "tags": {
+                "displayName": "DBImport"
+              },
+              "properties": {
+                "storageKeyType": "Primary",
+                "storageKey": "[parameters('dbImportStorageAccountKey')]",
+                "storageUri": "[variables('DBImportStorageUri')]",
+                "administratorLogin": "[parameters('dbAdminLogin')]",
+                "administratorLoginPassword": "[parameters('dbAdminPassword')]",
+                "operationMode": "Import"
+              }
+            }
+            
+          ]
+        },
+        {
+          "type": "firewallrules",
+          "apiVersion": "2014-04-01-preview",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))]"
+          ],
+          "location": "[resourceGroup().location]",
+          "name": "AllowAllWindowsAzureIps",
+          "properties": {
+            "endIpAddress": "0.0.0.0",
+            "startIpAddress": "0.0.0.0"
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "name": "[variables('hostingPlanName')]",
+      "type": "Microsoft.Web/serverfarms",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "HostingPlan"
+      },
+      "sku": {
+        "name": "S1",
+        "tier": "Standard",
+        "size": "S1",
+        "family": "S",
+        "capacity": 1
+      },
+      "properties": {
+        "name": "[variables('hostingPlanName')]"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-04-01",
+      "name": "[variables('consumptionPlanName')]",
+      "location": "[resourceGroup().location]",
+      "tags": {
+        "displayName": "ConsumptionPlan"
+      },
+      "properties": {
+        "name": "[variables('consumptionPlanName')]",
+        "computeMode": "Dynamic",
+        "sku": "Dynamic"
+      }
+    },
+    {
+      "apiVersion": "2015-08-01",
+      "type": "Microsoft.Web/sites",
+      "name": "[variables('functionAppName')]",
+      "location": "[resourceGroup().location]",
+      "kind": "functionapp",
+      "tags": {
+        "displayName": "FunctionApp"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('consumptionPlanName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts', variables('contosoexpensessaName'))]",
+        "[resourceId('Sendgrid.Email/accounts', variables('sendgridAccountName'))]"
+      ],
+      "properties": {
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('consumptionPlanName'))]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "AzureWebJobsDashboard",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('contosoexpensessaName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts/',  variables('contosoexpensessaName')), '2017-10-01').keys[0].value)]"
+            },
+            {
+              "name": "AzureWebJobsStorage",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('contosoexpensessaName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts/',  variables('contosoexpensessaName')), '2017-10-01').keys[0].value)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('contosoexpensessaName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts/',  variables('contosoexpensessaName')), '2017-10-01').keys[0].value)]"
+            },
+            {
+              "name": "WEBSITE_CONTENTSHARE",
+              "value": "[toLower(variables('functionAppName'))]"
+            },
+            {
+              "name": "FUNCTIONS_EXTENSION_VERSION",
+              "value": "~1"
+            },
+            {
+              "name": "WEBSITE_NODE_DEFAULT_VERSION",
+              "value": "6.5.0"
+            },
+            {
+              "name": "contosoexpenses_STORAGE",
+              "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('contosoexpensessaName'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts/',  variables('contosoexpensessaName')), '2017-10-01').keys[0].value)]"
+            },
+            {
+              "name": "PROJECT",
+              "value": "appmodernization\\app-service\\src\\Contoso.Expenses.ARM\\function"
+            },
+            {
+              "name": "SendGridApiKey",
+              "value": "REPLACE WITH YOUR OWN"
+            }            
+          ]
+        }
+      },
+      "resources": [
+        {
+          "apiVersion": "2015-08-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('functionAppName'))]"
+          ],
+          "properties": {
+            "RepoUrl": "[variables('functionRepoURL')]",
+            "branch": "[variables('branch')]",
+            "IsManualIntegration": true
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2015-04-01",
+      "name": "[variables('webSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))]",
+        "[resourceId('Microsoft.Storage/storageAccounts/', variables('contosoexpensessaName'))]",
+        "[resourceId('Microsoft.Web/serverFarms/', variables('hostingPlanName'))]",
+        "[resourceId('Microsoft.Web/sites/', variables('apiSiteName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "empty",
+        "displayName": "Website"
+      },
+      "properties": {
+        "name": "[variables('webSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"
+      },
+      "resources": [
+        {
+          "apiVersion": "2014-04-01",
+          "type": "config",
+          "name": "web",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', variables('webSiteName'))]"
+          ],
+          "tags": {
+            "displayName": "configuration"
+          },
+          "properties": {
+            "appSettings": [
+              {
+                "name": "EmployeeName",
+                "value": "Randy"
+              },
+              {
+                "name": "EmployeeApiUri",
+                "value": "[concat('http://', reference(concat('Microsoft.Web/Sites/', variables('apiSiteName')), '2016-08-01').defaultHostName)]"
+              },
+              {
+                "name": "PROJECT",
+                "value": "appmodernization\\app-service\\src\\Contoso.Expenses\\Contoso.Expenses.Web\\Contoso.Expenses.Web.csproj"
+              }
+            ],
+            "connectionStrings": [
+              {
+                "name": "DefaultConnection",
+                "connectionString": "[concat('Data Source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ',1433;Initial Catalog=', variables('databaseName'), ';User Id=', parameters('dbAdminLogin'), '@', variables('sqlserverName'), ';Password=', parameters('dbAdminPassword'), ';')]",
+                "type": "SQLServer"
+              },
+              {
+                "name": "ContosoExpensesDataEntities",
+                "connectionString": "[concat('metadata=res://*/Models.ContosoExpensesModel.csdl|res://*/Models.ContosoExpensesModel.ssdl|res://*/Models.ContosoExpensesModel.msl;provider=System.Data.SqlClient;provider connection string=\"data source=tcp:', reference(resourceId('Microsoft.Sql/servers/', variables('sqlserverName'))).fullyQualifiedDomainName, ';initial catalog=', variables('databaseName'), ';Integrated Security=False;User Id=', parameters('dbAdminLogin'), ';Password=', parameters('dbAdminPassword'), ';MultipleActiveResultSets=True;App=EntityFramework\"')]",
+                "type": "Custom"
+              },
+              {
+                "name": "StorageConnectionString",
+                "connectionString": "[concat('DefaultEndpointsProtocol=https;AccountName=',variables('contosoexpensessaName'),';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts/',  variables('contosoexpensessaName')), '2017-10-01').keys[0].value)]",
+                "type": "Custom"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "2014-04-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('webSiteName'))]",
+            "[concat('Microsoft.Web/Sites/', variables('webSiteName'), '/config/web')]"
+          ],
+          "tags": {
+            "displayName": "deployment"
+          },
+          "properties": {
+            "RepoUrl": "[variables('contosoExpensesRepoUrl')]",
+            "branch": "[variables('branch')]",
+            "IsManualIntegration": true
+          }
+        }
+      ]
+    },
+    {
+      "apiVersion": "2015-04-01",
+      "name": "[variables('apiSiteName')]",
+      "type": "Microsoft.Web/sites",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverFarms/', variables('hostingPlanName'))]"
+      ],
+      "tags": {
+        "[concat('hidden-related:', resourceGroup().id, '/providers/Microsoft.Web/serverfarms/', variables('hostingPlanName'))]": "empty",
+        "displayName": "Api"
+      },
+      "properties": {
+        "name": "[variables('apiSiteName')]",
+        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]"        
+      },
+      "resources": [
+        {
+          "apiVersion": "2014-04-01",
+          "type": "config",
+          "name": "web",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', variables('apiSiteName'))]"
+          ],
+          "tags": {
+            "displayName": "configuration"
+          },
+          "properties": {
+            "appSettings": [
+              {
+                "name": "PROJECT",
+                "value": "appmodernization\\app-service\\src\\Contoso.Expenses\\Contoso.Expenses.API\\Contoso.Expenses.API.csproj"
+              }
+            ]
+          }
+        },
+        {
+          "apiVersion": "2014-04-01",
+          "name": "web",
+          "type": "sourcecontrols",
+          "dependsOn": [
+            "[resourceId('Microsoft.Web/Sites', variables('apiSiteName'))]",
+            "[concat('Microsoft.Web/Sites/', variables('apiSiteName'), '/config/web')]"
+          ],
+          "tags": {
+            "displayName": "deployment"
+          },
+          "properties": {
+            "RepoUrl": "[variables('contosoExpensesRepoUrl')]",
+            "branch": "[variables('branch')]",
+            "IsManualIntegration": true
+          }
+        }      
+      ]
+    },
+    {
+      "name": "[variables('sendgridAccountName')]",
+      "type": "Sendgrid.Email/accounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2015-01-01",
+      "tags": {
+        "displayName": "SendGrid"
+      },
+      "plan": {
+        "name": "free",
+        "publisher": "Sendgrid",
+        "product": "sendgrid_azure",
+        "promotionCode": ""
+      },
+      "properties": {
+        "password": "[parameters('sendgridPassword')]",
+        "acceptMarketingEmails": "0",
+        "email": ""
+      }
+    },
+    {
+      "name": "[variables('contosoexpensessaName')]",
+      "type": "Microsoft.Storage/storageAccounts",
+      "location": "[resourceGroup().location]",
+      "apiVersion": "2016-01-01",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "dependsOn": [],
+      "tags": {
+        "displayName": "contosoexpensessa"
+      },
+      "kind": "Storage"
+    }
+  ]
+}
