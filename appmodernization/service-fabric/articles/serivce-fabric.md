@@ -32,6 +32,7 @@ After completing the exercises in this module, you will be able to:
 ## Walk through the voting sample application
  * [Create a .NET Service Fabric application in Azure](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-quickstart-dotnet)
  * [Steb-by-Step](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-tutorial-create-dotnet-app), build the .NET Voting application
+ * [Download complete code](https://azure.microsoft.com/en-us/resources/samples/service-fabric-dotnet-quickstart/) for the Voting application
 
 ## Create a Service Fabric Cluster
 
