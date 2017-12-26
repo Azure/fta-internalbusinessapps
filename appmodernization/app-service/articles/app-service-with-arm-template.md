@@ -8,6 +8,8 @@ The purpose of this template is to deploy the complete Contoso Expenses aplicati
 
 This template uses GitHub integration to deploy to the Azure WebApps and Azure Function. It will also restore the database using a _.bacpac_ file.
 
+> NOTE: If you wish to go through the step-by-step guide go [here](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/app-service/articles/app-service.md) instead.
+
 # Steps to deploy
 1. [Run requirements script](#run-requirements-script)
 2. [Deploy the template](#deploy-the-template)
@@ -15,9 +17,12 @@ This template uses GitHub integration to deploy to the Azure WebApps and Azure F
 
 
 ## Run requirements script
-Folder _pre-reqs_ contains a PowerShell script that you need to run in order to copy the database to a storage account in your subcription.
+1. Clone the [Repository](https://github.com/Azure/fta-internalbusinessapps)
+2. Navigate to **/appmodernization/app-service/src/Contoso.Expenses.ARM/pre-reqs** folder
 
-**Run the script and make sure to copy the output** somewhere since it will be used in the template deployment phase.
+    This folder contains a PowerShell script that you need to run in order to copy the database to a storage account in your subcription.
+
+3. **Run the script and make sure to copy the output** somewhere since it will be used in the template deployment phase.
 
 ````POWERSHELL
 C:\..\ContosoExpensesARM\pre-reqs> .\Create-Storage-Account-And-Copy-DB.ps1
@@ -37,7 +42,7 @@ Successfully uploaded .bacpac to storage account
 
 
 ## Deploy the template
-To deploy the ARM template click the _Deploy to Azure_ button. Fill in the required fields.
+To deploy the ARM template click the **_Deploy to Azure_** button below. Fill in the required fields.
 
 > Make sure the information copied previously is used in this deployment phase for the **Resource Group Name**, **Db Import Storage Account Name** and **Db Import Storage Account Key**. **DB Admin Login**, **DB Admin Password** and **Sendgrid Password** should be defined here.
 
