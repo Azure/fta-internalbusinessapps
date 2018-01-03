@@ -10,7 +10,7 @@
     * [POC Scenario Voting Application: Working with Service Fabric Services](service-fabric/articles/serivce-fabric.md)
 
 * Internal business app to Containers on Service Fabric
-    * [POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers on Service Fabric](containers-on-service-fabric/articles/containers-on-service-fabric.md)
+    * [POC Scenario: Modernizing an Application to Windows Containers on Service Fabric](containers-on-service-fabric/articles/containers-on-service-fabric.md)
     * [POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers - Multi-Container deployment with DockerCompose on Service Fabric](containers-on-service-fabric/articles/containers-on-service-fabric-with-compose.md)
 
 
