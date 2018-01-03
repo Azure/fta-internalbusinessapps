@@ -1,4 +1,4 @@
-# POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers on Service Fabric
+# POC Scenario: Modernizing an Application to Windows Containers on Service Fabric
 
 * [Introduction](#introduction)
 * [Learning Objectives](#learning-objectives)
