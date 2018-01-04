@@ -416,7 +416,7 @@ New-ServiceFabricComposeDeployment -DeploymentName Contoso -Compose docker-compo
 
 > **Note:** A **best practice** for this scenario where images are very large would be to pull the images in every node prior to deployment. 
 
-7. Access the application externally once the deployment ends. During the walkthrough we configured the external load balancer to expose port 80 and we did the same when deployment the images for Contoso.Expenses.Web. Go to your Public IP Address Configuration in Azure and navigate to specified DNS name label (e.g. http://composeapps-sf.westeurope.cloudapp.azure.com)
+7. Access the application externally once the deployment ends. During the walkthrough we configured the external load balancer to expose port 80 and we did the same when deploying the images for Contoso.Expenses.Web. Go to your Public IP Address Configuration in Azure and navigate to specified DNS name label (e.g. http://composeapps-sf.westeurope.cloudapp.azure.com)
 
 ![Screenshot](media/containers-on-service-fabric-with-compose/sf-compose036.png)
 
