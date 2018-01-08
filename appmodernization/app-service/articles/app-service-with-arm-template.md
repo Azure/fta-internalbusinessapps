@@ -1,10 +1,12 @@
-# ContosoExpensesARM
-The purpose of this template is to deploy the complete Contoso Expenses aplication to Azure. The following resources will be deployed.
+# Deploy ContosoExpenses using ARM template
+The purpose of this template is to deploy the complete Contoso Expenses aplication to Azure App Services. The following resources will be deployed.
 * 2 Web Applications (Web and API)
 * 1 Function App
 * 2 Storage Accounts
 * 1 SQL Database
 * 1 SendGrid Email 
+
+> NOTE: You can find the detailed architecture design [here](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/app-service/articles/media/app-service/appmod-pic-poc-visio.png).
 
 This template uses GitHub integration to deploy to the Azure WebApps and Azure Function. It will also restore the database using a _.bacpac_ file.
 
@@ -17,8 +19,8 @@ This template uses GitHub integration to deploy to the Azure WebApps and Azure F
 
 
 ## Run requirements script
-1. Clone the [Repository](https://github.com/Azure/fta-internalbusinessapps)
-2. Navigate to **/appmodernization/app-service/src/Contoso.Expenses.ARM/pre-reqs** folder
+1. Clone the [Repository].(https://github.com/Azure/fta-internalbusinessapps)
+2. Navigate to **/appmodernization/app-service/src/Contoso.Expenses.ARM/pre-reqs** folder.
 
     This folder contains a PowerShell script that you need to run in order to copy the database to a storage account in your subcription.
 
