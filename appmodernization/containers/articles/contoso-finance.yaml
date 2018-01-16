@@ -16,7 +16,7 @@ spec:
         - containerPort: 80
         env:
         - name: TransactionDb
-          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID=azureadmin;Password=f00b@r12.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID={your username};Password={your password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 ---
 apiVersion: v1
 kind: Service
@@ -47,7 +47,7 @@ spec:
         - containerPort: 80
         env:
         - name: IdentityConnection
-          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID=azureadmin;Password=f00b@r12.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID={your username};Password={your password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
           name: APIServer
           value: "contoso-finance-api"
 ---
@@ -78,5 +78,5 @@ spec:
         image: kpantos/contoso.financial.core.background
         env:
         - name: TransactionDb
-          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID=azureadmin;Password=f00b@r12.;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+          value: "Server=tcp:contosofinancedbserver1.database.windows.net,1433;Initial Catalog=contosofinancedb;Persist Security Info=False;User ID={your username};Password={your password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 ---

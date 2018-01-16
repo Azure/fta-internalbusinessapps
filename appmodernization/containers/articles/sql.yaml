@@ -30,7 +30,7 @@ spec:
         - name: ACCEPT_EULA
           value: "Y"
         - name: SA_PASSWORD
-          value: f00b@r12.
+          value: YOUR_PASSWORD
         volumeMounts:
         - mountPath: /var/opt/mssql
           name: sqldb-home
