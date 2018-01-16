@@ -23,18 +23,18 @@ In order to complete this POC you will need:
 - Download and install the latest **Docker Tools** from [here](https://docs.docker.com/docker-for-windows/install/)
 
 ## Table of Content ##
-1. Create an **Azure SQL DB** and publish database
-2. **Containerize** application
-3. **Push Images** to Container Repository
+1. [Create an **Azure SQL DB** and publish database](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#create-an-azure-sql-db-and-publish-database)
+2. [**Containerize** application](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#containerize-application)
+3. [**Push Images** to Container Repository](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#push-images-to-a-container-repository)
 	- Docker Hub
 	- Private Azure Container Registry
-4. Deploy the application to **Azure Web Apps** from the above repositories
-5. Deploy to IaaS **Windows and Linux VMs** 
-6. Deploy to **Azure Container Instances** ACI
-7. Deploy to a **Kubernetes cluster**
+4. [Deploy the application to **Azure Web Apps** from the above repositories](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#deploy-the-application-to-azure-web-apps)
+5. [Deploy to IaaS **Linux VMs**](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#deploy-to-iaas-linux-vms) 
+6. [Deploy to **Azure Container Instances** ACI](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#deploy-to-azure-container-instances-aci)
+7. [Deploy to a **Kubernetes cluster**](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#deploy-to-a-kubernetes-cluster)
 	- Use an ACS unmanaged cluster
 	- Use an AKS managed kubernetes cluster
-8. Bonus scenario - **deploy database as a container** at the Kubernetes cluster
+8. [Bonus scenario - **deploy database as a container** at the Kubernetes cluster](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.md#deploy-database-as-a-container-at-the-kubernetes-cluster)
 
 ## Create a new Resource Group ##
 In this step we'll create a new [Resource Group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview#resource-groups) to host all of the resources needed for the project.
