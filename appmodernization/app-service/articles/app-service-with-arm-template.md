@@ -19,7 +19,7 @@ This template uses GitHub integration to deploy to the Azure WebApps and Azure F
 
 
 ## Run requirements script
-1. Clone the [Repository].(https://github.com/Azure/fta-internalbusinessapps)
+1. Clone the [Repository](https://github.com/Azure/fta-internalbusinessapps).
 2. Navigate to **/appmodernization/app-service/src/Contoso.Expenses.ARM/pre-reqs** folder.
 
     This folder contains a PowerShell script that you need to run in order to copy the database to a storage account in your subcription.
