@@ -92,7 +92,7 @@ To add the **IP address** of the client you access the database from, do the fol
 
 ![Screenshot](images/appmod-pic-0115.png)
 
-- Download the project from [this url](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/articles/contoso-finance.zip), extract the zip file to a directory.
+- Download the project from [this url](https://github.com/Azure/fta-internalbusinessapps/blob/master/appmodernization/containers/contoso-finance.zip), extract the zip file to a directory.
 - With the contosofinancedb selected in SSMS click File and then open file from the menu bar, navigate to the path that the archive files were extracted and then open the `Database\Scripts\create.sql` file.
 - Execute the script and confirm that the script executed succesfully and that the tables were created.
 
