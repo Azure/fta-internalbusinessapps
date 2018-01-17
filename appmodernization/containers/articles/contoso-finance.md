@@ -709,7 +709,7 @@ kubernetes            ClusterIP      10.0.0.1       <none>          443/TCP     
 - Execute the script and confirm that the script executed succesfully and that the tables were created.
 - Delete the Currently running application using the following commands
 ```
-konstantinos@Azure:~$ kubectl delete -f contoso-finance2.yaml
+konstantinos@Azure:~$ kubectl delete -f contoso-finance.yaml
 deployment "contoso-finance-web" deleted
 service "contoso-finance-web" deleted
 deployment "contoso-finance-background" deleted
