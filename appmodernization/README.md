@@ -16,3 +16,6 @@
 * Modernize Traditional Applications using Containers
    * [POC Scenario: Containerize ASP.NET Full Framework Application](containers/articles/aspnet-fullframework.md)
    * [POC Scenario: Containerize ASP.NET Core Application](containers/articles/aspnet-core.md)
+   * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers](containers/articles/contoso-expenses-fullframework-win-containers.md)
+   
+   contoso-expenses-fullframework-win-containers.md
