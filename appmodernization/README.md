@@ -15,4 +15,4 @@
 
 * Modernize Traditional Applications using Containers
    * [POC Scenario: Containerize ASP.NET Full Framework Application](containers-on-service-fabric/articles/aspnet-fullframework.md)
-   * [POC Scenario: Containerize ASP.NET Full Framework Application](containers-on-service-fabric/articles/aspnet-core.md)
+   * [POC Scenario: Containerize ASP.NET Core Application](containers-on-service-fabric/articles/aspnet-core.md)
