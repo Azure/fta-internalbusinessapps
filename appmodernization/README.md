@@ -14,4 +14,5 @@
     * [POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers - Multi-Container deployment with DockerCompose on Service Fabric](containers-on-service-fabric/articles/containers-on-service-fabric-with-compose.md)
 
 * Modernize Traditional Applications using Containers
- [POC Scenario: Containerize ASP.NET Full Framework Application](containers-on-service-fabric/articles/aspnet-on-windows.md)
+ * [POC Scenario: Containerize ASP.NET Full Framework Application](containers-on-service-fabric/articles/aspnet-fullframework.md)
+ * [POC Scenario: Containerize ASP.NET Full Framework Application](containers-on-service-fabric/articles/aspnet-core.md)
