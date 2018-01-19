@@ -1,4 +1,4 @@
-# POC Scenario Node Todo
+# POC Scenario - Containerize a NodeJS Application
 
 * [Introduction](#introduction)
 * [Prerequisites](#prerequisites)
