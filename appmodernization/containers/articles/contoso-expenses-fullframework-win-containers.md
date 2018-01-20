@@ -14,7 +14,7 @@
   <!---* [Create Service Fabric Cluster](#create-service-fabric-cluster)--->
   * [Migrate Application to Containers](#migrate-application-to-containers)
   * [Run the Application through Containers](#migrate-application-to-containers)
-  * [Push Containers to Registry](#push-containers-to-registry)
+  * [Push Containers to Azure Container Registry](#push-containers-to-registry)
   <!---* [Deploy to Service Fabric](#deploy-to-service-fabric)
   * [Upgrade Existing Application](#upgrade-existing-application)
   * [Scale Application Services](#scale-application-services)--->
