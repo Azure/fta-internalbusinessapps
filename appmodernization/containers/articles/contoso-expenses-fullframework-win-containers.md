@@ -1,4 +1,4 @@
-# POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers 
+# POC Scenario Contoso Expenses: Modernizing a .NET Full Framework Application to Windows Containers 
 
 * [Introduction](#introduction)
 * [Learning Objectives](#learning-objectives)
@@ -26,11 +26,9 @@ The goal of this POC is to walk you through the process of migrating an existing
 ## Learning Objectives
 After completing this exercise, you will be able to:
 * Create an Azure Container Registry
-* Create an Azure Service Fabric cluster
 * Create an Azure SQL Database
 * Wrap an existing application into multiple Containers
 * Push the Containers to the Registry
-* Deploy to Service Fabric using DockerCompose
 
 ## Prerequisites
 To complete this POC, you will need
@@ -38,7 +36,6 @@ To complete this POC, you will need
 * Visual Studio 2017
 * [Docker for Windows](https://www.docker.com/docker-windows)
 * [SQL Server Management Studio](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
-* You will need the [Service Fabric SDK](http://www.microsoft.com/web/handlers/webpi.ashx?command=getinstallerredirect&appid=MicrosoftAzure-ServiceFabric-CoreSDK) installed
 * You must download the [Contoso Expenses Demo Application](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip)
 
 ## Open Existing Application with Visual Studio
