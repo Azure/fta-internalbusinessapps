@@ -1,5 +1,4 @@
 # POC Scenario Contoso Expenses: Modernizing an Application to Windows Containers 
-## Multi-Container deployment with DockerCompose on Service Fabric
 
 * [Introduction](#introduction)
 * [Learning Objectives](#learning-objectives)
@@ -22,7 +21,7 @@
 
 
 ## Introduction
-The goal of this POC is to walk you through the process of migrating an existing 3 tier application running on-premises to a multi-container application running in a Service Fabric Cluster. You will start with a classic ASP.NET MVC Application, converting its components (frontend and services layers) to containers, deploying them to a registry, and then running the application within Service Fabric.
+The goal of this POC is to walk you through the process of migrating an existing 3 tier application running on-premises to running it as a multi-container application. You will start with a classic ASP.NET MVC Application, converting its components (frontend and services layers) to containers, deploying them to a registry, and then running the application through Windows Containers.
 
 ## Learning Objectives
 After completing this exercise, you will be able to:
