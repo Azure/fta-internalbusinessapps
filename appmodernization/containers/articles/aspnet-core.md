@@ -26,6 +26,9 @@ In this walkthrough, we will go over the basic steps necessary to run an ASP.NET
     ![Screenshot](images/aspnet-core/NetCoreWebApplication-002.png)
 
 5. Once the application is created, navigate to the solution location in Windows folder and create a file called **Dockerfile**. Note that the Dockerfile is at the same level as the solution file. Add the following to the Dockerfile
+
+    ![Screenshot](images/aspnet-core/LocationofDockerFile-004.png)
+
 ```
 FROM microsoft/dotnet:2.0-sdk-nanoserver
  ENTRYPOINT ["dotnet", "bin/Debug/netcoreapp2.0/SampleAspNetCoreApp.dll"]
@@ -36,8 +39,7 @@ FROM microsoft/dotnet:2.0-sdk-nanoserver
  EXPOSE 80
  ENV ASPNETCORE_URLS http://0.0.0.0:80
 
-```     
-    ![Screenshot](images/aspnet-core/LocationofDockerFile-004.png)
+```       
 
 8. Open a PowerShwll prompt to the same folder as the Dockerfile. Run the following command to build the Docker image
     ```
@@ -52,7 +54,7 @@ FROM microsoft/dotnet:2.0-sdk-nanoserver
    
     ![Screenshot](images/aspnet-core/NetCoreImageAfterDockerBuild-003.png)
 
-11. To run the container, type
+11. To run the container, execute the following
     ```
     docker run --name youraspnetcore fezcontainerreg.azurecr.io/sampleaspnetcorecontainerized:1.0
     ```
@@ -63,10 +65,11 @@ FROM microsoft/dotnet:2.0-sdk-nanoserver
     ![Screenshot](images/aspnet-core/RunningNetCoreContainer-006.png)
 
 13. You can get the IP being used by the container through running the following command:
-    ```cmd
+    
+    ![Screenshot](images/aspnet-core/GetTheNetCoreContainerIP-008.png)    
+    ```
     docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" youraspnetcore
     ```
-    ![Screenshot](images/aspnet-core/GetTheNetCoreContainerIP-008.png)    
 
 14. We can open a brower to this url `http://{IPAddress}` and we should see the site running.
        
