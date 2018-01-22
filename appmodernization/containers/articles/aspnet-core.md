@@ -64,12 +64,13 @@ FROM microsoft/dotnet:2.0-sdk-nanoserver
        
     ![Screenshot](images/aspnet-core/RunningNetCoreContainer-006.png)
 
-13. You can get the IP being used by the container through running the following command:
+13. You can get the IP being used by the container through running the following command:       
     
-    ![Screenshot](images/aspnet-core/GetTheNetCoreContainerIP-008.png)    
     ```
     docker inspect -f "{{ .NetworkSettings.Networks.nat.IPAddress }}" youraspnetcore
     ```
+
+    ![Screenshot](images/aspnet-core/GetTheNetCoreContainerIP-008.png)
 
 14. We can open a brower to this url `http://{IPAddress}` and we should see the site running.
        
