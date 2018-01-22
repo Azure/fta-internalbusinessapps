@@ -1,7 +1,7 @@
-# POC Walkthrough - Run ASP.NET Application on Windows Containers
+# POC Walkthrough - Run ASP.NET Core Application on Windows Containers
 
 ## Introduction
-In this walkthrough, we will go over the basic steps necessary to run an ASP.NET, full framework, application on a Windows Container image.
+In this walkthrough, we will go over the basic steps necessary to run an ASP.NET Core application on a Windows Container image.
 
 ## Prerequisites
 * Visual Studio 2017 with the *ASP.NET and web development* workload selected
