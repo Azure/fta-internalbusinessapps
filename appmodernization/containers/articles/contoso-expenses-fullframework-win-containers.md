@@ -304,14 +304,24 @@ docker images
 
 ````BASH
 C:\..\Contoso.Expenses.Web>docker images
-REPOSITORY                                       TAG                 IMAGE ID            CREATED             SIZE
-sfcomposedevcr.azurecr.io/contoso.expenses.web   1.0                 9a8606d9e43f        4 minutes ago       12.6GB
-sfcomposedevcr.azurecr.io/contoso.expenses.api   1.0                 8030f7171b4f        12 minutes ago      12.6GB
-microsoft/aspnet                                 4.7                 eea632769046        6 days ago          12.6GB
+REPOSITORY                                                 TAG                  IMAGE ID            CREATED             SIZE
+fezcontainerreg.azurecr.io/contoso.expenses.api            latest               5a5f18d83e33        2 weeks ago         12.7GB
+fezcontainerreg.azurecr.io/contoso.expenses.web            latest               3b7268086d11        2 weeks ago         12.7GB
+aspnet-site                                                latest               d4172c70954f        2 weeks ago         7.44GB
 ````
+## Run the Web and API Containers
+```
+docker run --name exp-web-container fezcontainerreg.azurecr.io/contoso.expenses.web:latest
+
+docker run --name exp-api-container fezcontainerreg.azurecr.io/contoso.expenses.api:latest
+```
+
+## Access the application locally
+You can access the application locally by typing in http://locahost
+![Screenshot](images/contosoexpenses-wincontainers/sf-compose036.png)
 
 ## Push Containers to Registry
-Now that the images have been created it's time to push them to the Registry. 
+Optionally, you may push these images to the Azure Container Registry. 
 
 1. Open [Azure Portal](https://portal.azure.com) and navigate to your **Azure Container Registry**. Copy **Login server**, **Username** and **Password** values.
 
@@ -320,17 +330,16 @@ Now that the images have been created it's time to push them to the Registry.
 2. Open a command prompt and login to Azure Container Registry.
 
 ````BASH
-C:\..\Contoso.Expenses.Web>docker login sfcomposedevcr.azurecr.io
-Username: sfcomposedevcr
+C:\..\Contoso.Expenses.Web>docker login fezcontainerreg.azurecr.io
+Username: fezcontainerreg
 Password:
 Login Succeeded
 ````
-
 3. Push Contoso.Expenses.Web image to Azure Container Registry. 
 
 ````BASH
-C:\..\Contoso.Expenses.Web>docker push sfcomposedevcr.azurecr.io/contoso.expenses.web:1.0
-The push refers to a repository [sfcomposedevcr.azurecr.io/contoso.expenses.web]
+C:\..\Contoso.Expenses.Web>docker push fezcontainerreg.azurecr.io/contoso.expenses.web:latest
+The push refers to a repository [fezcontainerreg.azurecr.io/contoso.expenses.web]
 4c48207d1889: Pushing [=================>                                 ]  14.06MB/41.06MB
 d9809dd547bc: Pushed
 19f2e48542cd: Pushed
@@ -352,142 +361,3 @@ f358be10862c: Waiting
 
 ![Screenshot](images/contosoexpenses-wincontainers/sf-compose028.png)
 
-## Deploy to Service Fabric
-At this point the images are already hosted in Azure Container Registry so the next step is to deploy the containers to Service Fabric.
-
-1. Open Visual Studio, expand the **docker-compose** project and open the **docker-compose.yml** file.
-
-2. **Update the image names** and ports. This is the file we will use to deploy the application to Azure Service Fabric.
-
-> **Note:** Make sure that your container registry is correct (e.g. sfcomposedevcr.azurecr.io)
-
-````YML
-version: '3'
-
-services:
-  contoso.expenses.web:
-    image: sfcomposedevcr.azurecr.io/contoso.expenses.web:1.0
-    build:
-      context: .\Contoso.Expenses.Web
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-
-  contoso.expenses.api:
-    image: sfcomposedevcr.azurecr.io/contoso.expenses.api:1.0
-    build:
-      context: .\Contoso.Expenses.API
-      dockerfile: Dockerfile
-    ports:
-      - "8123:80"
-````
-> **Note:** [Port definition](https://docs.docker.com/compose/compose-file/#ports) is composed of **[NODE PORT]:[CONTAINER PORT]**. 
-3. Open PowerShell and navigate to the **docker-compose project root folder**.
-
-4. Connect to your Azure Service Fabric Cluster
-
-````POWERSHELL
-Connect-ServiceFabricCluster -ConnectionEndpoint composeapps-sf.westeurope.cloudapp.azure.com:19000
-````
-> **Note:** The Service Fabric Connection Endpoint is shown in the Azure Portal. Navigate to your Service Fabric instance and find it in the overview tab.
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose029.png)
-
-5. Deploy application to Service Fabric using docker compose.
-````POWERSHELL
-# CREATE NEW SERVICE
-New-ServiceFabricComposeDeployment -DeploymentName Contoso -Compose docker-compose.yml -RegistryUserName [REGISTRY-USERNAME] -RegistryPassword [REGISTRY-PASSWORD]
-````
-> **Registry username** and **password** can be found in Azure Container Registry settings in Azure Portal.
-
-6. Open **Azure Service Fabric Explorer** from the Azure Portal and check if your application is deploying. 
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose033.png)
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose034.png)
-> **Note:** Please allow some minutes for the nodes to be ready since this is the first deployment to these nodes and the image is pretty large. Every node has its own image repository so deployment times may change depending on whether layers already exist in the node or not.
-
-> If you see the application status changing to error please validate the node status. It may simply be because your download is taking to long. If that is the case there is no action needed on your side other than waiting. 
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose035.png)
-
-> **Note:** A **best practice** for this scenario where images are very large would be to pull the images in every node prior to deployment. 
-
-7. Access the application externally once the deployment ends. During the walkthrough we configured the external load balancer to expose port 80 and we did the same when deploying the images for Contoso.Expenses.Web. Go to your Public IP Address Configuration in Azure and navigate to specified DNS name label (e.g. http://composeapps-sf.westeurope.cloudapp.azure.com)
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose036.png)
-
-## Upgrade existing Application
-Service Fabric allows easy upgrades with failover in case something wrong happens.
-
-1. **Build new version** of the application. This way we will leverage the docker-compose file to support the build process. **Update the docker-compose.yml** file and **build your solution in Visual Studio**.
-
-````YML
-version: '3'
-
-services:
-  contoso.expenses.web:
-    image: sfcomposedevcr.azurecr.io/contoso.expenses.web:1.1
-    build:
-      context: .\Contoso.Expenses.Web
-      dockerfile: Dockerfile
-    ports:
-      - "80:80"
-
-  contoso.expenses.api:
-    image: sfcomposedevcr.azurecr.io/contoso.expenses.api:1.1
-    build:
-      context: .\Contoso.Expenses.API
-      dockerfile: Dockerfile
-    ports:
-      - "8123:80"
-````
-2. Validate new images in local repository. You should see version 1.1 of your images.
-```` BASH
-C:\..\Contoso.Expenses.Web>docker images
-REPOSITORY                                       TAG                 IMAGE ID            CREATED             SIZE
-sfcomposedevcr.azurecr.io/contoso.expenses.web   1.0                 44e0f6ad7624        About an hour ago   12.6GB
-sfcomposedevcr.azurecr.io/contoso.expenses.web   1.1                 44e0f6ad7624        About an hour ago   12.6GB
-sfcomposedevcr.azurecr.io/contoso.expenses.api   1.0                 449ee2643df0        About an hour ago   12.6GB
-sfcomposedevcr.azurecr.io/contoso.expenses.api   1.1                 449ee2643df0        About an hour ago   12.6GB
-microsoft/aspnet                                 4.7                 eea632769046        6 days ago          12.6GB
-````
-
-3. Push new images to registry.
-
-````BASH
-docker push sfcomposedevcr.azurecr.io/contoso.expenses.web:1.1
-docker push sfcomposedevcr.azurecr.io/contoso.expenses.api:1.1
-````
-> This time the push should be much faster because most layers are already in the registry.
-
-4. With PowerShell window still open and after connecting to the Service Fabric Cluster, run the following Cmdlet.
-
-````POWERSHELL
-# UPGRADE SERVICE
-Start-ServiceFabricComposeDeploymentUpgrade -DeploymentName contoso -Compose docker-compose.yml -Monitored -FailureAction Rollback -RegistryUserName [REGISTRY-USERNAME] -RegistryPassword [REGISTRY-PASSWORD]
-````
-> **Note:** The [Start-ServiceFabricComposeDeploymentUpgrade](https://docs.microsoft.com/en-us/powershell/module/servicefabric/start-servicefabriccomposedeploymentupgrade?view=azureservicefabricps) Cmdlet contains multiple parameter variations that allow for different deployment types and failover mechanisms.
-
-5. Validate that the upgrade is in progress
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose037.png)
-
-> **Note:** The upgrade time may depend on the downloading time for the images. Still since we configured the deployment to be monitored it should only destroy previous instances when the new version is up and running.
-
-## Scale Application Services
-Service Fabric allows you to scale services independently. This way you can scale based on current load in each service.
-
-1. Navigate to Service Fabric Explorer (e.g. http://composeapps-sf.westeurope.cloudapp.azure.com:19080), right-click the **contoso.expenses.api node** and select **Scale Service**.
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose038.png)
-
-2. Choose a value **between 1 and the total number of nodes** you have in the Service Fabric cluster. Then select Scale Service.
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose039.png)
-
-3. Validate that **contoso.expenses.api** is being scaled to more nodes.
-
-![Screenshot](images/contosoexpenses-wincontainers/sf-compose040.png)
-
-
-4. Repeat steps 2 and 3 for **contoso.expenses.web** service. 
