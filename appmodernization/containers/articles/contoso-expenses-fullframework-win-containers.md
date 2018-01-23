@@ -287,7 +287,7 @@ docker run --name exp-api-container fezcontainerreg.azurecr.io/contoso.expenses.
 ```
 
 ## Access the application locally
-You can access the application locally by typing in http://locahost
+You can access the application locally by typing in http://localhost
 ![Screenshot](images/contosoexpenses-wincontainers/sf-compose036.png)
 
 ## Push Containers to Registry
