@@ -11,14 +11,9 @@
     * [View the database using Visual Studio Tools](#view-the-database-using-visual-studio-tools)
   * [Create Storage Account](#create-storage-account)
   * [Configure Container Registry](#configure-container-registry)
-  <!---* [Create Service Fabric Cluster](#create-service-fabric-cluster)--->
   * [Migrate Application to Containers](#migrate-application-to-containers)
-  * [Run the Application through Containers](#migrate-application-to-containers)
+  * [Run the Application through Containers](#run-the-web-and-api-containers)
   * [Push Containers to Azure Container Registry](#push-containers-to-registry)
-  <!---* [Deploy to Service Fabric](#deploy-to-service-fabric)
-  * [Upgrade Existing Application](#upgrade-existing-application)
-  * [Scale Application Services](#scale-application-services)--->
-
 
 ## Introduction
 The goal of this POC is to walk you through the process of migrating an existing 3 tier application running on-premises to running it as a multi-container application. You will start with a classic ASP.NET MVC Application, converting its components (frontend and services layers) to containers, deploying them to a registry, and then running the application through Windows Containers.
