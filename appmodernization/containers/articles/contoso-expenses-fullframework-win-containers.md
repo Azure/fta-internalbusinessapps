@@ -183,31 +183,6 @@ We will need a place to store the containers that we are creating for this appli
 
 ![Screenshot](images/contosoexpenses-wincontainers/sf-compose019.png)
 
-## Create Service Fabric Cluster
-In order to run the application now, we will need to create a cluster to deploy to.
-
-1. In the Azure portal, click **New**, search for **Service Fabric**, and then select **Service Fabric Cluster**. Click **Create**.
-
-    ![Screenshot](images/contosoexpenses-wincontainers/sf-compose020.png)
-2. On the *Basics* blade, fill in the appropriate information for the cluster and assign it to the resource group we have already created. Click **Ok**.
-    > **Note:** Make sure for *Operating system*, you choose **WindowsServer 2016-Datacenter- with-Containers**
-
-    ![Screenshot](images/contosoexpenses-wincontainers/sf-compose021.png)
-3. On the *Cluster configuration* blade, leave **Node type count** as 1, then click to configure the node type. Provide the following details:
-    * **Node type name** - BaseNode
-    * **Durability tier** - Bronze
-    * **Virtual machine size** - Standard_D1_v2
-    * **Custom endpoints** - 80,443
-    * **Enable reverse proxy** - Select check box
-    
-    Click **Ok** then **Ok** again.
-
-    ![Screenshot](images/contosoexpenses-wincontainers/sf-compose022.png)
-
-4. On the *Security* blade, select **Unsecure** and then click **Ok**.
-5. On the *Summary* blade, click **Create**.
-    > **Note:** This will take several minutes and even once the creation of the cluster is complete, it will still need a few more minutes to perform some internal updates.
-
 ## Migrate Application to Containers
 Now that all the infrastructure and dependencies are deployed it's time to start modernizing the application.
 
