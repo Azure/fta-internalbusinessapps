@@ -1,9 +1,12 @@
-param(
-    [string]$subscriptionName
+Param(
+    [Parameter(Mandatory=$true)]
+    [string]$subscriptionName,
+
+    [Parameter(Mandatory=$false)]
+    [string]$location = "westeurope"
 )
 # VARIABLES
 $resourcegroupname = "ContosoExpensesARM$(Get-Random)"
-$location = "westeurope"
 $storageaccountname = "sqlimport$(Get-Random)"
 $storagecontainername = "importcontainer"
 $bacpacfilename = "ContosoExpensesDB.bacpac"
