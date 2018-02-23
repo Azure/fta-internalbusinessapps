@@ -23,7 +23,7 @@ To complete this POC, you will need:
 * [NodeJS](https://nodejs.org)
 * [Docker for Windows](https://www.docker.com/docker-windows)
 * If you are deploying the application on Ubuntu, you will need an ssh client e.g. [Putty](http://www.putty.org/)
-* You must download the [sample application](https://ftashared.blob.core.windows.net/demos/Node-Todo.zip)
+* You will need the [sample application](https://ftashared.blob.core.windows.net/demos/Node-Todo.zip) we are deploying
 
 ## Create Azure PostgreSQL
 1. Open the [Azure portal](https://portal.azure.com)
@@ -47,6 +47,7 @@ To complete this POC, you will need:
     > Note: The provisioning can take up to 20 minutes.
 
 ## Open Existing Application
+While the database is being provisioned, we can start working with the source code to prep it for going into a container.
 1. Open Visual Studio Code and select the folder you extracted the application to.
 
 2. Open a command prompt to the same directory. Then navigate to the **app** folder.
@@ -233,8 +234,8 @@ We will now start to look at hosting options for running our containers. In this
           - node1:node1
           - node2:node2
           - node3:node3
-          ports:
-            - "80:80"
+        ports:
+          - "80:80"
 
       node1:
         image: {Your_Registry}/node-todo:latest
@@ -329,3 +330,5 @@ Once the application is deployed, you could navigate to the url you created and 
 4. Once the settings have saved, go back and refresh the application in your browser and you should see an empty list of todos and from there you can add some examples.
 
     ![Screenshot](images/node-container/node-21.png)
+
+    > Note: If the settings do not immediately take effect, e.g. the loading arrows keep spinning, you may have to restart the app service. This can be done from the **Overview** blade of the app settings.
