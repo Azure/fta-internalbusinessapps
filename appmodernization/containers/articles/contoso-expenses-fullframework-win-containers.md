@@ -275,15 +275,15 @@ docker images
 ````BASH
 C:\..\Contoso.Expenses.Web>docker images
 REPOSITORY                                                 TAG                  IMAGE ID            CREATED             SIZE
-fezcontainerreg.azurecr.io/contoso.expenses.api            latest               5a5f18d83e33        2 weeks ago         12.7GB
-fezcontainerreg.azurecr.io/contoso.expenses.web            latest               3b7268086d11        2 weeks ago         12.7GB
+sfcomposedevcr.azurecr.io/contoso.expenses.api            latest               5a5f18d83e33        2 weeks ago         12.7GB
+sfcomposedevcr.azurecr.io/contoso.expenses.web            latest               3b7268086d11        2 weeks ago         12.7GB
 aspnet-site                                                latest               d4172c70954f        2 weeks ago         7.44GB
 ````
 ## Run the Web and API Containers
 ```
-docker run --name exp-web-container fezcontainerreg.azurecr.io/contoso.expenses.web:latest
+docker run --name exp-web-container sfcomposedevcr.azurecr.io/contoso.expenses.web:latest
 
-docker run --name exp-api-container fezcontainerreg.azurecr.io/contoso.expenses.api:latest
+docker run --name exp-api-container sfcomposedevcr.azurecr.io/contoso.expenses.api:latest
 ```
 
 ## Access the application locally
@@ -300,16 +300,16 @@ Optionally, you may push these images to the Azure Container Registry.
 2. Open a command prompt and login to Azure Container Registry.
 
 ````BASH
-C:\..\Contoso.Expenses.Web>docker login fezcontainerreg.azurecr.io
-Username: fezcontainerreg
+C:\..\Contoso.Expenses.Web>docker login sfcomposedevcr.azurecr.io
+Username: sfcomposedevcr
 Password:
 Login Succeeded
 ````
 3. Push Contoso.Expenses.Web image to Azure Container Registry. 
 
 ````BASH
-C:\..\Contoso.Expenses.Web>docker push fezcontainerreg.azurecr.io/contoso.expenses.web:latest
-The push refers to a repository [fezcontainerreg.azurecr.io/contoso.expenses.web]
+C:\..\Contoso.Expenses.Web>docker push sfcomposedevcr.azurecr.io/contoso.expenses.web:latest
+The push refers to a repository [sfcomposedevcr.azurecr.io/contoso.expenses.web]
 4c48207d1889: Pushing [=================>                                 ]  14.06MB/41.06MB
 d9809dd547bc: Pushed
 19f2e48542cd: Pushed
