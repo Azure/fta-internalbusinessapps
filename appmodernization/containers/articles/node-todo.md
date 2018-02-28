@@ -60,7 +60,7 @@ While the database is being provisioned, we can start working with the source co
 
 4. Once complete, type the command `npm run build`. This will compile the node application, written in Typescript, to javascript files in the `lib` folder.
 
-5. If you run `npm start` the application should attempt to start, however an error will be thrown because there is no connection to a PostgreSQL instance. If you attempt to navigate to the site, you will see the basic application page, but with arrows indicating it is loading. You can navigate using this URL: http://localhost:3000.
+5. If you run `npm start` the application should attempt to start, however an error will be thrown because there is no connection to a PostgreSQL instance. If you attempt to navigate to the site, you will see the basic application page, but with arrows indicating it is loading. You can navigate using this URL: `http://localhost:3000`.
 
     ![Screenshot](images/node-container/node-04.png)
 
