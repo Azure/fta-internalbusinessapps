@@ -44,7 +44,7 @@ To complete this POC, you will need
 1. **Extract the Contoso Expenses Demo Application** previously downloaded to a working folder of your choice
 2. From the working folder, open Contoso.Expenses.sln
 
-    ![Screenshot](media/acs-with-kubernetes/k8s-001.png)
+    ![Screenshot](images/acs-with-kubernetes/k8s-001.png)
 3. Validate that there are 4 projects in Visual Studio:
 * **Contoso.Expenses.API** - This is a Web API project that provides helper logic to the main web app.
 * **Contoso.Expenses.DataAccess** - This is a Class Library that utilizes Entity Framework.
@@ -60,15 +60,15 @@ To complete this POC, you will need
 6. Select your **Resource Group Location** (e.g. West Europe).
 7. Click **Create**.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-002.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-002.png)
 
 8. Navigate to the resource group **ContosoExpenses-RG-WE**.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-003.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-003.png)
 
 9. Click **+Add**, type in **SQL Database** in the search area, press **Enter** and click on **SQL Database**.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-004.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-004.png)
 
 10. Click **Create**.
 11. Enter your **database name** (e.g. **contosoexpensesdb**). 
@@ -82,7 +82,7 @@ To complete this POC, you will need
 17. For Location select the same location as before (e.g. **West Europe**).
 18. Click **Select** to save the server settings.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-005.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-005.png)
 
 19. Click on **Pricing Tier**.
 20. Move the **DTU** slider to **20**.
@@ -91,42 +91,42 @@ To complete this POC, you will need
 21. Move the **Storage** slider to **5GB**.
 22. Click **Apply**.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-006.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-006.png)
 
 23. Click **Create** to create a new SQL Database Server & Database.
 
 > Note: The Azure alert bell will indicate that the deployment is in progress.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-007.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-007.png)
 
 ## Allow Client IP in SQL Database Firewall
 To add the **IP address** of the client you access the database from, do the following steps:
 1. Select the database created previously (e.g. contosoexpensesdb), click on **Set server firewall**.
 
-![Screenshot](media/acs-with-kubernetes/k8s-008.png)
+![Screenshot](images/acs-with-kubernetes/k8s-008.png)
 
 2. Click on **Add client IP** and click **Save**. This will add your current IP as a new rule on the Firewall.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-009.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-009.png)
 
 ## Publish the Database into Azure SQL DB
 1. From Visual Studio, expand the project **Contoso.Expenses.Database**.
 2. Click on the **Seed.sql** file under the **Scripts folder**, and look at content in the preview window.
 > Note: This file will get executed post-deployment and add test data to the database.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-010.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-010.png)
 
 3. **Right-click** on the project **Contoso.Expenses.Database** and select **Publish** to publish the database.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-011.png)
-  ![Screenshot](media/acs-with-kubernetes/k8s-012.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-011.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-012.png)
   
 4. On **Target database connection** click **Edit**, then click **Browse**.
 
 5. From the list presented, expand **Azure**.
 6. Select the **Database** created on the SQL Server in the previous steps.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-013.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-013.png)
 
 7. For the **Server Name**, confirm or enter the server name previously saved to the clipboard (e.g. **contosoexpensesdbsrv.database.windows.net**).
 8. Set **Authentication** to **SQL Server Authentication**.
@@ -134,43 +134,43 @@ To add the **IP address** of the client you access the database from, do the fol
 10. Select the database name **contosoexpensesdb**.
 11. Click **Test Connection**.
 > You may get prompted to add a firewall rule so that your computer is allowed to access the database server. If so, click **Ok** to allow the firewall rule to be created.
-![Screenshot](media/acs-with-kubernetes/k8s-014.png)
+![Screenshot](images/acs-with-kubernetes/k8s-014.png)
 12. The result should be **Test connection succeeded**, then click **Ok**.
  Click **Ok** to close the connect window.
 
 13. Click on **Publish** to publish the database to Azure.
- ![Screenshot](media/acs-with-kubernetes/k8s-015.png)
+ ![Screenshot](images/acs-with-kubernetes/k8s-015.png)
 
   * The database will be published to Azure and give you the results.
 * The status and progress will be displayed in the Data Tools Operations window.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-016.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-016.png)
 
 ## View the database using Visual Studio Tools
 1. From **Visual Studio**, select **View** | **SQL Server Object Explorer**.
 2. Expand the **SQL Server** node to view the connection.
 3. Expand the connection **contosoexpensesdbsrv.database.windows.net**, and then **Databases | contosoexpensesdb | Tables**. Confirm the existence of the **dbo.Expense** table.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-017.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-017.png)
 
 ## Create Storage Account
 You will create a new Azure Storage Account because the Application uses Azure Storage Queues to persist transactions when the database is not available.
 
 1. Open [Azure Portal](https://portal.azure.com), click in **New** and search for Storage Account. 
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-030.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-030.png)
 
 2. Select that option shown in the image and on the following blade click **Create**.
 
 3. Give a name to your storage account and ensure the storage account is deployed in the same resource group.
 
-  ![Screenshot](media/acs-with-kubernetes/k8s-031.png)
+  ![Screenshot](images/acs-with-kubernetes/k8s-031.png)
 
 > The storage account name needs to be unique, and only supports lowercase letters and numbers.
 
 4. After the creation of the storage account, navigate to it, click on **Access Keys** and copy the first connection string. We will need it further on.
 
- ![Screenshot](media/acs-with-kubernetes/k8s-032.png)
+ ![Screenshot](images/acs-with-kubernetes/k8s-032.png)
 
 ## Configure Container Registry
 We will need a place to store the containers that we are creating for this application. For this example we will be creating an Azure Container Registry.
@@ -178,12 +178,12 @@ We will need a place to store the containers that we are creating for this appli
 1. Log into the [Azure portal](https://portal.azure.com).
 2. Create a new resource and search the marketplace for **Azure Container** and select **Azure Container Registry**.
 
-    ![Screenshot](media/acs-with-kubernetes/k8s-018.png)
+    ![Screenshot](images/acs-with-kubernetes/k8s-018.png)
 
 3. Give the registry a name and assign it to a resource group. Click **Create**.
 > This name must be unique in the Azure platform.
 
-![Screenshot](media/acs-with-kubernetes/k8s-019.png)
+![Screenshot](images/acs-with-kubernetes/k8s-019.png)
 
 ## Create Kubernetes Cluster
 In order to run the application now, we will need to create a cluster to deploy to. We will do it by using Azure CLI.
@@ -191,7 +191,7 @@ In order to run the application now, we will need to create a cluster to deploy 
 1. In the Azure portal, open Cloud Shell as shown in the image below. Make sure you select **bash** as the default language.
 >NOTE: If you have not set up Cloud Shell previously follow [this article](https://docs.microsoft.com/en-us/azure/cloud-shell/overview).
 
-![Screenshot](media/acs-with-kubernetes/k8s-020.png)
+![Screenshot](images/acs-with-kubernetes/k8s-020.png)
 
 2. Create a Resource Group where your cluster will be hosted.
 
@@ -235,7 +235,7 @@ Now that all the infrastructure and dependencies are deployed it's time to start
 ````
 > The connection string for your SQL Database is in the Azure Portal.
 
-![Screenshot](media/acs-with-kubernetes/k8s-023.png)
+![Screenshot](images/acs-with-kubernetes/k8s-023.png)
 
 3. In the same Web.Config file update the value for EmployeeApiUri.
 ````XML
@@ -252,13 +252,13 @@ Now that all the infrastructure and dependencies are deployed it's time to start
 
 5. Right-click **Contoso.Expenses.Web** project, select **Add** and then **Docker Support**.
 
-    ![Screenshot](media/acs-with-kubernetes/k8s-024.png)
+    ![Screenshot](images/acs-with-kubernetes/k8s-024.png)
 
 > Visual Studio will automatically create a new project (**[docker-compose](https://docs.docker.com/compose/overview/)**) and a **[Dockerfile](https://docs.docker.com/engine/reference/builder/)** in **Contoso.Expenses.Web** project.
 
 6. Notice the **docker-compose** project and the Dockerfile that were create by Visual Studio.
 
-    ![Screenshot](media/acs-with-kubernetes/k8s-025.png)
+    ![Screenshot](images/acs-with-kubernetes/k8s-025.png)
 
 
 7. Repeat steps 5 and 6 for **Contoso.Expenses.API** project.
@@ -285,7 +285,7 @@ services:
 9. Right-click your Solution and select **Build Solution**.
 > In order to build the solution successfuly you need to make sure you have installed **Docker for Windows** and configured it to run in **Windows Containers**.
 
-![Screenshot](media/acs-with-kubernetes/k8s-026.png)
+![Screenshot](images/acs-with-kubernetes/k8s-026.png)
 
 10. Build the container images. **Open a command prompt** in the contoso.expenses.web folder and run the following command
 
@@ -315,7 +315,7 @@ Now that the images have been created it's time to push them to the Registry.
 
 1. Open [Azure Portal](https://portal.azure.com) and navigate to your **Azure Container Registry**. Copy **Login server**, **Username** and **Password** values.
 
-![Screenshot](media/acs-with-kubernetes/k8s-027.png)
+![Screenshot](images/acs-with-kubernetes/k8s-027.png)
 
 2. Open a command prompt and login to Azure Container Registry.
 
@@ -350,7 +350,7 @@ f358be10862c: Waiting
 
 5. Validate in Azure Container Registry that the images have been pushed.
 
-![Screenshot](media/acs-with-kubernetes/k8s-028.png)
+![Screenshot](images/acs-with-kubernetes/k8s-028.png)
 
 ## Deploy to Kubernetes Cluster
 At this point the images are already hosted in Azure Container Registry so the next step is to deploy the containers to the Kubernetes Cluster.
@@ -520,7 +520,7 @@ kubernetes            ClusterIP      10.0.0.1       <none>        443/TCP       
 
 10. Once the IP Address get assigned to the service you can open it in your favorite web browser.
 
-![Screenshot](media/acs-with-kubernetes/k8s-036.png)
+![Screenshot](images/acs-with-kubernetes/k8s-036.png)
 
 > NOTE: Since Windows Container images are usually large it may take a while to download the images to the local registry cache in the node where the container is running. Expect some time before the container starts.
 

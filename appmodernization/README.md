@@ -19,4 +19,6 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
    * [POC Scenario: Containerize ASP.NET Full Framework Application](containers/articles/aspnet-fullframework.md)
    * [POC Scenario: Containerize ASP.NET Core Application](containers/articles/aspnet-core.md)
    * [POC Scenario: Containerize a NodeJS Application](containers/articles/node-todo.md)
-   * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers](containers/articles/contoso-expenses-fullframework-win-containers.md)
+  <!--
+   * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers](containers/articles/contoso-expenses-fullframework-win-containers.md) -->
+   * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers - Kubernetes in Azure Container Services](containers/articles/acs-with-kubernetes.md)
