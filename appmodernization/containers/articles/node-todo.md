@@ -14,7 +14,7 @@
         * [Configure Environment Settings](#configure-environment-settings)
 
 ## Introduction
-In this walkthrough we will look at building and deploying a NodeJS application into a container. We will then publish that container in a couple of different ways. We will start with a deployment onto an Ubuntu server where we will deploy 3 instances of the app behind an nginx frontend. The second option will deploy the application to an Azure App Service.
+In this walkthrough we will look at building and deploying a NodeJS application into a container. Please ensure that Docker is switched over to Linux Containers, and is not set to Windows Containers. We will then publish that container in a couple of different ways. We will start with a deployment onto an Ubuntu server where we will deploy 3 instances of the app behind an nginx frontend. The second option will deploy the application to an Azure App Service.
 
 ## Prerequisites
 To complete this POC, you will need:
@@ -60,7 +60,7 @@ While the database is being provisioned, we can start working with the source co
 
 4. Once complete, type the command `npm run build`. This will compile the node application, written in Typescript, to javascript files in the `lib` folder.
 
-5. If you run `npm start` the application should attempt to start, however an error will be thrown because there is no connection to a PostgreSQL instance. If you attempt to navigate to the site, you will see the basic application page, but with arrows indicating it is loading.
+5. If you run `npm start` the application should attempt to start, however an error will be thrown because there is no connection to a PostgreSQL instance. If you attempt to navigate to the site, you will see the basic application page, but with arrows indicating it is loading. You can navigate using this URL: `http://localhost:3000`.
 
     ![Screenshot](images/node-container/node-04.png)
 
