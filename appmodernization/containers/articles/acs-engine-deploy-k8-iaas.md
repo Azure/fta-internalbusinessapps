@@ -8,7 +8,7 @@ This walkthrough is a streamlined compilation of the Microsoft Azure Container S
 ## Prerequisites
 This POC will utilize the Azure CLI to make the experience as similar as possible whether you are using a Windows or Linux system. For Windows 10 systems, the Microsoft Windows Subsystem for Linux (WSL) will need to installed. WSL will provide native tools, such as SSH support, and will limit the use of requiring additional tools to interact with the Docker/Kubernetes cluster.
 * [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Only if using Windows 10)
-* [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) (If using the Windows Subsystem for Linux, please install the Debian/Ubuntu version located [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest))
+* [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) (If using the Windows Subsystem for Linux, please follow the installation instructions for the Debian/Ubuntu version located [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest))
 * [ACS-Engine Binary](https://github.com/Azure/acs-engine/releases/tag/v0.14.6) for your operating system
 
 ## Walkthrough
