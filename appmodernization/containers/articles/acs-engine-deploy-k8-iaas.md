@@ -11,8 +11,10 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 * [Azure CLI 2.0](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest) ( If using the Windows Subsystem for Linux, please follow the installation instructions for the Debian/Ubuntu version located [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest) )
 * [ACS-Engine Binary](https://github.com/Azure/acs-engine/releases/tag/v0.14.6) for your operating system
   * If using the Windows Subsystem for Linux, please do the following in the WSL terminal:
-    i. This is a test
-    ii. This is a test
+          1. A numbered list
+              1. A nested numbered list
+              2. Which is numbered
+          2. Which is numbered
 
 ## Walkthrough
 
