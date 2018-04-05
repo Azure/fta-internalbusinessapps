@@ -25,7 +25,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    - Once you have identified the subcription name that you will utilize for the Kubernetes cluster, set the terminal session to the Azure account subcription - **az account set --subscription \"<subscription name\>"**
    
      > Note: Also make note of the subcription ID of the subcription name used, as you will need that information when deploying using the acs-engine.
-3. Create an Azure resource group to deploy the Kubernetes cluster to - Ex. **az group create --name \"<resource group name\>" --location \"<Azure region\>"
+3. Create an Azure resource group to deploy the Kubernetes cluster to - Ex. **az group create --name \"<resource group name\>" --location \"<Azure region\>"**
 
    > Note: If you are unsure of the Azure region name needed for the location parameter you can use **az account list-locations --output table** to view the Azure region names.
 
