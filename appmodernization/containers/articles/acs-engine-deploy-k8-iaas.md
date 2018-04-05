@@ -67,7 +67,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       
       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-kubectl-config-display.png)
       
-      
+    3. 
       
 
 
