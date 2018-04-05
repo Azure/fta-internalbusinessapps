@@ -69,7 +69,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       
     3. Capture the Kubernetes master FQDN endpoint to SSH. The ACS Engine has created the SSH key that will be used to connect. The SSH key is located in the directory name of your Kubernetes cluster in the **_output** directory and has the name **azureuser_rsa**. Run the following command to connect to the Kubernetes master.
         ```
-        ssh -i ./azureuser_rsa azureuser@https://pgibson-acs-engine-poc1-5ac5abba.eastus2.cloudapp.azure.com 
+        ssh -i ./azureuser_rsa azureuser@pgibson-acs-engine-poc1-5ac5abba.eastus2.cloudapp.azure.com 
         ```
       
 
