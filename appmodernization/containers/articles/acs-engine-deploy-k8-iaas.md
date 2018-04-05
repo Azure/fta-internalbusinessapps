@@ -42,6 +42,13 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 
     The deployment is fairly quick and you should get a succeeded message when completed. 
     ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-terminal.png)
+    
+    You can verify that all the resources have been created by running the resource list command on the resource group. 
+    **az resource list --resource-group \"<resource group name\>" --output table**
+    
+    ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-list-resources-in-rg.png)
+    
+    
 
 
 
