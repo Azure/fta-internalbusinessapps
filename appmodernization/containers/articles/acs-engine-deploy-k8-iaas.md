@@ -29,6 +29,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 
    > Note: If you are unsure of the Azure region name needed for the location parameter you can use **az account list-locations --output table** to view the Azure region names.
 4. Download the Kubernetes api model template json file - wget https://raw.githubusercontent.com/Azure/acs-engine/master/examples/kubernetes.json
+* By default the configuration file will create 1 master node and 3 worker nodes. The master nodes will be deployed in their own availability set, as well as the worker nodes. If you would like to change the number of nodes being deployed, make edits to the count property in the configuration file.
+
 
 
    
