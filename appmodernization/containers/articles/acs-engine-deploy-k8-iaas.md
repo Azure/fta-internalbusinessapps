@@ -21,6 +21,6 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
 2. Find and set the Azure subcription you will be deploying the Kubernetes cluster to:
    - List out all subcriptions you have access to - **az account list --output table**
-   - Once you have identified the subcription name that you will utilize for the Kubernetes cluster, set the terminal session to the Azure account subcription - **az account set --subcription \<subcription name\>** 
+   - Once you have identified the subcription name that you will utilize for the Kubernetes cluster, set the terminal session to the Azure account subcription - **az account set --subscription \"<subscription name\>"** 
    
 
