@@ -38,7 +38,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
      --dns-prefix "<your k8 cluster name>" --auto-suffix \
      --api-model ./kubernetes.json
    ```
-       > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
+      > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
 
 
 
