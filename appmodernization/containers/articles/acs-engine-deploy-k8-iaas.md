@@ -74,7 +74,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       
        ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-ssh-k8-connect.png)
 
-
+7. 
 
 
 
