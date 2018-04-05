@@ -60,6 +60,9 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    
    1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-output.png)
+   2. Set your Kubernetes configuration. This will configure your kubectl to default to the Kubernetes cluster you just created.
+      
+      
       
 
 
