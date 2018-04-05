@@ -58,7 +58,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     
 6. Connect to the Kubernetes cluster:
    
-   Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment
+   1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment
 
 
 
