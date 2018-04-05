@@ -65,6 +65,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       $ KUBECONFIG=$HOME/acs-engine/acs-engine-v0.14.6-linux-amd64/_output/pgibson-acs-engine-poc1-5ac5abba/kubeconfig/kubeconfig.eastus2.json kubectl cluster-info
       ```
       
+      ![Screenshot](images/acs-engine-deploy-k8-iaas/.png)
       
       
       
