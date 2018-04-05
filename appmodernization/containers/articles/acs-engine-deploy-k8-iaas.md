@@ -40,7 +40,10 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
 
-    The acs-engine deploy will automatically create several configuration files and set up several Azure services for hosting the Kubernetes cluster. This makes it a great tool for a POC and even a production deployment with further configuration to the temlate file. As the deployment continues
+    The acs-engine deploy will automatically create several configuration files and set up several Azure services for hosting the Kubernetes cluster. Key things created are:
+    * Azure Service Principle and App ID
+    * SSH key to connect to the Kubernetes cluster
+      > Note: Please make note of the Service Principle and App ID that will be output in the terminial. We will use these IDs for setting up authentication for the Azure Container Registry in later POC walk throughs. You can also find the IDs by using **az ad sp list --display-name \"<your k8 cluster name\>"**
     
     The deployment is fairly quick and you should get a succeeded message when completed. 
     ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-terminal.png)
