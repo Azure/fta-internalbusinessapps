@@ -1,4 +1,4 @@
-# POC Walkthrough - ACS Engine: Deploy a Kubernetes IaaS Infrastructure
+w# POC Walkthrough - ACS Engine: Deploy a Kubernetes IaaS Infrastructure
 
 ## Introduction
 In this walkthrough, we will utilize the Microsoft Azure Container Service Engine to build a IaaS Docker cluster infrastructure using the Kubernetes orchestration. The ACS Engine is an option to customers that have architectural and/or infrastructure requirements that are not currently supported by the managed Azure AKS service. The ACS Engine gives customers a way to flexibly customize and quickly provision the IaaS infrastructure needed.
@@ -13,7 +13,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
   * If using the Windows Subsystem for Linux, please do the following in the WSL terminal:
     1. mkdir acs-engine
     2. cd acs-engine
-    3. 
+    3. wget https://github.com/Azure/acs-engine/releases/download/v0.14.6/acs-engine-v0.14.6-linux-amd64.zip
+    4. uzip acs-engine-v0.14.6-linux-amd64.zip
 
 ## Walkthrough
 
