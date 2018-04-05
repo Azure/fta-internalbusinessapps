@@ -31,6 +31,14 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 4. Download the Kubernetes api model template json file - wget https://raw.githubusercontent.com/Azure/acs-engine/master/examples/kubernetes.json
 
    > Note: By default the configuration file will create 1 master node and 3 worker nodes. The master nodes will be deployed in their own availability set, as well as the worker nodes will be deployed in their own availability set. If you would like to change the number of nodes being deployed, make edits to the count property in the configuration file.
+5. Run **acs-deploy** with the following arguments:
+```
+$ ./acs-engine deploy --subscription-id \"<your subscription GUID>\" \
+  --resource-group \"<your resource group name>\" \
+  --dns-prefix \"<your k8 cluster name>\" --auto-suffix \
+  --api-model ./kubernetes.json
+```
+
 
 
 
