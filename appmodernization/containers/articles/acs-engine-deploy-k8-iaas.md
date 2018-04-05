@@ -18,5 +18,5 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 
 ## Walkthrough
 1. In the Linux or WSL terminal, log into Azure using the **az login** command.
-   > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin]  (https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your          Azure account.
+   > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin]   (https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your          Azure account.
 
