@@ -61,8 +61,9 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-output.png)
    2. View your Kubernetes configuration. The following command will output your Kubernetes endpoints that you will use to connect to the Kubernetes cluster.
-   
-      ** \$ KUBECONFIG=$HOME/acs-engine/acs-engine-v0.14.6-linux-amd64/_output/pgibson-acs-engine-poc1-5ac5abba/kubeconfig/kubeconfig.eastus2.json kubectl cluster-info ** 
+      ```
+      $ KUBECONFIG=$HOME/acs-engine/acs-engine-v0.14.6-linux-amd64/_output/pgibson-acs-engine-poc1-5ac5abba/kubeconfig/kubeconfig.eastus2.json kubectl cluster-info
+      ```
       
       
       
