@@ -40,6 +40,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
 
+    The acs-engine deploy will automatically create several configuration files and set up several Azure services for hosting the Kubernetes cluster. This makes it a great tool for a POC and even a production deployment with further configuration to the temlate file. As the deployment continues
+    
     The deployment is fairly quick and you should get a succeeded message when completed. 
     ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-terminal.png)
     
