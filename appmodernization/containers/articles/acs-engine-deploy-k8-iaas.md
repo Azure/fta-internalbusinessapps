@@ -34,7 +34,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 5. Run **acs-deploy** with the following arguments:
 ```
 $ ./acs-engine deploy --subscription-id "<your subscription GUID>" \
-  --resource-group "<your resource group name>" \
+  --resource-group "<your resource group name>" --location "<your resource group region>" \
   --dns-prefix "<your k8 cluster name>" --auto-suffix \
   --api-model ./kubernetes.json
 ```
