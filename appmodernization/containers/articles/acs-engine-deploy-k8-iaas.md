@@ -38,6 +38,7 @@ $ ./acs-engine deploy --subscription-id "<your subscription GUID>" \
   --dns-prefix "<your k8 cluster name>" --auto-suffix \
   --api-model ./kubernetes.json
 ```
+   > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
 
 
 
