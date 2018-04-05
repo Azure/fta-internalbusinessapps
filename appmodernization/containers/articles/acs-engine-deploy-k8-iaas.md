@@ -74,7 +74,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       
        ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-ssh-k8-connect.png)
 
-7. Now that you are connected to your Kubernetes cluster, you can begin to issue kubectl commands to look over the cluster such as **kubectl get nodes** as well as start testing containerized application deployments.  
+7. Now that you are connected to your Kubernetes cluster, you can begin to issue kubectl commands to look over the cluster such as **kubectl get nodes**, as well as start testing the deployment of containerized applications.  
 
 
 
