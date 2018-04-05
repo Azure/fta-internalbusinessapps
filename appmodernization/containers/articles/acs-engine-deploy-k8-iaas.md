@@ -49,7 +49,9 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     
     ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-list-resources-in-rg.png)
     
-    
+6. Connect to the Kubernetes cluster:
+
+
 
 
 
