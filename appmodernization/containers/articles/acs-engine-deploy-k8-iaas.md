@@ -72,7 +72,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
         ssh -i ./azureuser_rsa azureuser@pgibson-acs-engine-poc1-5ac5abba.eastus2.cloudapp.azure.com 
         ```
       
-       ![Screenshot](images/acs-engine-deploy-k8-iaas/.png)
+       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-ssh-k8-connect.png)
 
 
 
