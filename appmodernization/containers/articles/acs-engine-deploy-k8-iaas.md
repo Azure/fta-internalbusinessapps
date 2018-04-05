@@ -44,7 +44,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     * Azure Service Principle and App ID
     * SSH key to connect to the Kubernetes cluster
     
-      > Note: Please make note of the Service Principle and App ID that will be output in the terminial. We will use these IDs for setting up authentication for the Azure Container Registry in later POC walk throughs. You can also find the IDs by using **az ad sp list --display-name \"<your k8 cluster name\>"**
+      > Note: Please make note of the Service Principle and App ID that will be output in the terminial. We will use these IDs for setting up authentication for the Azure Container Registry (ACR) in later POC walk throughs. You can also find the IDs by using **az ad sp list --display-name \"<your k8 cluster name\>"**
     
     The deployment is fairly quick and you should get a succeeded message when completed. 
     ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-terminal.png)
