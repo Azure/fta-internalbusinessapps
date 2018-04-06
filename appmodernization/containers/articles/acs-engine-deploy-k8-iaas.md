@@ -33,7 +33,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 
    > Note: By default the configuration file will create 1 master node and 3 worker nodes. The master nodes will be deployed in their own availability set, as well as the worker nodes will be deployed in their own availability set. If you would like to change the number of nodes being deployed, make edits to the count property in the configuration file.
    
-     ** Kubernetes Orchestration Version: ** If you would like to deploy a certain version of the Kubernetes orchestration, you will need to edit the kubernetes.json file and add the "orchestratorRelease" property to the file. An example would be
+     **Kubernetes Orchestration Version:** If you would like to deploy a certain version of the Kubernetes orchestration, you will need to edit the kubernetes.json file and add the "orchestratorRelease" property to the file. An example would be
      ```
        {
          "apiVersion": "vlabs",
