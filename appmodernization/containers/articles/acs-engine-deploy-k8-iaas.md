@@ -40,7 +40,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
          "properties": {
            "orchestratorProfile": {
            "orchestratorType": "Kubernetes",
-           "orchestratorRelease": "1.7"
+           "orchestratorRelease": "1.9.6"
           },
       ```
 
