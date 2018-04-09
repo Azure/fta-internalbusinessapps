@@ -826,7 +826,7 @@ It's very easy to convert legacy windows services to WebJobs with a simple conso
 
     Click on the web jobs then on logs to view the trace
 
-    ![](./media/webjobslog.PNG)
+    ![](./media/WEBJOBSLOG.PNG)
 
 > [!NOTE] Best practice for writing Windows Services suggests that you separate the code required to host a service with the code that provides the implementation. However not all developers follow this practice. Doing so makes it a lot easier to refactor.
 
