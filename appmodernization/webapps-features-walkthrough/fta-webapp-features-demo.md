@@ -27,7 +27,7 @@ Learn the common **features** of Azure Web Apps Suite
     * WebJobs
 * Adding Swagger support to the API
 
-> [!NOTE] 
+> **Note:**
 > * I've not including the authorization functionality, whilst this is powerful and you may wish to include it, the implication can be that the customer doesn't code this into the app but relies on App Service to provide the functionality.
 >
 > * The Chrome Browser is used in some of the screen grabs here to demo what's happening behind the scenes (surface ajax errors for example). However the developer tools in **Edge** are just as effective and Edge could easily be used in a customer walk-through.
@@ -42,7 +42,7 @@ Learn the common **features** of Azure Web Apps Suite
 
 Visual Studio 2017 is preferred because of the ease of local debugging and publish.
 
-> [!NOTE] The instructions for setting up the demo will follow two tracks, one for .net full and one for .net core. Follow one of the other
+> **Note:** The instructions for setting up the demo will follow two tracks, one for .net full and one for .net core. Follow one of the other
 
 ## **Demo - Creating the example**
 
@@ -56,7 +56,7 @@ When the plan is created add the API app under the plan: Consider *"ftademo-weba
 
 Web Apps are usually really quick to provision - so this should take no more than 1 minute. 
 
-> [!NOTE] If you want to demo App Insights - you can turn it on for both the web and webapi apps
+> **Note:** If you want to demo App Insights - you can turn it on for both the web and webapi apps
 
 For an overview of Hosting plans see [here](https://docs.microsoft.com/en-us/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview)
 * Cover the basics of scale up (bigger workers) and scale out (more instances) and point out that multiple apps can be hosted sharing the plan.
@@ -65,8 +65,7 @@ For an overview of Hosting plans see [here](https://docs.microsoft.com/en-us/azu
 Your Azure resources:
 ![Azure resources](./media/1-webapp.PNG)
 
-> [!NOTE] 
-> More information on the underlying Web App Architecture can be found [**here in this MSDN magazine article**](https://msdn.microsoft.com/en-us/magazine/mt793270.aspx) - published by Yochay and Stefan of the Web App Suite product group. The article describes some considerations for scaling and exactly how the inbound and outbound IP addressing work.
+> **Note:** More information on the underlying Web App Architecture can be found [**here in this MSDN magazine article**](https://msdn.microsoft.com/en-us/magazine/mt793270.aspx) - published by Yochay and Stefan of the Web App Suite product group. The article describes some considerations for scaling and exactly how the inbound and outbound IP addressing work.
 
 ### **2. Back on the desktop, open VS and create two new ASP NET Core projects.**
 
@@ -86,8 +85,7 @@ Check the solution builds.
 
 For consistency with the sites created under the WAP above, consider "ftademowebapp" and "ftademowebapi".
 
-> [!NOTE] 
-> Dont enable docker unless you plan to demo docker features later.
+> **Note:** Dont enable docker unless you plan to demo docker features later.
 >
 > Dont enable authentication - this allows you to demo the Web App authentication feature later.
 >
@@ -111,7 +109,7 @@ i. Enable SSL for debugging in VS on the API project properties page.
 
 ![Net full API project SSL](./media/3-vsapisslex-2.PNG)
 
-> [!NOTE] Make a note of the port numbers in the project for http and https we'll use these values in the remainder of the document. If your VS is different make a note of yours now (the IISExpress SSL port range in VS2017 is 44300-44399) 
+> **Note:** Make a note of the port numbers in the project for http and https we'll use these values in the remainder of the document. If your VS is different make a note of yours now (the IISExpress SSL port range in VS2017 is 44300-44399) 
 >
 > HTTPS **``localhost:44385``**
 > 
@@ -180,8 +178,7 @@ Ensure you amend the correct port, based on your Visual Studio settings -> from 
 
 **``"Hostname": "localhost:44385"``**
 
-> [!NOTE]
-> The following notes apply to **ASP NET CORE**
+> **Note:** The following notes apply to **ASP NET CORE**
 >
 > Azure Web Apps config is served via environment variables. When you’re using an **ASP NET Core** configuration class, under the covers the ``appsettings`` content is loaded first, with settings from environment variables added last. 
 >
@@ -230,7 +227,7 @@ Using Visual Studio - create a new, empty, API Controller called "CalculatorCont
 vii. The last step in the API project is to allow for CORS (Cross origin domain calls) for the local development environment. Add the following line 
 ``app.UseCors(builder => builder.WithOrigins("http://localhost:58503")); `` to the ``startup.cs`` ``configure()`` method, under the use developer exception page line. 
 
-> [NOTE!] Ensure you have coded the correct port for you **web app** (right click project properties -> debug tab -> and look for the iis express port - in our example its 58503)
+> **Note:** Ensure you have coded the correct port for you **web app** (right click project properties -> debug tab -> and look for the iis express port - in our example its 58503)
 
 This is what the ``Configure`` code should look like:
 ```
@@ -253,7 +250,7 @@ viii. Now run the projects through the Visual Studio debugger and in the front e
 
 You should now have a simple front end browser app using JavaScript to call back to a Web API and return the sum of two values.
 
-> [!Note] If you wish to test the API independently the JavaScript will call through using the following URL+QueryString `` https://localhost:44385/api/calculator/add?a=2&b=3`` 
+> **Note:** If you wish to test the API independently the JavaScript will call through using the following URL+QueryString `` https://localhost:44385/api/calculator/add?a=2&b=3`` 
 > (Again, remember to check the port used in this example and replace with your own if the values differ. In our example here the SSL port for IISExpress is 44385)
 >
 
@@ -261,7 +258,7 @@ The end result through the front end should be:
 
 ![](./media/4-result.PNG) 
 
-> [!Warning] 
+> **Note:** 
 > Highlight the fact you should never echo settings to the UI in real apps. 
 >
 > This demo favours simplicity over good practice. It's a demo after all!
@@ -371,7 +368,7 @@ The first step is to join the dots so far and demo the locally tested web app + 
 I would note to the customer: In reality customers seldom use Visual Studio to deploy in this way - and certainly this isn't a scenario that's useful outside of stage-demo's and initial proofs-of-concepts and learning.
 But, for the purposes of this *demo* it's a quick and neat way to get started.
 
-> [NOTE!] Check your credentials in Visual Studio and that you have the correct credentials for your REPO - i.e. if you're using a live account as the owner for Visual Studio Team Services, ensure the live credential is used or add your corp. account to the team project. A common integration error is because multiple accounts are used and the wrong account is defaulted for Source control integration.
+> **Note:** Check your credentials in Visual Studio and that you have the correct credentials for your REPO - i.e. if you're using a live account as the owner for Visual Studio Team Services, ensure the live credential is used or add your corp. account to the team project. A common integration error is because multiple accounts are used and the wrong account is defaulted for Source control integration.
 
 i. Right click the solution in Visual Studio and "add to source control" which should (if your configured for git by default) add the solution and both projects to a **local** git repo:
 
@@ -449,7 +446,7 @@ Go back to the browser and the web app, hit refresh to reload the page, and try 
 
 This time is works.
 
->[!NOTE] Web App CORS should override any CORS you provide in the App Code. There seems to be some issues with netFX WebAPI CORS. In my example the Nuget cors package for WebAPI didn't work and neither did WebApp Cors once deployed to Azure. Setting cors in web.config did work for both IISExpress and WebApp. *Requires more investigation, this is an issue a lot of users have looking at SO*
+> **Note:** Web App CORS should override any CORS you provide in the App Code. There seems to be some issues with netFX WebAPI CORS. In my example the Nuget cors package for WebAPI didn't work and neither did WebApp Cors once deployed to Azure. Setting cors in web.config did work for both IISExpress and WebApp. *Requires more investigation, this is an issue a lot of users have looking at SO*
 
 ### **9. Scale up, scale out**
 
@@ -468,7 +465,7 @@ Reference the Web app plan overview document [here.](https://docs.microsoft.com/
 
 ### **10. (optional) Adding your own domain and IP/SNI SSL**
 
-> [!Note] The screen grabs show an earlier demo using a private domain so the "*.azurewebsites.net" is inconsistent.
+> **Note:** The screen grabs show an earlier demo using a private domain so the "*.azurewebsites.net" is inconsistent.
 
 i. [Upload the SSL certificate following this guide](https://docs.microsoft.com/en-gb/azure/app-service/app-service-web-tutorial-custom-ssl)
 
@@ -484,7 +481,7 @@ Browse to the website properties to see the fixed inbound url AND the outbound a
 
 
 
-> [!NOTE] 
+> **Note:** 
 > **Important: The web app inbound IP + SSL binding**
 > 
 > The inbound IP provided is shared, but won't change unless the Web App plan moves to another stamp (scale unit). 
@@ -524,7 +521,7 @@ View the two apps and their slot apps under the Web App Plan -> Apps
 
 ![](./media/11-newslot3.PNG)
 
-> [!NOTE] Slots create a fully-fledged instance which consumes resources allocated in your plan. E.g. [it is not a good idea to load test a deployment slot.](https://cmatskas.com/introduction-azure-functions-deployment-slots/)
+> **Note:** Slots create a fully-fledged instance which consumes resources allocated in your plan. E.g. [it is not a good idea to load test a deployment slot.](https://cmatskas.com/introduction-azure-functions-deployment-slots/)
 
 Run the App in staging.
 
@@ -697,7 +694,7 @@ Deploy the changes and go to App Insights resource and Demo:
 
 ### **14. (optional) Managed Service Identity (MSI)**
 
-> [!WARNING] The MSI functionality is NOT supported for STAGING SLOTs at the time of writing.
+> **Note:** The MSI functionality is NOT supported for STAGING SLOTs at the time of writing.
 
 The simplest way to show MSI functionality is to modify the web app to read a "secret" setting from a KeyVault resource trusted to the Managed Identity (think service account) that will be associated with the deployed web app.
 
@@ -743,7 +740,7 @@ Remember to replace the vault name and secret name with yours:
         }
 ```
 
-> [!NOTE] LOGIN via the CLI using “Az Login” with an identity which can access the KeyVault instance first, BEFORE RUNNING LOCALLY.
+> **Note:** LOGIN via the CLI using “Az Login” with an identity which can access the KeyVault instance first, BEFORE RUNNING LOCALLY.
 
 * Run the app locally from VS and hit ``About`` link from the default page to test. 
 
@@ -828,7 +825,7 @@ It's very easy to convert legacy windows services to WebJobs with a simple conso
 
     ![](./media/WEBJOBSLOG.PNG)
 
-> [!NOTE] Best practice for writing Windows Services suggests that you separate the code required to host a service with the code that provides the implementation. However not all developers follow this practice. Doing so makes it a lot easier to refactor.
+> **Note:** Best practice for writing Windows Services suggests that you separate the code required to host a service with the code that provides the implementation. However not all developers follow this practice. Doing so makes it a lot easier to refactor.
 
 * Consider that some scenarios will be more complex and require more thought. More complex Windows Service implementations typically run from a foreground thread which orchestrates one or more background threads where complex work is undertaken. For example co-ordinating message exchange and integration mappings. The foreground thread is useful because the OS will signal and wait allowing the foreground thread to gracefully shut down child operations. WebJobs are hosted in an ASP NET worker process.
 
