@@ -591,6 +591,8 @@ Walk the customer through [this document](https://docs.microsoft.com/en-us/azure
 
 #### Demo
 
+*NetCore*
+
 App Insights data is correlated through an Instrumentation key. The instrumentation key represents the App Insights resource (or tenant). In most cases you would choose a resource per app to monitor.
 
 * Add the AI ASP NET CORE package to the web calculator project
@@ -690,7 +692,9 @@ Deploy the changes and go to App Insights resource and Demo:
 * The live log streaming
 
 
+*NetFull*
 
+TBC
 
 ### **14. (optional) Managed Service Identity (MSI)**
 
