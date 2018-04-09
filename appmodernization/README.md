@@ -7,6 +7,8 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 
 * Internal business app on AppService
     * [POC Scenario Contoso Expenses: Deploying Website on Azure PaaS](app-service/articles/app-service.md)
+    
+    * [DRAFT Walkthrough of App Service Web App and Api features](webapps-features-walkthrough/fta-webapp-features-demo.md)
 
 * Internal business app on Service Fabric
     * [POC Scenario Voting Application: Working with Service Fabric Services](service-fabric/articles/serivce-fabric.md)
