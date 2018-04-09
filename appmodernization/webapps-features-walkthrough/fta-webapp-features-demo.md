@@ -1,4 +1,4 @@
-# Web Aps Demo
+# Web Apps Demo
 
 ### Objectives
 
