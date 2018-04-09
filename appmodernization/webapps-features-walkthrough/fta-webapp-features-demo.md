@@ -375,11 +375,11 @@ But, for the purposes of this *demo* it's a quick and neat way to get started.
 
 i. Right click the solution in Visual Studio and "add to source control" which should (if your configured for git by default) add the solution and both projects to a **local** git repo:
 
-![](./media/5-git.png) 
+![](./media/5-git.PNG) 
 
 You should then **sync** this and let the tooling guide to to creating a **remote** repo target
 
-![](./media/5-git-sync.png) 
+![](./media/5-git-sync.PNG) 
 
 Right Click -> **Publish** (on each project) creating a *deployment profile* pointing to the subscription, resource group, WAP and site (hit "select existing") created in the steps above.
 
@@ -387,7 +387,7 @@ You don't have to actually publish the app unless you want to. Why...?
 
 At this point you can use the updated VS tooling to add the project to "Continuous Delivery" - like this:
 
-![](./media/5-vsdeploy.png) 
+![](./media/5-vsdeploy.PNG) 
 
 Or, you can go to VSTS and set up Build and Release definitions using the improved and more productive UI there. 
 
@@ -406,7 +406,7 @@ If you do choose to lead the customer through VSTS build + release definition cr
 
 Finally you should test the deployment: 
 
-![](./media/5-vsdeployed.png) 
+![](./media/5-vsdeployed.PNG) 
 
 As the Api doesn't have HTML to render you can test the deployed version using a modified version of the local URL: ``https://ftademo-webapi.azurewebsites.net/api/calculator/add?a=2&b=3 ``
 
@@ -432,13 +432,13 @@ Scroll to the top of the Azure Portal Blade and hit "Save".
 
 Refresh the browser showing the web app, after a short pause, the echo setting should have changed
 
-![](./media/6-updatedhostname.png)
+![](./media/6-updatedhostname.PNG)
 
 At this point you can try the calculator function again, do this with the developer tools window still open.
 
 It fails again, but this time with:
 
-![](./media/6-requirescors.png)
+![](./media/6-requirescors.PNG)
 
 ### **8. CORS**
 
@@ -509,20 +509,20 @@ Setting up a staging slot for the web app and the API is also a good way to demo
 
 Create a slot for the Web App called "Staging" - note that "staging" gets appended to the site name for the slot:
 
-![](./media/11-newslot1.png)
+![](./media/11-newslot1.PNG)
 
 Navigate to the "Staging" Web App, amend the *existing* "Hostname" setting "ftademo-webapi.azurewebsites.net" for the to point to the "Staging" version of the API "ftademo-webapi-staging.azurewebsites.net", make this "Sticky" (aka slot specific).
 Navigate back up and hit "Save":
 
-![](./media/11-slotsetting.png)
+![](./media/11-slotsetting.PNG)
 
 Create a slot for the Web API called "Staging" - don't forget to update the CORS setting for the API app to allow the "staging" web app:
 
-![](./media/11-newslot2.png)
+![](./media/11-newslot2.PNG)
 
 View the two apps and their slot apps under the Web App Plan -> Apps
 
-![](./media/11-newslot3.png)
+![](./media/11-newslot3.PNG)
 
 > [!NOTE] Slots create a fully-fledged instance which consumes resources allocated in your plan. E.g. [it is not a good idea to load test a deployment slot.](https://cmatskas.com/introduction-azure-functions-deployment-slots/)
 
@@ -535,7 +535,7 @@ Wait for it to be deployed to staging, allow ~5mins for HostedAgent deployment. 
 
 Note: As soon as the first successful VSTS release to staging occurs it will be visible when you hit the staging app and go to the CI/CD preview.
 
-![](./media/11-cicdstaging.png)
+![](./media/11-cicdstaging.PNG)
 
 * Otherwise, use the standard CI/CD to pick up the commit, or publish each project to "Staging" manually.
 
@@ -807,7 +807,7 @@ It's very easy to convert legacy windows services to WebJobs with a simple conso
         }
     ```
 
-    ![](./media/webjobprojects.png)
+    ![](./media/webjobprojects.PNG)
 
     * Follow the instructions to deploy the console app to An Azure Web App WebJob from Visual Studio 2017 [here](https://docs.microsoft.com/en-us/azure/app-service/websites-dotnet-deploy-webjobs#convert) the publish wizard can be used to connect you to the web app created earlier on or you can publish to a new app.
 
@@ -826,7 +826,7 @@ It's very easy to convert legacy windows services to WebJobs with a simple conso
 
     Click on the web jobs then on logs to view the trace
 
-    ![](./media/webjobslog.png)
+    ![](./media/webjobslog.PNG)
 
 > [!NOTE] Best practice for writing Windows Services suggests that you separate the code required to host a service with the code that provides the implementation. However not all developers follow this practice. Doing so makes it a lot easier to refactor.
 
