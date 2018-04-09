@@ -259,7 +259,7 @@ You should now have a simple front end browser app using JavaScript to call back
 
 The end result through the front end should be:
 
-![](./media/4-result.png) 
+![](./media/4-result.PNG) 
 
 > [!Warning] 
 > Highlight the fact you should never echo settings to the UI in real apps. 
