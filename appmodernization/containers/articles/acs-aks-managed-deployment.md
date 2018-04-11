@@ -36,9 +36,3 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
      ```
       az ad sp create-for-rbac --name "MyAKSCluster01"
     ```
-    
-    
-    
-    
-    
-    
