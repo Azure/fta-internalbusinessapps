@@ -20,7 +20,14 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
 
 2. Create a SSH key to connect to the Linux VMs deployed as part of the AKS service. In the Linux or WSL terminal, run the following command using the -f parameter to provide a name for the public and private key. It may be recommended to name the file the same name as the AKS cluster.
+   > Note: Leave the passphrase blank, for the purposes of the POC.
     ```
       ssh-keygen -t rsa -b 2048 -f ./<key file name>
     ```
-
+    ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-01.png)
+    
+    If you list the .ssh directory you should now see your public and private keys created.
+    ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
+    
+    
+    
