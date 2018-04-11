@@ -30,11 +30,25 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     
     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
     
-  3. **Create a Azure AD Service Principle**
+3. **Create a Azure AD Service Principle**
      > Note: For this POC, we are generating this service principle specifically for this exercise. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
      
      ```
      az ad sp create-for-rbac --name "MyAKSCluster01"
      ```
      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sp-01.png)
+     
+     Once the service principle is created successfully, you will have the output of the appId and the password GUIDs. Please make note of them as you will need them for parameters when deploying the AKS managed service.
+     
+     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sp-02.png)
+     
+ 4. **Create Azure Resource Group**. Before you create your resource group, check to see which regions the AKS preview services is available for. Use the **az acs list-locations** command to get a list of the current available regions. Only choose from the preview regions.
+ 
+      > Note: The az acs list-locations command may return regions not yet listed in the portal. You may want to choose a region listed in the portal so that you can continue deploying via the portal.
+      
+      Once you have identified the region for the resource group, run the az group-create command to create your resource group for the AKS service deployment location.
+      ```
+         az group-create <name> --location <location>
+      ```
+      
      
