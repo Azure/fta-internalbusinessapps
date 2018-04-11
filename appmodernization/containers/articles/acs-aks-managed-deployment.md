@@ -15,6 +15,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 * The ability to register an application with your Azure AD tenant. Please follow the instructions [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal#required-permissions) to see if you have the necessary permissions to create Service Principles in your Azure AD.
 
 ## Walkthrough
+The following steps 1 though 4 are needed whether you are deploying via the portal or the CLI. 
+
 1. In the Linux or WSL terminal, log into Azure using the **az login** command.
 
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
@@ -50,5 +52,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       ```
          az group-create <name> --location <location>
       ```
-      
+  
+  ### AKS Portal Deployment Experience
+  
+  
      
