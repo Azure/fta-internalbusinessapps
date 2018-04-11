@@ -54,6 +54,14 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       ```
   
   ### AKS Portal Deployment Experience
-  
+  1. Log into the Azure portal and search for **Container services (managed)**. You should see the AKS service with the **PREVIEW** tag denoting it is a preview services.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-search.png)
+ 
+      Once your in the Container services (managed) blade in the portal, either click the **Add** or the **Create Container services (managed)** button to begin the setup and deployment.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link.png)  ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-create-link.png)
+      
+      
   
      
