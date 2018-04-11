@@ -62,6 +62,20 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link.png)  ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-create-link.png)
       
+  2. For the first step to configure basic settings, enter the AKS cluster name, a DNS prefix if needed, choose the Kubernetes version, and choose the existing resource group created earlier. The resource group will automatically adjust the location.
+  
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-01.png)
+      
+  3. For the second step to configure addtional parameters, we will need to get the SSH public key information from the key file we created earlier. Return to your terminal and navigate back to the **.ssh** directory. List the directory to view the files. We will need to open the **.pub** key we created for the AKS cluster. Open the .pub file the **cat** utility to view the file.
+  
+      ```
+         cat <My SSH Public Key File>.pub
+      ```
+      
+      Once the file is shown in the terminal, copy the whole key information and copy it to your clipboard.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-get-sshkey-for-portal.png)
+      
       
   
      
