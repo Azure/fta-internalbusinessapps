@@ -80,6 +80,19 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02.png)
       
-   4. 
+   4. The third and final step is to just confirm all the information entered. Once you've validated the information you can click ok to deploy the AKS cluster. 
+   
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-03.png)
   
-     
+   5. Once the deployment is completed, we can return back to the terminal session and get the credentials and add the new context of the cluster to the Kubernetes config file. Run the following command.
+   
+      ```
+         az aks get-credentials --resource-group <Your AKS Cluster Resource Group> --name <Your AKS Cluster Name>
+      ```
+      
+      Once the command completes, you will now have access to your managed AKS cluster from your terminal. You can now begin to deploy service workloads.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-connect-cluster.png)
+      
+ 
+  ### AKS CLI Deployment Experience    
