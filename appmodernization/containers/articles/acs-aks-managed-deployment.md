@@ -14,3 +14,13 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 * Install the kubectl binary via curl. Follow the Linux tab on the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl). 
 * The ability to register an application with your Azure AD tenant. Please follow the instructions [here](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal#required-permissions) to see if you have the necessary permissions to create Service Principles in your Azure AD.
 
+## Walkthrough
+1. In the Linux or WSL terminal, log into Azure using the **az login** command.
+
+   > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
+
+2. Create a SSH key to connect to the Linux VMs deployed as part of the AKS service. In the Linux or WSL terminal, run the following command using the -f parameter to provide a name for the public and private key. It may be recommended to name the file the same name as the AKS cluster.
+    ```
+      ssh-keygen -t rsa -b 2048 -f ./<key file name>
+    ```
+
