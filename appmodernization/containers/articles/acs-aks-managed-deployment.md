@@ -72,10 +72,14 @@ The following steps 1 though 4 are needed whether you are deploying via the port
          cat <My SSH Public Key File>.pub
       ```
       
-      Once the file is shown in the terminal, copy the whole key information and copy it to your clipboard.
+      Once the file is shown in the terminal, copy the whole key information to your clipboard.
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-get-sshkey-for-portal.png)
       
+      Returning back to the portal on the second step, enter a username, paste from your clipboard the SSH public key information, enter the Service principle client ID (which is the appID property from the service principle created earlier), and enter the Service principle client secret (which is the password property of the service principle created earlier). You can choose to adjust the node count or the node virtual machine size, but for the purposes of the POC we will use the default settings.
       
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02.png)
+      
+   4. 
   
      
