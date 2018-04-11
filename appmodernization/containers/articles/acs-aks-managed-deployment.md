@@ -32,6 +32,11 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     
   3. **Create a Azure AD Service Principle**
      > Note: For this POC, we are generating this service principle specifically for this exercise. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
+     
+     ```
+      az ad sp create-for-rbac --name "MyAKSCluster01"
+    ```
+    ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sp-01.png)
     
     
     
