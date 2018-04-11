@@ -19,7 +19,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
 
-2. Create a SSH key to connect to the Linux VMs deployed as part of the AKS service. In the Linux or WSL terminal, run the following command using the -f parameter to provide a name for the public and private key. It may be recommended to name the file the same name as the AKS cluster.
+2. **Create a SSH key** to connect to the Linux VMs deployed as part of the AKS service. In the Linux or WSL terminal, run the following command using the -f parameter to provide a name for the public and private key. It may be recommended to name the file the same name as the AKS cluster.
    > Note: Leave the passphrase blank, for the purposes of the POC.
     ```
       ssh-keygen -t rsa -b 2048 -f ./<key file name>
@@ -29,6 +29,9 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     If you list the .ssh directory you should now see your public and private keys created.
     
     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
+    
+  3. **Create a Azure AD Service Principle**
+    > Note: For this POC, we are generating this service principle specifically for this exercise. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
     
     
     
