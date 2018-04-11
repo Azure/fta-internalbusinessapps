@@ -27,6 +27,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-01.png)
     
     If you list the .ssh directory you should now see your public and private keys created.
+    
     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
     
     
