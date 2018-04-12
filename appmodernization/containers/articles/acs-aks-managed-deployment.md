@@ -96,7 +96,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
  
   ### AKS CLI Deployment Experience    
-  The CLI deployment of AKS is a much more simplified process. You can deploy the managed AKS cluster with one command, that will create your service principle and SSH keys. You can also add specific information to customize the deployment as well. Deploy AKS with the following command.
+  The CLI deployment of AKS is a much more simplified process. You can deploy the managed AKS cluster with one command, that will create your service principle and SSH keys. You can also add specific information to customize the deployment as well. Run **az aks create --help** to explore all the additional options. Deploy AKS with the following command.
   
   ```
       az aks create --resource-group <Your AKS Cluster Resource Group> --name <MyAKSCluster01> --node-count 3 --generate-ssh-keys
