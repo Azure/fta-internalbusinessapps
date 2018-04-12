@@ -104,7 +104,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
   
   Once the deployment is completed, you will be able to run the get credentials command that adds the context and credentials of the cluster to the Kubernetes config file.
    
-      ```
-         az aks get-credentials --resource-group <Your AKS Cluster Resource Group> --name <Your AKS Cluster Name>
-      ```
+  ```
+       az aks get-credentials --resource-group <Your AKS Cluster Resource Group> --name <Your AKS Cluster Name>
+  ```
   
