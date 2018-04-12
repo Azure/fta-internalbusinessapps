@@ -44,7 +44,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
      
      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sp-02.png)
      
- 4. **Create Azure Resource Group**. Before you create your resource group, check to see which regions the AKS preview services is available for. Use the **az acs list-locations** command to get a list of the current available regions. Only choose from the preview regions.
+ 4. **Create Azure Resource Group**. Before you create your resource group, check to see which regions the AKS preview services is available for. Use the **az acs list-locations** command to get a list of the current available regions. Only choose from the preview regions. It is documented that only the following regions are currently supported in preview: eastus, westeurope, centralus, canadacentral, canadaeast.
  
       > Note: The az acs list-locations command may return regions not yet listed in the portal. You may want to choose a region listed in the portal so that you can continue deploying via the portal.
       
@@ -96,3 +96,15 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
  
   ### AKS CLI Deployment Experience    
+  The CLI deployment of AKS is a much more simplified process. You can deploy the managed AKS cluster with one command, that will create your service principle and SSH keys. You can also add specific information to customize the deployment as well. Deploy AKS with the following command.
+  
+  ```
+      az aks create --resource-group <Your AKS Cluster Resource Group> --name <MyAKSCluster01> --node-count 3 --generate-ssh-keys
+  ```
+  
+  Once the deployment is completed, you will be able to run the get credentials command that adds the context and credentials of the cluster to the Kubernetes config file.
+   
+      ```
+         az aks get-credentials --resource-group <Your AKS Cluster Resource Group> --name <Your AKS Cluster Name>
+      ```
+  
