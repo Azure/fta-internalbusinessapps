@@ -58,7 +58,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-search.png)
  
-      Once your in the Container services (managed) blade in the portal, either click the **Add** or the **Create Container services (managed)** button to begin the setup and deployment.
+      Once you're in the Container services (managed) blade in the portal, either click the **Add** or the **Create Container services (managed)** button to begin the setup and deployment.
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link.png)  ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-create-link.png)
       
