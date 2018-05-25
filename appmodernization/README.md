@@ -5,6 +5,8 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 
 # App Modernization
 
+## Walkthroughs
+
 * Internal business app on AppService
     * [POC Scenario Contoso Expenses: Deploying Website on Azure PaaS](app-service/articles/app-service.md)
     
