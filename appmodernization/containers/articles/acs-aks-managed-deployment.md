@@ -58,9 +58,9 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-search-062018.png)
  
-      Once you're in the Container services (managed) blade in the portal, either click the **Add** or the **Create Container services (managed)** button to begin the setup and deployment.
+      Once you're in the Kubernetes services blade in the portal, either click the **Add** button to begin the setup and deployment.
       
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link.png)  ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-create-link.png)
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link-062018.png)
       
   2. For the first step to configure basic settings, enter the AKS cluster name, a DNS prefix if needed, choose the Kubernetes version, and choose the existing resource group created earlier. The resource group will automatically adjust the location.
   
