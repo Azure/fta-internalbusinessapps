@@ -62,9 +62,15 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-add-link-062018.png)
       
-  2. For the first step to configure basic settings, enter the AKS cluster name, a DNS prefix if needed, choose the Kubernetes version, and choose the existing resource group created earlier. The resource group will automatically adjust the location.
+  2. For the first step to configure basic settings, choose your subcription, use the existing resource group created earlier, add a name for the Kubernetes cluster, the region should be populated to match the region of the resource group, choose the version of Kubernetes to deploy, and add a DNS name prefix for the FQDN of the Kubernetes API server.
   
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-01.png)
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-01-basics-062018.png)
+      
+      If you do choose to use a specific service principle, click on the **Configure service principle** link and enter the client ID and the client secret of the service principle.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-01a-basics-062018.png)
+      
+      Click the **Networking** tab next.
       
   3. For the second step to configure addtional parameters, we will need to get the SSH public key information from the key file we created earlier. Return to your terminal and navigate back to the **.ssh** directory. List the directory to view the files. We will need to open the **.pub** key we created for the AKS cluster. Open the .pub file the **cat** utility to view the file.
   
