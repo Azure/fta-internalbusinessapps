@@ -72,21 +72,14 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       Click the **Networking** tab next.
       
-  3. For the second step to configure addtional parameters, we will need to get the SSH public key information from the key file we created earlier. Return to your terminal and navigate back to the **.ssh** directory. List the directory to view the files. We will need to open the **.pub** key we created for the AKS cluster. Open the .pub file the **cat** utility to view the file.
-  
-      ```
-         cat <My SSH Public Key File>.pub
-      ```
+  3. In the networking tab, we will just enable **HTTP application routing** for the POC. This will allow services created on the cluster to be routed through the internet as well as the ability to utilize a custom DNS zone.
       
-      Once the file is shown in the terminal, copy the whole key information to your clipboard.
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02-networking-062018.png)
       
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-get-sshkey-for-portal.png)
+      Click the **Monitoring** tab next.
       
-      Returning back to the portal on the second step, enter a username, paste from your clipboard the SSH public key information, enter the Service principle client ID (which is the appID property from the service principle created earlier), and enter the Service principle client secret (which is the password property of the service principle created earlier). You can choose to adjust the node count or the node virtual machine size, but for the purposes of the POC we will use the default settings.
-      
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02.png)
-      
-   4. The third and final step is to just confirm all the information entered. Once you've validated the information you can click ok to deploy the AKS cluster. 
+ 
+  4. The third and final step is to just confirm all the information entered. Once you've validated the information you can click ok to deploy the AKS cluster. 
    
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-03.png)
   
