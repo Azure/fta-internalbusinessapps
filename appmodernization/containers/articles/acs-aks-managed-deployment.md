@@ -3,7 +3,7 @@
 ## Introduction
 In this walkthrough, we will deploy the managed AKS Preview service showing both the portal and CLI experience of setting up the managed Azure Container Services (AKS) Kubernetes cluster. The CLI experience will utilize the same prerequisite information needed for the deployment. 
 
-AKS offers customers a managed experience for running Docker clusters using the Kubernetes orchestration. All of the necessary infrastructure needed, will be provisioned and configured automatically. 
+AKS offers customers a managed experience for running Docker containers using the Kubernetes orchestration. All of the necessary infrastructure needed will be provisioned and configured automatically. 
 
 This walkthrough is a streamlined compilation of the Microsoft Azure Container Service (AKS) documentation found on the Microsoft docs site [here](https://docs.microsoft.com/en-us/azure/aks/intro-kubernetes), and has more step-by-step details to help facilitate and lead a POC.
 
