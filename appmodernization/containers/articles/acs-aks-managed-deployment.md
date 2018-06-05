@@ -72,27 +72,22 @@ The following steps 1 though 4 are needed whether you are deploying via the port
       
       Click the **Networking** tab next.
       
-  3. In the networking tab, we will just enable **HTTP application routing** for the POC. This will allow services created on the cluster to be routed through the internet as well as the ability to utilize a custom DNS zone.
+  3. In the Networking tab, we will just enable **HTTP application routing** for the POC. This will allow services created on the cluster to be routed through the internet as well as the ability to utilize a custom DNS zone.
       
       ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02-networking-062018.png)
       
       Click the **Monitoring** tab next.
       
  
-  4. The third and final step is to just confirm all the information entered. Once you've validated the information you can click ok to deploy the AKS cluster. 
+  4. In the Monitoring tab, click **No** to disable monitoring for the POC. We will have seperate guidance on how to use the Azure Monitor container health solution for AKS. If you customer has an existing Azure Monitor workspace available, feel free to choose yes and specify the Log Analytics workspace to setup. Reference the seperate POC walkthrough for AKS monitoring. 
    
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-03.png)
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-02-networking-062018.png)
   
-   5. Once the deployment is completed, we can return back to the terminal session and get the credentials and add the new context of the cluster to the Kubernetes config file. Run the following command.
-   
-      ```
-         az aks get-credentials --resource-group <Your AKS Cluster Resource Group> --name <Your AKS Cluster Name>
-      ```
+   5. Since we will not be adding any Tags for the POC AKS deployment, you can click the **Review + create** button located below. The validation should have passed. Please review the information. If everything has been verified, click the **Create** button below.
+      
+      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-step-04-reviewcreate-062018.png)
       
       Once the command completes, you will now have access to your managed AKS cluster from your terminal. You can now begin to deploy service workloads.
-      
-      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-services-connect-cluster.png)
-      
  
   ### AKS CLI Deployment Experience    
   The CLI deployment of AKS is a much more simplified process. You can deploy the managed AKS cluster with one command, that will create your service principle and SSH keys. You can also add specific information to customize the deployment as well. Run **az aks create --help** to explore all the additional options. Deploy AKS with the following command.
