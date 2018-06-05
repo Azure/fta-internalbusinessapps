@@ -33,7 +33,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
     ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
     
 3. **Create a Azure AD Service Principle**
-     > Note: For this POC, we are generating this service principle specifically for this exercise. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
+     > Note: For this POC, we have two options for creating the service principle. In later steps for the deployment, we will allow the deployment to create the service principle automatically for the AKS cluster so this step can be skipped. If the POC environment need you to create the service principle first, then proceed with the following for generating the service principle to be referenced by the deployment later. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
      
      ```
      az ad sp create-for-rbac --name "MyAKSCluster01"
