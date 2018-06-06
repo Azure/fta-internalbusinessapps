@@ -19,7 +19,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 2. Create an Azure resource group for the storage account Heptio Ark will use. 
    ```
       AZURE_BACKUP_RESOURCE_GROUP=K8ArkBackups
-      az group create -name $AZURE_BACKUP_RESOURCE_GROUP --location EastUS
+      az group create --name $AZURE_BACKUP_RESOURCE_GROUP --location EastUS
    ```
    > Note: If you are unsure of the Azure region name needed for the location parameter you can use **az account list-locations --output table** to view the Azure region names.
 3. Create the Azure storage account Heptio Ark will use. 
