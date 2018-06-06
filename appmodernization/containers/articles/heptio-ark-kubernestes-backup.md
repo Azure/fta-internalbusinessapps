@@ -32,14 +32,12 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     --encryption-services blob \
     --https-only true \
     --kind BlobStorage \
-    --access-tier Hot
-    
+    --access-tier Hot 
    ```
 4. Create the blob container for the storage account. 
      > Note: The default name is "ark". If you choose a different name for the blob container, you will need to update the "backupStorageProvider" value in the Ark config file.
    ```
-      az storage container create -n ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID
-      
+      az storage container create -n ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID   
    ```
 5. Get the storage key for the storage account.
    ```
@@ -47,8 +45,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     --account-name $AZURE_STORAGE_ACCOUNT_ID \
     --resource-group $AZURE_BACKUP_RESOURCE_GROUP \
     --query [0].value \
-    -o tsv`
-    
+    -o tsv` 
    ```
 
 5. Run **acs-deploy** with the following arguments:
