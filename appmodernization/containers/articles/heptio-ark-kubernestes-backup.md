@@ -16,28 +16,40 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 1. In the Linux or WSL terminal, log into Azure using the **az login** command.
 
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
-2. Find and set the Azure subcription you will be deploying the Kubernetes cluster to:
-   - List out all subscriptions you have access to - **az account list --output table**
-   - Once you have identified the subscription name that you will utilize for the Kubernetes cluster, set the terminal session to the Azure account subscription - **az account set --subscription \"<subscription name\>"**
-   
-     > Note: Also make note of the subscription ID of the subscription name used, as you will need that information when deploying using the acs-engine.
-3. Create an Azure resource group to deploy the Kubernetes cluster to - Ex. **az group create --name \"<resource group name\>" --location \"<Azure region\>"**
-
+2. Create an Azure resource group for the storage account Heptio Ark will use. 
+   ```
+      AZURE_BACKUP_RESOURCE_GROUP=K8ArkBackups
+      az group create -name $AZURE_BACKUP_RESOURCE_GROUP --location EastUS
+   ```
    > Note: If you are unsure of the Azure region name needed for the location parameter you can use **az account list-locations --output table** to view the Azure region names.
-4. Download the Kubernetes api model template json file - wget https://raw.githubusercontent.com/Azure/acs-engine/master/examples/kubernetes.json
-
-   > Note: By default the configuration file will create 1 master node and 3 worker nodes. The master nodes will be deployed in their own availability set, as well as the worker nodes will be deployed in their own availability set. If you would like to change the number of nodes being deployed, make edits to the count property in the configuration file.
-   
-     **Kubernetes Orchestration Version:** If you would like to deploy a certain version of the Kubernetes orchestration, you will need to edit the kubernetes.json file and add the "orchestratorRelease" property to the file. An example would be
-     ```
-       {
-         "apiVersion": "vlabs",
-         "properties": {
-           "orchestratorProfile": {
-           "orchestratorType": "Kubernetes",
-           "orchestratorRelease": "1.9.6"
-          },
-      ```
+3. Create the Azure storage account Heptio Ark will use. 
+   ```
+      AZURE_STORAGE_ACCOUNT_ID="ark`cat /proc/sys/kernel/random/uuid | cut -d '-' -f5`"
+      az storage account create \
+    --name $AZURE_STORAGE_ACCOUNT_ID \
+    --resource-group $AZURE_BACKUP_RESOURCE_GROUP \
+    --sku Standard_GRS \
+    --encryption-services blob \
+    --https-only true \
+    --kind BlobStorage \
+    --access-tier Hot
+    
+   ```
+4. Create the blob container for the storage account. 
+     > Note: The default name is "ark". If you choose a different name for the blob container, you will need to update the "backupStorageProvider" value in the Ark config file.
+   ```
+      az storage container create -n ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID
+      
+   ```
+5. Get the storage key for the storage account.
+   ```
+      AZURE_STORAGE_KEY=`az storage account keys list \
+    --account-name $AZURE_STORAGE_ACCOUNT_ID \
+    --resource-group $AZURE_BACKUP_RESOURCE_GROUP \
+    --query [0].value \
+    -o tsv`
+    
+   ```
 
 5. Run **acs-deploy** with the following arguments:
    ```
