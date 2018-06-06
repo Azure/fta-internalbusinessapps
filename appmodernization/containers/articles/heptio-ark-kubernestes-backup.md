@@ -37,7 +37,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 4. Create the blob container for the storage account. 
      > Note: The default name is "ark". If you choose a different name for the blob container, you will need to update the "backupStorageProvider" value in the Ark config file.
    ```
-      az storage container create -n ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID   
+      az storage container create --name ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID   
    ```
 5. Get the storage key for the storage account.
    ```
