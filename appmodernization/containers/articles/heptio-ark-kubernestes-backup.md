@@ -16,13 +16,17 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
 1. In the Linux or WSL terminal, log into Azure using the **az login** command.
 
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
-2. Create an Azure resource group for the storage account Heptio Ark will use. 
+2. Clone the Heptio Ark repository 
+   ```
+      git clone https://github.com/heptio/ark      
+   ```
+3. Create an Azure resource group for the storage account Heptio Ark will use. 
    ```
       AZURE_BACKUP_RESOURCE_GROUP=K8ArkBackups
       az group create --name $AZURE_BACKUP_RESOURCE_GROUP --location EastUS
    ```
    > Note: If you are unsure of the Azure region name needed for the location parameter you can use **az account list-locations --output table** to view the Azure region names.
-3. Create the Azure storage account Heptio Ark will use. 
+4. Create the Azure storage account Heptio Ark will use. 
    ```
       AZURE_STORAGE_ACCOUNT_ID="ark`cat /proc/sys/kernel/random/uuid | cut -d '-' -f5`"
       az storage account create \
@@ -34,12 +38,12 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     --kind BlobStorage \
     --access-tier Hot 
    ```
-4. Create the blob container for the storage account. 
+5. Create the blob container for the storage account. 
      > Note: The default name is "ark". If you choose a different name for the blob container, you will need to update the "backupStorageProvider" value in the Ark config file.
    ```
       az storage container create --name ark --public-access off --account-name $AZURE_STORAGE_ACCOUNT_ID   
    ```
-5. Get the storage key for the storage account.
+6. Get the storage key for the storage account.
    ```
       AZURE_STORAGE_KEY=`az storage account keys list \
     --account-name $AZURE_STORAGE_ACCOUNT_ID \
@@ -48,7 +52,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     -o tsv` 
    ```
 
-5. Create a service principle for Heptio Ark to integrate with Azure and the Kubernetes cluster. The following commands capture the service principle secret (password), and the service principle appID.
+7. Create a service principle for Heptio Ark to integrate with Azure and the Kubernetes cluster. The following commands capture the service principle secret (password), and the service principle appID.
    ```
       AZURE_CLIENT_SECRET=`az ad sp create-for-rbac --name "K8ArkBackups" --role "Contributor" --query 'password' -o tsv`
       
