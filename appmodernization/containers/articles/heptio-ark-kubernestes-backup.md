@@ -97,6 +97,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
    
    You should see an output like below
+   
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-secrets-check-output.png)
    
 12. Finally you can start the Heptio Ark server by applying all of the manifest files located in the examples/azure directory. From the root of the ark directory, run the following command
@@ -104,7 +105,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       kubectl apply -f examples/azure/
    ```
    
-  In Part II, we will demonstrate backing up and restoring Kubernetes objects.
+In Part II, we will demonstrate backing up and restoring Kubernetes objects.
 
 
 
