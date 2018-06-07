@@ -73,9 +73,9 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       kubectl apply -f examples/common/00-prereqs.yaml
    ```
-         You should see an output like below
+   You should see an output like below
          
-         ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-prereq-manifest-output.png)
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-prereq-manifest-output.png)
    
 
 
