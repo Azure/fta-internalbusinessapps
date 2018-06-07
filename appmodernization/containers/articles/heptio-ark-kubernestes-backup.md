@@ -58,24 +58,11 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       
       AZURE_CLIENT_ID=`az ad sp list --display-name "K8ArkBackups" --query '[0].appId' -o tsv`
    ```
-      > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
-
-    The acs-engine deploy will automatically create several configuration files and set up several Azure services for hosting the Kubernetes cluster. Key things created are:
-    * Azure Service Principle and App ID
-    * SSH key to connect to the Kubernetes cluster
-    
-      > Note: Please make note of the Service Principle and App ID that will be output in the terminial. We will use these IDs for setting up authentication for the Azure Container Registry (ACR) in a later POC walk-through. You can also find the IDs by using **az ad sp list --display-name \"<your k8 cluster name\>"**
-    
-    The deployment is fairly quick and you should get a succeeded message when completed. 
-    ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-terminal.png)
-    
-    You can verify that all the resources have been created by running the resource list command on the resource group.
-    
-    **az resource list --resource-group \"<resource group name\>" --output table**
-    
-    ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-list-resources-in-rg.png)
-    
-6. Connect to the Kubernetes cluster:
+8. Add a terminal variable for the existing Kubernetes cluster Azure resource group name
+   > Note: This is the resource group that contains the AKS managed service.
+   ```
+      AZURE_RESOURCE_GROUP=<NAME_OF_AKS_RESOURCE_GROUP>
+   ```
    
    1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-output.png)
