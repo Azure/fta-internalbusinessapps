@@ -77,7 +77,19 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
          
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-prereq-manifest-output.png)
    
-
+11. Create a Kubernetes cluster secret for all seven environment variables created
+   > Note: Make sure you are entering the correct namespace. The default is "heptio-ark"
+   ```
+      kubectl create secret generic cloud-credentials \
+      --namespace "heptio-ark" \
+      --from-literal AZURE_SUBSCRIPTION_ID=${AZURE_SUBSCRIPTION_ID} \
+      --from-literal AZURE_TENANT_ID=${AZURE_TENANT_ID} \
+      --from-literal AZURE_RESOURCE_GROUP=${AZURE_RESOURCE_GROUP} \
+      --from-literal AZURE_CLIENT_ID=${AZURE_CLIENT_ID} \
+      --from-literal AZURE_CLIENT_SECRET=${AZURE_CLIENT_SECRET} \
+      --from-literal AZURE_STORAGE_ACCOUNT_ID=${AZURE_STORAGE_ACCOUNT_ID} \
+      --from-literal AZURE_STORAGE_KEY=${AZURE_STORAGE_KEY}
+   ```
 
 
    1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
