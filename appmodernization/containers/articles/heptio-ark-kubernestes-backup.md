@@ -63,7 +63,21 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       AZURE_RESOURCE_GROUP=<NAME_OF_AKS_RESOURCE_GROUP>
    ```
+9. Add terminal variables for the Azure Account Subcription and Tenant ID
+   ```
+      AZURE_SUBSCRIPTION_ID=`az account list --query '[?isDefault].id' -o tsv`
+      
+      AZURE_TENANT_ID=`az account list --query '[?isDefault].tenantId' -o tsv`
+   ```
+10. From the Ark root directory cloned from GitHub, navigate to the examples/common directory and apply the prereqs manifest to first set up namespaces, RBAC, and other scaffolding.
+   ```
+      kubectl apply -f examples/common/00-prereqs.yaml
+   ```
+   You should see an output like below
    
+
+
+
    1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-output.png)
    2. View your Kubernetes configuration. The following command will output your Kubernetes endpoints that you will use to connect to the Kubernetes cluster.
