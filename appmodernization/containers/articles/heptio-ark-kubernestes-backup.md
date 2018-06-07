@@ -100,8 +100,30 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-secrets-check-output.png)
    
-12. Finally you can start the Heptio Ark server by applying all of the manifest files located in the examples/azure directory. From the root of the ark directory, run the following command
+12. Before we start to deploy the Heptio Ark services to run on the Kubernetes cluster, we have to ensure that the **10-ark-config.yaml** located in the examples/azure directory of the Ark GitHub clone has the Azure storage account container variable and the timeout variable set. Open the manifest and replace the place holders <YOUR_BUCKET> and <YOUR_TIMEOUT>. The file with the default settings should look like this
    ```
+      apiVersion: ark.heptio.com/v1
+      kind: Config
+      metadata:
+        namespace: heptio-ark
+        name: default
+      persistentVolumeProvider:
+        name: azure
+        config:
+          apiTimeout: 15m
+      backupStorageProvider:
+        name: azure
+        bucket: ark
+      backupSyncPeriod: 30m
+      gcSyncPeriod: 30m
+      scheduleSyncPeriod: 1m
+      restoreOnlyMode: false
+   ```
+
+13. Finally you can start the Heptio Ark server by applying the following commands. From the root of the ark directory, run the following
+   ```
+      kubectl apply -f examples/common/00-prereqs.yaml
+      kubectl apply -f examples/minio/
       kubectl apply -f examples/azure/
    ```
    
