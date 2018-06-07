@@ -1,7 +1,7 @@
-# POC Walkthrough - Heptio Ark: Setting up Backup and Restore for a Kubernetes Cluster
+# POC Walkthrough - Heptio Ark: Setting up Backup and Restore for a Kubernetes Cluster - Part I
 
 ## Introduction
-In this walkthrough we will utilize Heptio Ark to configure backups of Kubernetes objects, such as Deployments and Pods, for the ability to restore them in case of a Kubernetes cluster failure. Heptio Ark assists with the BCDR strategy of customers moving critical workloads to a container infrastructure using the Kubernetes orchestration.
+In this Part I walkthrough, we will setup Heptio Ark to configure backups of Kubernetes objects, such as Deployments and Pods, for the ability to restore them in case of a Kubernetes cluster failure. Heptio Ark assists with the BCDR strategy of customers moving critical workloads to a container infrastructure using the Kubernetes orchestration.
 
 This walkthrough leverages and references Heptio's own Ark documentation for Azure hosted on GitHub [here](https://heptio.github.io/ark/v0.8.1/azure-config), to help facilitate a POC. The walkthrough will also build on this with other Azure services.
 
@@ -90,25 +90,21 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       --from-literal AZURE_STORAGE_ACCOUNT_ID=${AZURE_STORAGE_ACCOUNT_ID} \
       --from-literal AZURE_STORAGE_KEY=${AZURE_STORAGE_KEY}
    ```
-
-
-   1. Once the deployment is complete, navigate to the **_output** directory of your kubernetes deployment where you will see several files and a kubeconfig directory.
-      ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-deploy-output.png)
-   2. View your Kubernetes configuration. The following command will output your Kubernetes endpoints that you will use to connect to the Kubernetes cluster.
-      ```
-      $ KUBECONFIG=$HOME/acs-engine/acs-engine-v0.14.6-linux-amd64/_output/pgibson-acs-engine-poc1-5ac5abba/kubeconfig/kubeconfig.eastus2.json kubectl cluster-info
-      ```
-      
-      ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-kubectl-config-display.png)
-      
-    3. Capture the Kubernetes master FQDN endpoint to SSH. The ACS Engine has created the SSH key that will be used to connect. The SSH key is located in the directory name of your Kubernetes cluster in the **_output** directory and has the name **azureuser_rsa**. Run the following command to connect to the Kubernetes master.
-        ```
-        ssh -i ./azureuser_rsa azureuser@pgibson-acs-engine-poc1-5ac5abba.eastus2.cloudapp.azure.com 
-        ```
-      
-       ![Screenshot](images/acs-engine-deploy-k8-iaas/acs-engine-ssh-k8-connect.png)
-
-7. Now that you are connected to your Kubernetes cluster, you can begin to issue kubectl commands to look over the cluster such as **kubectl get nodes**, as well as start testing the deployment of containerized applications.  
+   
+   You can check the config of the secrets using the command
+   ```
+   kubectl get secrets -n heptio-ark
+   ```
+   
+   You should see an output like below
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-secrets-check-output.png)
+   
+12. Finally you can start the Heptio Ark server by applying all of the manifest files located in the examples/azure directory. From the root of the ark directory, run the following command
+   ```
+      kubectl apply -f examples/azure/
+   ```
+   
+  In Part II, we will demonstrate backing up and restoring Kubernetes objects.
 
 
 
