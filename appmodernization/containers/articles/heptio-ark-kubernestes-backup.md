@@ -48,12 +48,11 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
     -o tsv` 
    ```
 
-5. Run **acs-deploy** with the following arguments:
+5. Create a service principle for Heptio Ark to integrate with Azure and the Kubernetes cluster. The following commands capture the service principle secret (password), and the service principle appID.
    ```
-   $ ./acs-engine deploy --subscription-id "<your subscription GUID>" \
-     --resource-group "<your resource group name>" --location "<your resource group region>" \
-     --dns-prefix "<your k8 cluster name>" --auto-suffix \
-     --api-model ./kubernetes.json
+      AZURE_CLIENT_SECRET=`az ad sp create-for-rbac --name "K8ArkBackups" --role "Contributor" --query 'password' -o tsv`
+      
+      AZURE_CLIENT_ID=`az ad sp list --display-name "K8ArkBackups" --query '[0].appId' -o tsv`
    ```
       > Note: You may be asked to authenticate your terminal session again back to Azure when running the deployment.
 
