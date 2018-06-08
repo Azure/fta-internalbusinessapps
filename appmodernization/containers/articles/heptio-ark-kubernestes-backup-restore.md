@@ -45,6 +45,8 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service.png)
    
+   Now that we have the public IP address, we can open our browser and view the sample nginx web page and see that the deployment is running
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-page.png)
    
    
       
