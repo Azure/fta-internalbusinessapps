@@ -69,7 +69,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       kubectl get namespace/nginx-example
    ```
    We can also go back to the browser to refresh the page and see that the nginx site is no longer available
-   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-error-page.png)
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-error-page-v2.png)
    
    
    
