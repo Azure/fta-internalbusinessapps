@@ -81,7 +81,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       kubectl get namespace/nginx-example
    ```
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-restore-service.png)
-   > Note: Whenever a new service type LoadBalancer is provisioned for AKS, Azure will most likely provide a new public IP address. Azure services such as Azure DNS and Traffic Manager can be utilized to provide a static endpoint.
+   > **Note:** Whenever a new service type LoadBalancer is provisioned for AKS, Azure will most likely provide a new public IP address. Azure services such as Azure DNS and Traffic Manager can be utilized to provide a static endpoint.
    
    You should now be able to browse to the new service public IP address
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-restore-service-page.png)
