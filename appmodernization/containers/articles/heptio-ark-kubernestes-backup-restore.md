@@ -35,12 +35,6 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       kubectl apply -f examples/nginx-app/base.yaml
    ```
-   You should now see the "ark" utility listed in the directory.
- 
- 5. Navigate back to the GitHub Ark root directory and deploy the sample nginx application
-   ```
-      kubectl apply -f examples/nginx-app/base.yaml
-   ```
    The deployment creates a namespace for the nginx application. You can verify the deployment using the following command
    ```
       kubectl get deployments --namespace=nginx-example
