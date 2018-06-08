@@ -43,6 +43,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       kubectl get services -n nginx-example
    ```
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service.png)
    
    
    
