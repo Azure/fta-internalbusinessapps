@@ -70,6 +70,17 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
    We can also go back to the browser to refresh the page and see that the nginx site is no longer available
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-error-page-v2.png)
+8. To restore the deployment, simply provide the backup name created earlier to the Ark restore create command
+   ```
+      ./ark restore create --from-backup nginx-backup
+   ```
+   This will restore the namespace, deployment, and service that was associated with the nginx deployment. You can then verify that all Kubernetes objects have been restored.
+   ```
+      kubectl get deployments --namespace=nginx-example
+      kubectl get services --namespace=nginx-example
+      kubectl get namespace/nginx-example
+   ```
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-restore-service.png)
    
    
    
