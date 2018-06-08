@@ -45,7 +45,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service.png)
    
-   Now that we have the public IP address, we can open our browser and view the sample nginx web page and see that the deployment is running
+   Now that we have the public IP address, we can open our browser and view the sample nginx web page and see that the deployment is running. Please keep this browser available when we simulate a disaster.
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-page.png)
 6. Next we will use Heptio Ark to create a backup of the nginx sample deployment. From the directory where the Ark client file was unpacked, execute the following command to create a backup of the deployment with the name **nginx-backup**
    ```
