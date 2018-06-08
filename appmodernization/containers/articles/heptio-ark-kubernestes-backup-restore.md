@@ -39,6 +39,11 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ```
       kubectl get deployments --namespace=nginx-example
    ```
+   You can also view the service the deployment makes and use your browser to open the nginx web page from the public IP address
+   ```
+      kubectl get services -n nginx-example
+   ```
+   
    
    
       
