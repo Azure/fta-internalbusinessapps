@@ -85,7 +85,18 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    
    You should now be able to browse to the new service public IP address
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-restore-service-page.png)
+ 
+## Troubleshooting
+For any reson the Heptio Ark service is not working, check the log output with the following command
+```
+   kubectl -n heptio-ark logs deploy/ark
+```
+For backup and restore issues, you can do both a describe command for each to get further information about the objects
+```
+   ./ark backup describe <backup name>
    
+   ./ark restore describe <restore name>
+```
    
    
    
