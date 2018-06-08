@@ -52,6 +52,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       ./ark backup create nginx-backup --selector app=nginx
    ```
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-create-example-backup.png)
+   
    You can view and verify information about the backup with the following commands
    ```
       ./ark backup describe nginx-backup
