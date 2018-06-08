@@ -58,6 +58,20 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       ./ark backup describe nginx-backup
       ./ark get backups
    ```
+7. Now let's simulate a disaster/failure of the nginx sample deployment by deleting the entire namespace the deployment is in. We do that with the following command
+   ```
+      kubectl delete namespace nginx-example
+   ```
+   We can verify that the deployment, service, and namespace associated with the nginx sample no longer exist using the following commands
+   ```
+      kubectl get deployments --namespace=nginx-example
+      kubectl get services --namespace=nginx-example
+      kubectl get namespace/nginx-example
+   ```
+   We can also go back to the browser to refresh the page and see that the nginx site is no longer available
+   ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-example-service-error-page.png)
+   
+   
    
    
       
