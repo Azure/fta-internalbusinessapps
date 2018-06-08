@@ -41,4 +41,5 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
       kubectl get deployments --namespace=nginx-example
    ```
    
+   
       
