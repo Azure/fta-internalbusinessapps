@@ -87,7 +87,7 @@ This POC will utilize the Azure CLI to make the experience as similar as possibl
    ![Screenshot](images/heptio-ark-kubernestes-backup/heptio-ark-view-restore-service-page.png)
  
 ## Troubleshooting
-For any reson the Heptio Ark service is not working, check the log output with the following command
+For any reason the Heptio Ark service is not working, check the log output with the following command
 ```
    kubectl -n heptio-ark logs deploy/ark
 ```
