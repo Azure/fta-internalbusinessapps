@@ -21,18 +21,7 @@ The following steps 1 though 4 are needed whether you are deploying via the port
 
    > Note: The **az login** command will provide a code for you to enter at the [microsoft.com/devicelogin](https://microsoft.com/devicelogin) address. Once the code has been entered and accepted, the terminal will be authenticated to your Azure account.
 
-2. **Create a SSH key** to connect to the Linux VMs deployed as part of the AKS service. In the Linux or WSL terminal, run the following command using the -f parameter to provide a name for the public and private key. It may be recommended to name the file the same name as the AKS cluster.
-   > Note: Leave the passphrase blank, for the purposes of the POC.
-    ```
-      ssh-keygen -t rsa -b 2048 -f ./<key file name>
-    ```
-    ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-01.png)
-    
-    If you list the .ssh directory you should now see your public and private keys created.
-    
-    ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sshkey-02.png)
-    
-3. **Create a Azure AD Service Principle**
+2. **Create a Azure AD Service Principle**
      > Note: For this POC, we have two options for creating the service principle. In later steps for the deployment, we will allow the deployment to create the service principle automatically for the AKS cluster so this step can be skipped. If the POC environment needs you to create the service principle first, then proceed with the following for generating the service principle to be referenced by the deployment later. In a real world deployment, you will want to scope the service principle to a specific resource group with only the role access required for the application, as well as utilizing a service such as Azure KeyVault to store your store and retrieve your certificates.
      
      ```
@@ -44,9 +33,9 @@ The following steps 1 though 4 are needed whether you are deploying via the port
      
      ![Screenshot](images/acs-aks-managed-deployment/portal-AKS-preview-create-sp-02.png)
      
- 4. **Create Azure Resource Group**. Before you create your resource group, check to see which regions the AKS preview services is available for. Use the **az acs list-locations** command to get a list of the current available regions. Only choose from the preview regions. It is documented that only the following regions are currently supported in preview: eastus, westeurope, centralus, canadacentral, canadaeast.
+ 3. **Create Azure Resource Group**. Before you create your resource group, check to see which regions the AKS preview services is available for. Use the **az acs list-locations** command to get a list of the current available regions. Only choose from the preview regions. It is documented that only the following regions are currently supported in preview: eastus, westeurope, centralus, canadacentral, canadaeast.
  
-      > Note: The az acs list-locations command may return regions not yet listed in the portal. You may want to choose a region listed in the portal so that you can continue deploying via the portal.
+      > Note: The **az acs list-locations** command may return regions not yet listed in the portal. You may want to choose a region listed in the portal so that you can continue deploying via the portal.
       
       Once you have identified the region for the resource group, run the az group-create command to create your resource group for the AKS service deployment location.
       ```
