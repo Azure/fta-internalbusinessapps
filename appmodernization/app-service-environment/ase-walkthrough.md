@@ -2,6 +2,8 @@
 
 ## Table Of Contents
 
+- [Introduction](#introduction)
+- [Learning Objectives](#learning-objectives)
 - [Prerequisites](#prerequisites)
 - [Deploy App Service Environment](#deploy-app-service-environment)
     + [Create Virtual Network](#create-virtual-network)
