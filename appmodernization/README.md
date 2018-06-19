@@ -13,6 +13,9 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 * App Service Features
     * [DRAFT Walkthrough of App Service Web App and Api features](webapps-features-walkthrough/fta-webapp-features-demo.md)
 
+* Internal business app on App Service Environment
+    * [POC Scenario Contoso Expenses: Deploying to App Service Environment](app-service-environment/ase-walkthrough.md)
+    
 * Internal business app on Service Fabric
     * [POC Scenario Voting Application: Working with Service Fabric Services](service-fabric/articles/serivce-fabric.md)
 
@@ -28,5 +31,3 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
    * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers](containers/articles/contoso-expenses-fullframework-win-containers.md) -->
    * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers - Kubernetes in Azure Container Services](containers/articles/acs-with-kubernetes.md)
 
-* Internal business app on App Service Environment
-    * [POC Scenario Contoso Expenses: Deploying to App Service Environment](app-service-environment/ase-walkthrough.md)
