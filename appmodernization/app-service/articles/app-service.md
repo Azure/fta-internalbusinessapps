@@ -3,7 +3,7 @@
 
 # Abstract
 
-During this module, you will learn about bringing together PaaS App Services components to build a sample application, Contoso Expenses, and making it scalable, highly available and secure.
+During this POC you will learn about bringing together various Azure PaaS Services like App Services Web App, API App, Functions, Storage queue & SQL DB to build and deploy a sample Expenses solution and making it highly available, scalable, etc.
 
 ![Screenshot](media/app-service/appmod-pic-poc-visio.png)
 # Learning objectives
