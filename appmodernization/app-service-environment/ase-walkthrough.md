@@ -25,11 +25,26 @@
     + [Setup Build](#setup-build)
     + [Setup Release](#setup-release)
 
+## Introduction
+The goal of this POC is to deploy an internal line of business application in your intranet environment using Azure App Service Environment service and securely connect to Azure SQL DB over VNet service endpoint. Then optionally you can expose this application to internet in a secure manner using Azure Application Gateway service which includes Web Application Firewall. Following that you can optionally setup continuous integration & continuous deployment using VSTS.
+
+![Architecture](media/architecture.png)
+
+## Learning Objectives
+After completing this exercise, you will be able to:
+* Create Azure App Service Environment and deploy a web app on to it
+* Create an Azure SQL Database and deploy a database
+
+* Deploy Azure App Gateway and expose your intranet app to internet
+* Setup Continuous Integration & Continuous Deployment pipelines using VSTS to automate build & release of an application
+
 ## Prerequisites
 
+* A Microsoft Azure subscription (with Contributor/Owner access)
+
 * Have downloaded the [Contoso Expenses](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip) source code.
+
 * Have an account on Visual Studio Team Services with permissions to create a project, create an agent pool, modify source code, and create build and release definitions.
-* Permissions in Azure to create resources.
 
 ## Deploy App Service Environment
 
