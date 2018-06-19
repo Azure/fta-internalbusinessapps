@@ -225,46 +225,48 @@ There are a number of options to provide DNS resolution:
 
 #### Create App Gateway
 
-* Open the Azure portal and click to create a new resource.
+* Use the Azure portal to create a new [Application Gateway](https://docs.microsoft.com/en-us/azure/application-gateway/quick-create-portal#create-an-application-gateway).
 * In the marketplace search blade, type **Application Gateway**.
 * Select the Application Gateway entry in the search results and then click **Create**.
-* In the Basics blade set the name as **agw-contosoexpense**.
-* Place it in the same resource group as your other resources
-* In the Settings blade select the VNet from the previous step
-* Select gw-snet as the subnet
+* In the Basics blade, fill in the values as shown below and then click **OK**.
+![App Gateway Creation](media/appgw-create.png)
+
+* In the Settings blade select the VNet and subnet from earlier
 * Under Frontend IP configuration select public
 * Select Create new for the Public IP address
-* Enter agw-contoso-ip as the name
 * Click OK and begin creation of the gateway
+![App Gateway Creation](media/appgw-create-settings.png)
 
 #### Configure App Gateway
-* Go to the resouce group and click agw-contoso
-* Click Backend pools under settings
-* Click appGatewayBackendPool 
-* Click +Add Target
-* Enter the IP Address of the ASE
-* Click Save
-* Click Listeners
-* Add a Multi-site listener
-* Enter Contoso-web-listener for the name
-* Enter the hostname of the web app [INSERT?]
-* Click ok to create
-* Click on Rules
-* Open rule1 
-* Click edit and select the contoso-web-listener
-* Click save
-* Go back to Listeners under Settings
-* Delete appGatewayHttpListener
-* Click Health probes under settings
-* Add a new Health probe
-* Enter contso-web-probe as the name
-* Enter the hostname of the web app [INSERT?]
-* Enter / as the path
-* Open Http settings under Settings
-* Click appGatewayBackendHttpSettings
-* Select use custom probe
-* Select contso-web-probe 
-* Click Save
+
+* Once the gateway is provisioned, navigate to the gateway in the portal
+* Select `appGatewayBackendPool` after navigating to Settings / Backend Pools
+* Enter the internal IP Address of the ILB ASE (e.g. `10.0.0.11`) and save.
+![App Gateway Creation](media/appgw-backend-pool.png)
+
+* Add a Multi-site listener under Settings / Listeners
+* Fill in the values as shown below and click ok
+![App Gateway multi-site listener](media/appgw-listener-multisite.png)
+
+* Update the Rule under Settings / Rules to use the new listener
+ ![App Gateway rule](media/appgw-rule.png)* Return to Settings / Listeners and delete `appGatewayHttpListener`
+ ![App Gateway rule](media/appgw-delete-listener.png)
+* Add a new probe under Settings / Health Probes
+* Fill in the values as shown below and click ok
+ ![App Gateway rule](media/appgw-probe.png)
+* Update `appGatewayBackendHttpSettings` under Settings / Http settings to use the newly created probe
+  ![App Gateway rule](media/appgw-httpsetting-probe.png)
+
+#### Configure DNS to access the webapp using the gateway
+
+* Navigate to the Overview tab and copy the IP part of the `Frontend public IP address` field.
+* Create an entry for `expenseweb.internal.contoso.com` in your local hosts file that points to the App Gateway IP address you just copied.
+* At this point, you should be able to visit the webapp on your local computer.
+* If you are using an internet routable domain in this demo
+  * Replace `expenseweb.internal.contoso.com` with your domain name in the Health probe and listener.
+  * Add your domain as a custom domain in the webapp
+  * There is no need to create the hosts entry at this point
+
 
 ## Setup CI/CD
 
