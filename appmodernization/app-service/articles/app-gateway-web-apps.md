@@ -28,7 +28,7 @@ This walkthrough will go over creating an application gateway and configuring we
 
 This section is only needed if you do not have access to any production level certificates and will need to create a self-signed one. You will need to know a domain you can use e.g. contoso.com. We will be generating wildcard certificates for that domain.
 
-* Open a new PowerShell window.
+* Open a new PowerShell window in **Administrator** mode.
 
 * Type the following command, changing the values for your domain:
     ```powershell
