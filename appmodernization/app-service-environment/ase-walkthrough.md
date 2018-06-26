@@ -256,6 +256,8 @@ There are a number of options to provide DNS resolution:
 
 #### Configure App Gateway
 
+* There are a number of components in the App Gateway that need to be configured; see the following diagram for an overview:
+![App Gateway Components](media/appgw-components.png)
 * Once the gateway is provisioned, navigate to the gateway in the portal
 * Select `appGatewayBackendPool` after navigating to Settings / Backend Pools
 * Enter the internal IP Address of the ILB ASE (e.g. `10.0.0.11`) and save.
