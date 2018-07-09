@@ -35,17 +35,24 @@ This section is only needed if you do not have access to any production level ce
     New-SelfSignedCertificate -Subject *.contoso.com -DnsName contoso.com, *.contoso.com -CertStoreLocation Cert:\LocalMachine\My -NotAfter (Get-Date).AddYears(1)
     ```
 
-* Once complete, open the machine certificate store. Under **Personal**, in the **Certificates** folder, you should see the certificate you just created.
+* After creating the certificate, run the following PowerShell command to list the certificates and find the valid thumbprint.
+    ```powershell
+    Get-ChildItem -Path cert:\LocalMachine\My
+    ```
 
-* Right-click the certificate, go to **All Tasks** and then **Export**.
-    * In the export wizard, click **Next** on the welcome screen.
-    * In the export private key view, choose **Yes, export the private key**. Click **Next**.
-    * For the file format, choose **.pfx** and click **Next**.
-    * In the **Security** screen, check **Password** and provide a value. Click **Next**.
-    * Profile an output file and then click **Next**.
-    * Click **Finish**.
+    You should get a list with something similar to the following:
 
-* Repeat the process again, but choose **No** for exporting the private key and change the file format to **Base-64 encoded X.509 (.CER)**.
+    |Thumbprint|Subject|
+    |----------|-------|
+    |E3912F980D92D6537E07EA020BA5F57D2DDD5081|CN=*.contoso.com|
+
+* We need both .pfx and .cer certificate files. Run the following PowerShell commands to generate both files (replacing with your thumbprint and desired password)
+    ```powershell
+    $cert = (Get-ChildItem -Path cert:\LocalMachine\My\E3912F980D92D6537E07EA020BA5F57D2DDD5081)
+    $password = ConvertTo-SecureString -String "1234" -Force -AsPlainText
+    Export-PfxCertificate -Cert $cert -Password $password -FilePath c:\testcert_private.pfx
+    Export-Certificate -Cert $cert -FilePath c:\testcert_public.cer
+    ```
 
 ## Create App Services
 
@@ -93,6 +100,7 @@ This section is only needed if you do not have access to any production level ce
 We will need 2 subdomains that are indicative of the two sites we created such as site1.customdomain.com and site2.customdomain.com.
 
 Create records in your registrar with the following values (changing to use your actual names)
+
 | Record Type | Host Name | Value |
 | ----------- | --------- | ----- |
 | TXT | awverify.subdomain1 | site1.azurewebsites.net |
@@ -151,6 +159,7 @@ Create records in your registrar with the following values (changing to use your
 For each of the two subdomains that we created earlier, we will need additional records to point to the application gateway URL.
 
 Create records in your registrar with the following values (changing to use your actual names and the dns of your gateway)
+
 | Record Type | Host Name | Value |
 | ----------- | --------- | ----- |
 | CNAME | subdomain1 | appgw.eastus.cloudapp.azure.com |
@@ -296,4 +305,53 @@ Optionally, we can restrict the IP addresses that we will allow access to the we
 
 * Try navigating to the azurewebsites.net specific instance e.g. https://site1.azurewebsites.net and you should see an error about trying to access the site from an invalid IP address. Validate that you can still access the site through the custom domain.
 
-### Enable Web Application Firewall
+### Configure Web Application Firewall
+
+If we followed the steps above during the creation of the application gateway, the WAF will be enabled in *detection* mode. We can configure the WAF to start reporting any potential attacks. In this case we will use a simple storage account to hold the data.
+
+* [Create a storage account](https://docs.microsoft.com/en-us/azure/storage/common/storage-create-storage-account#create-a-storage-account) and place it in the same resource group as the application gateway.
+
+* From the application gateway blade in the Azure portal, click the **Diagnostics logs** menu under the **Monitoring** section.
+
+* Click the link that says **Turn on diagnostics**.
+
+* Under diagnostics settings, fill out the following details
+    * *Name*: **waf-diagnostics**
+    * *Archive to a storage account*: Configure it to the storage account just created.
+    * *Logs*: Check **ApplicationGatewayFirewallLog**
+
+    Click **Save**
+
+    ![Configure diagnostics settings](media/appgw-web-app/configure-diagnostics.png)
+
+* We can validate that the WAF will detect potential attacks by appending an improper query string to the url e.g. https://site1.customdomain.com/?' and see that the website will still load.
+
+* Open the storage account in the Azure portal and navigate to the blobs view. You will see a container with the name **insights-logs-applicationgatewayfirewalllog**. Open this container and navigate down the folder structure until you get to the *PT1H.json* file. Either download the file or edit it in the browser. You should see a record in there along the lines of:
+    ```json
+    {
+        "operationName": "ApplicationGatewayFirewall",
+        "category": "ApplicationGatewayFirewallLog",
+        "properties": {
+            "instanceId": "ApplicationGatewayRole_IN_0",
+            "clientPort": "0",
+            "requestUri": "/?'",
+            "ruleSetType": "OWASP",
+            "ruleSetVersion": "3.0",
+            "ruleId": "942110",
+            "message": "SQL Injection Attack: Common Injection Testing Detected",
+            "action": "Detected",
+            "site": "Global",
+            "details": {
+                "message": "Warning. Pattern match \"(^[\\\"'`;]+|[\\\"'`]+$)\" at ARGS_NAMES:'.",
+                "data": "Matched Data: ' found within ARGS_NAMES:': '",
+                "file": "rules/REQUEST-942-APPLICATION-ATTACK-SQLI.conf",
+                "line": "490"
+            }
+        }
+    }
+    ```
+    This is showing that the firewall is detecting a possible SQL injection attack being performed against the site.
+
+* From the application gateway blade in the Azure portal, click the **Web application firewall** menu under the **Settings** section. Click to switch the *Firewall mode* from **Detection** to **Prevention** and click **Save**.
+
+* Once the save completes, navigate to the url above with the improper query string. You should now get a 403 - Forbidden message indicating that this query string is now blocked.
