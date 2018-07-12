@@ -1,4 +1,4 @@
-# POC Walkthrough - AKS: Deploy a Managed AKS Preview Service (Portal and CLI) - Jun2018
+# POC Walkthrough - AKS: Deploy a Managed AKS (Portal and CLI)
 
 ## Introduction
 In this walkthrough, we will deploy the managed AKS Preview service showing both the portal and CLI experience of setting up the managed Azure Container Services (AKS) Kubernetes cluster. The CLI experience will utilize the same prerequisite information needed for the deployment. 
