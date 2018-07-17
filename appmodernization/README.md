@@ -32,5 +32,5 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
    * [POC Scenario: Containerize Contoso Expenses Full Framework Application on Windows Containers - Kubernetes in Azure Container Services](containers/articles/acs-with-kubernetes.md)
 
 * Create CI/CD pipelines for contaernized Applications
-   * [POC Scenario: CI/CD with VSTS on Kubernetes Cluster with Windoes Container Support](containers/articles/vsts-with-kubernetes.md)
+   * [POC Scenario: CI/CD with VSTS on Kubernetes Cluster with Windows Container Support](containers/articles/vsts-with-kubernetes.md)
    * [POC Scenario: CI/CD of Node.js with Jenkun Serverr](containers/articles/containers/articles/deploy-container-on-jenkins.md)
