@@ -51,11 +51,12 @@ After completing the exercises in this module, you will be able to:
 
   ![Screenshot](media/app-service/appmod-pic-0102.png)
 
-  * There are 4 projects that are in Visual Studio.
+  * There are 5 projects that are in Visual Studio.
   * **Contoso.Expenses.API** - This is a Web API project that provides helper logic to the main web app.
   * **Contoso.Expenses.DataAccess** - This is a Class Library that utilizes Entity Framework.
   * **Contoso.Expenses.Database** - This is a Database project that contains the SQL to create the Expenses table and SQL to initially seed default data.
   * **Contoso.Expenses.Web** - This is the Internal Business Web App.
+  * **Contoso.Expenses.Functions** - This is the Function App with a Queue Trigger Function that you can alternatively deploy from Visual Studio.
 
 ## Create the SQL Database
 * Navigate to the Azure portal.
