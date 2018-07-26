@@ -2,10 +2,12 @@
 
 See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackForAzure) for more information.
 
-# Internal Business Apps Scenarios
+# App Modernization Scenarios
 
 * [App Modernization](appmodernization/)
-* Lift & Shift
+* Refactor, Rearchitect, Rebuild Applications
+* Refactor, Rearchitect, Rebuild Applications (Microservices)
+* Refactor, Rearchitect, Rebuild Applications (Containers)
 
 # Contributing
 
