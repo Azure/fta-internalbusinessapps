@@ -5,9 +5,7 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 # App Modernization Scenarios
 
 * [App Modernization](appmodernization/)
-* Refactor, Rearchitect, Rebuild Applications
-* Refactor, Rearchitect, Rebuild Applications (Microservices)
-* Refactor, Rearchitect, Rebuild Applications (Containers)
+
 
 # Contributing
 
