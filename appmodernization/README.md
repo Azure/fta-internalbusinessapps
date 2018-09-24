@@ -33,4 +33,4 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 
 * Create CI/CD pipelines for containerized Applications
    * [POC Scenario: CI/CD with VSTS on Kubernetes Cluster with Windows Container Support](containers/articles/vsts-with-kubernetes.md)
-   * [POC Scenario: CI/CD of Node.js with Jenkins Server](containers/articles/containers/articles/deploy-container-on-jenkins.md)
+   * [POC Scenario: CI/CD of Node.js with Jenkins Server](containers/articles/deploy-container-on-jenkins.md)
