@@ -30,7 +30,7 @@
 ## Introduction
 The goal of this POC is to deploy an internal line of business application in your intranet environment using Azure App Service Environment service and securely connect to Azure SQL DB over VNet service endpoint. We will work with provisioning an ILB ASE in this POC. Then optionally you can expose this application to internet in a secure manner using Azure Application Gateway service which includes Web Application Firewall. Following that you can optionally setup continuous integration & continuous deployment using VSTS to automate build & release of an application.
 
-![Architecture](media/architecture.png)
+![Architecture](media/ilb-ase-with-architecture.png)
 
 ## Learning Objectives
 After completing this exercise, you will be able to:
