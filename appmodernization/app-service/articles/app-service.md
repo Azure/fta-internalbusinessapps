@@ -15,15 +15,15 @@ After completing the exercises in this module, you will be able to:
 * To complete this PoC, you will need:
      * A Microsoft Azure subscription (with Contributor access)
 
-    * Install latest version of [Visual Studio 2017](https://www.visualstudio.com/downloads/) Enterprise with following Workloads:
-      * .NET desktop development 
+    * Install latest version of [Visual Studio 2017](https://www.visualstudio.com/downloads/) Enterprise with the following Workloads:
+      * .NET desktop development
       * ASP.NET and web development 
       * Azure development  
       * Data storage and processing 
     
-    * Download latest SQL Server Management Studio [here](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms) and install:
+    * Download latest SQL Server Management Studio [here](https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms) and install it
     
-    * Download Proof-of-concept project from [here](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip)
+    * Download the proof-of-concept project from [here](https://fasttrackforazure.blob.core.windows.net/sourcecode/Contoso.Expenses.zip)
 
 
 # Estimated time to complete this module
