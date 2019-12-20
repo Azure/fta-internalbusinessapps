@@ -1,0 +1,17 @@
+@hosta = aicorr4-fn-a.azurewebsites.net
+@hostb = aicorr4-fn-b.azurewebsites.net
+@contentType = application/json
+@protocol = https
+@submissionid = {{$guid}}
+
+
+
+### USING FUNCTION A CALL LOGIC APP A WITH BAGGAGE AND CONTENT; LOGIC APP TO CALL INTO A FUNCTION
+
+GET http://{{hosta}}/api/calllogicappa/{{submissionid}}
+content-type: application/json
+
+{
+    "logicAppAction": "callIntoUrl",
+    "url": "https://{{hostb}}/api/http"
+}

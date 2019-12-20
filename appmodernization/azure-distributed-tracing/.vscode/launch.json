@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch eventgrid console app",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-eg-console",
+            "program": "${workspaceFolder}/src/egconsole/bin/Debug/netcoreapp3.0/egconsole.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/egconsole",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+            "name": "Attach to Function",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "Attach to Node Functions",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "preLaunchTask": "func: host start"
+        },
+        {
+            "name": "Attach to .NET Functions",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:azureFunctions.pickProcess}"
+        }
+    ]
+}

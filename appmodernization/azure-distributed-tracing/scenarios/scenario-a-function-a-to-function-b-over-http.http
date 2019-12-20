@@ -1,0 +1,10 @@
+#@host = {{$dotenv hosta}}
+@port = 443
+#@host = localhost
+#@port = 7071
+@proto = https
+
+@host = aicorr4-fn-a.azurewebsites.net
+
+### USING FUNCTION A CALL FUNCTION B OVER HTTP, GET A RESPONSE BACK
+GET {{proto}}://{{host}}:{{port}}/api/callhttpwithrespfromb

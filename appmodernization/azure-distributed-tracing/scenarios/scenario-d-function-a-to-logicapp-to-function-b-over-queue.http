@@ -1,0 +1,15 @@
+@hosta = aicorr4-fn-a.azurewebsites.net
+@contentType = application/json
+@protocol = https
+@submissionid = {{$guid}}
+
+### USING FUNCTION A CALL LOGIC APP A WITH BAGGAGE AND CONTENT; LOGIC APP TO PUT MSG ON SERVICE BUS; 
+### FUNCTION B TO PICK THAT UP
+
+GET http://{{hosta}}/api/calllogicappa/{{submissionid}}
+content-type: application/json
+
+{
+    "logicAppAction": "callIntoServiceBus",
+    "url": ""
+}

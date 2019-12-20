@@ -1,0 +1,98 @@
+POST http://localhost:5000/api/egwebhook
+Content-Type: application/cloudevents+json
+aeg-event-type: Notification
+aeg-subscription-name: "test-eg-sub"
+
+{
+    "specversion" : "1.0",
+    "type" : "com.example.someevent",
+    "source" : "/mycontext",
+    "id" : "A234-1234-1234",
+    "time" : "2018-04-05T17:31:00Z",
+    "datacontenttype" : "application/json",
+    "traceparent":"47851ec1-999a-4d12-9a93-343957d18356",
+    "tracestate": "custombaggage",
+    "data" : { "message": "hello world"}
+}
+
+
+### test Cloud event through EG - 
+# note this requires a specific EG topic & subscription which require adding a AZ CLI extension 
+#  addition the handshake is different, exchange of info (via headers) using the OPTIONS endpoint: 
+# REF https://github.com/cloudevents/spec/blob/v1.0/http-webhook.md#4-abuse-protection
+# REF https://docs.microsoft.com/en-us/azure/event-grid/cloudevents-schema
+## Also note
+# Endpoint and Key from
+#    az eventgrid topic key list --name $topicName -g $RG --query "key1" --output tsv 
+#    az eventgrid topic show --name $topicName -g $RG --query "endpoint" --output tsv
+
+
+POST https://begim-egtopic-cs.westeurope-1.eventgrid.azure.net/api/events
+Content-Type: application/cloudevents+json
+aeg-sas-key: 7dCVcy0te2hoXEb4lAc2UbUhEVL6RKgQPVqzEdDFqTA=
+
+{
+    "specversion" : "1.0",
+    "type" : "com.example.someevent",
+    "source" : "/mycontext",
+    "id" : "A234-1234-1234",
+    "time" : "2018-04-05T17:31:00Z",
+    "datacontenttype" : "application/json",
+    "traceparent":"47851ec1-999a-4d12-9a93-343957d18356",
+    "tracestate": "custombaggage=baggageitem",
+    "data" : { "message": "hello world"}
+}
+
+### test local
+GET http://localhost:5000/api/egwebhook
+
+### test published
+GET https://begim-egsubscriber-webapp.azurewebsites.net/api/egwebhook
+
+### cloud event test debug
+
+POST http://localhost:5000/api/egwebhook
+Content-Type: application/cloudevents+json
+aeg-data-version: 1
+aeg-delivery-count: 0
+aeg-event-type: Notification
+aeg-metadata-version: 0
+aeg-subscription-name: FUNCAPPAEGSUB
+
+{
+    "specversion" : "1.0",
+    "type" : "com.example.someevent",
+    "source" : "/mycontext",
+    "id" : "A234-1234-1234",
+    "time" : "2018-04-05T17:31:00Z",
+    "comexampleextension1" : "value",
+    "comexampleothervalue" : 5,
+    "datacontenttype" : "application/json",
+    "data" : { "message": "hello world"}
+}
+
+
+
+### validation handshake, eventgrid event, test debug
+
+POST http://localhost:5000/api/egwebhook
+aeg-data-version: 1
+aeg-delivery-count: 0
+aeg-event-type: SubscriptionValidation
+aeg-metadata-version: 0
+aeg-subscription-name: FUNCAPPAEGSUB
+content-type: application/json; charset=utf-8
+
+[{
+  "id": "47851ec1-134a-4d12-9a93-343957d18356",
+  "topic": "/subscriptions/09a55fcd-23ab-4b16-98b7-c17f85e641d5/resourceGroups/xstof/providers/microsoft.eventgrid/topics/begim-egtopic",
+  "subject": "",
+  "data": {
+    "validationCode": "30C56E22-B13D-4126-808B-048D8894F961",
+    "validationUrl": "http://localhost:5000/api/egwebhook"
+  },
+  "eventType": "Microsoft.EventGrid.SubscriptionValidationEvent",
+  "eventTime": "2019-11-30T20:02:35.1948416Z",
+  "metadataVersion": "1",
+  "dataVersion": "2"
+}]

@@ -1,0 +1,235 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "appName": {
+        "type": "string",
+        "metadata": {
+          "description": "The name of the function app that you wish to create."
+        }
+      },
+      "storageAccountName": {
+        "type": "string",
+        "defaultValue": "[concat(uniquestring(resourceGroup().id), 'azfunctions')]",
+        "metadata": {
+          "description": "Name for the storage account which underlies the function app"
+        }
+      },
+      "storageAccountType": {
+        "type": "string",
+        "defaultValue": "Standard_LRS",
+        "allowedValues": ["Standard_LRS", "Standard_GRS", "Standard_RAGRS"],
+        "metadata": {
+          "description": "Storage Account type"
+        }
+      },
+      "location": {
+        "type": "string",
+        "defaultValue": "[resourceGroup().location]",
+        "metadata": {
+          "description": "Location for all resources."
+        }
+      },
+      "runtime": {
+        "type": "string",
+        "defaultValue": "dotnet",
+        "allowedValues": ["node", "dotnet", "java"],
+        "metadata": {
+          "description": "The language worker runtime to load in the function app."
+        }
+      },
+      "urlToWhitelistForCORS": {
+        "type": "string",
+        "defaultValue": "localhost:8080",
+        "metadata": {
+          "description": "Url to whitelist for CORS"
+        }
+      },
+      "applicationInsightsName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name for the app insights resource linked to the function app"
+        }
+      },
+      "serviceBusConnString": {
+        "type": "string",
+        "metadata": {
+          "description": "Connection string for Service Bus"
+        }
+      },
+      "serviceBusQueueName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the queue on Service Bus"
+        }
+      },
+      "httpBinIp": {
+        "type": "string",
+        "metadata": {
+          "description": "Ip address of the Http Bin service to send HTTP requests to"
+        }
+      },
+      "httpProxyBaseUrl":{
+        "type": "string",
+        "defaultValue": "",
+        "metadata": {
+          "description": "Address of the proxy service which allows HTTP request inspection"
+        }
+      },
+      "logicAppAUrl": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "functionAppBUrl": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    },
+    "variables": {
+      "functionAppName": "[parameters('appName')]",
+      "hostingPlanName": "[parameters('appName')]",
+      "storageAccountName": "[parameters('storageAccountName')]",
+      "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+      "functionWorkerRuntime": "[parameters('runtime')]"
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Storage/storageAccounts",
+        "name": "[variables('storageAccountName')]",
+        "apiVersion": "2016-12-01",
+        "location": "[parameters('location')]",
+        "kind": "Storage",
+        "sku": {
+          "name": "[parameters('storageAccountType')]"
+        }
+      },
+      {
+        "type": "Microsoft.Web/serverfarms",
+        "apiVersion": "2018-02-01",
+        "name": "[variables('hostingPlanName')]",
+        "location": "[parameters('location')]",
+        "sku": {
+          "name": "Y1",
+          "tier": "Dynamic"
+        },
+        "properties": {
+          "name": "[variables('hostingPlanName')]",
+          "computeMode": "Dynamic"
+        }
+      },
+      {
+        "apiVersion": "2015-08-01",
+        "type": "Microsoft.Web/sites",
+        "name": "[variables('functionAppName')]",
+        "location": "[parameters('location')]",
+        "kind": "functionapp",
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+          "[resourceId('microsoft.insights/components', parameters('applicationInsightsName'))]"
+        ],
+        "properties": {
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
+          "siteConfig": {
+            "appSettings": [
+              {
+                "name": "AzureWebJobsDashboard",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              },
+              {
+                "name": "AzureWebJobsStorage",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING",
+                "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageAccountName'), ';AccountKey=', listKeys(variables('storageAccountid'),'2015-05-01-preview').key1)]"
+              },
+              {
+                "name": "WEBSITE_CONTENTSHARE",
+                "value": "[toLower(variables('functionAppName'))]"
+              },
+              {
+                "name": "FUNCTIONS_EXTENSION_VERSION",
+                "value": "~2"
+              },
+              {
+                "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                "value": "8.11.1"
+              },
+              {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference(resourceId('microsoft.insights/components/', parameters('applicationInsightsName')), '2015-05-01').InstrumentationKey]"
+              },
+              {
+                "name": "FUNCTIONS_WORKER_RUNTIME",
+                "value": "[variables('functionWorkerRuntime')]"
+              },
+              {
+                "name": "ServiceBusConnection",
+                "value": "[parameters('serviceBusConnString')]"
+              },
+              {
+                "name": "serviceBusQueueName",
+                "value": "[parameters('serviceBusQueueName')]"
+              },
+              {
+                "name": "httpBinIp",
+                "defaultValue": "",
+                "value": "[parameters('httpBinIp')]"
+              },
+              {
+                "name": "httpProxyBaseUrl",
+                "defaultValue": "",
+                "value": "[parameters('httpProxyBaseUrl')]"
+              },
+              {
+                "name": "logicAppAUrl",
+                "value": "[parameters('logicAppAUrl')]"
+              },
+              {
+                "name": "functionAppBUrl",
+                "value": "[parameters('functionAppBUrl')]"
+              }
+            ],
+            "connectionStrings": [
+              {
+                "name": "ServiceBusConnectionString",
+                "connectionString": "[parameters('serviceBusConnString')]",
+                "type": "Custom"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "comments": "CORS allow origins *.",
+        "type": "Microsoft.Web/sites/config",
+        "name": "[concat(variables('functionAppName'), '/web')]",
+        "apiVersion": "2016-08-01",
+        "properties": {
+          "cors": {
+            "allowedOrigins": [
+              "[parameters('urlToWhitelistForCORS')]"
+            ],
+            "supportCredentials": true
+          }
+        },
+        "dependsOn": [
+          "[resourceId('Microsoft.Web/sites', variables('functionAppName'))]"
+        ]
+      },
+      {
+        "apiVersion": "2018-05-01-preview",
+        "name": "[parameters('applicationInsightsName')]",
+        "type": "microsoft.insights/components",
+        "location": "West Europe",
+        "tags": {
+          "[concat('hidden-link:', resourceGroup().id, '/providers/Microsoft.Web/sites/', parameters('applicationInsightsName'))]": "Resource"
+        },
+        "properties": {
+          "ApplicationId": "[parameters('applicationInsightsName')]",
+          "Request_Source": "IbizaWebAppExtensionCreate"
+        }
+      }
+    ]
+  }
