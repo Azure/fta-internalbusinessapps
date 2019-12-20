@@ -1,0 +1,17 @@
+@hosta = aicorr4-fn-a.azurewebsites.net
+@port = 443
+@contentType = application/json
+@protocol = https
+@submissionid = {{$guid}}
+
+#@hosta = localhost
+#@port = 7071
+
+### USING FUNCTION A PUT A MSG ON A QUEUE TO BE PICKED UP BY FUNCTION B - NO BAGGAGE
+@submissionid = {{$guid}}
+POST {{protocol}}://{{hosta}}:{{port}}/api/queue/{{submissionid}} HTTP/1.1
+
+
+### USING FUNCTION A PUT A MSG ON A QUEUE TO BE PICKED UP BY FUNCTION B - WITH BAGGAGE
+@submissionid = {{$guid}}
+POST {{protocol}}://{{hosta}}:{{port}}/api/queue-with-bagage/{{submissionid}} HTTP/1.1

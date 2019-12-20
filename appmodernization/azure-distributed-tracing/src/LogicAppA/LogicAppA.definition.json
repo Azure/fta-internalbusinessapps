@@ -1,0 +1,217 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "defaultValue": "xstof-aicorr2-LogicAppA",
+            "type": "string"
+        },
+        "logAnalyticsWorkspaceId": {
+            "type": "string"
+        },
+        "serviceBusConnection": {
+            "defaultValue": "",
+            "type": "string"
+        },
+        "serviceBusQueueName": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "2017-07-01",
+            "dependsOn": [
+            ],
+            "location": "[resourceGroup().location]",
+            "name": "[parameters('name')]",
+            "properties": {
+                "definition": {
+                    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+                    "actions": {
+                        "Initialize_variable": {
+                            "inputs": {
+                                "variables": [
+                                    {
+                                        "name": "customActionExecutionId",
+                                        "type": "string",
+                                        "value": "@concat(split(trigger()['outputs']['headers']?['Request-Id'], '.')[0], '.', substring(string(guid()),0,8) ,'.')"
+                                    }
+                                ]
+                            },
+                            "runAfter": {
+                            },
+                            "trackedProperties": {
+                                "Correlation-Context": "@trigger()['outputs']['headers']?['Correlation-Context']",
+                                "Request-Id": "@trigger()['outputs']['headers']?['Request-Id']",
+                                "customCorrelationId": "@trigger()['outputs']['headers']?['Request-Id']",
+                                "traceparent": "@trigger()['outputs']['headers']?['traceparent']"
+                            },
+                            "type": "InitializeVariable"
+                        },
+                        "Switch": {
+                            "cases": {
+                                "Case_call_URL": {
+                                    "actions": {
+                                        "HTTP": {
+                                            "inputs": {
+                                                "headers": {
+                                                    "Correlation-Context": "@trigger()['outputs']['headers']?['Correlation-Context']",
+                                                    "Request-Id": "@{concat(split(trigger()['outputs']['headers']?['Request-Id'], '.')[0], '.', substring(string(guid()),0,8) ,'.')}"
+                                                },
+                                                "method": "GET",
+                                                "uri": "@triggerBody()?['url']"
+                                            },
+                                            "runAfter": {
+                                            },
+                                            "trackedProperties": {
+                                                "Correlation-Context": "@trigger()['outputs']['headers']?['Correlation-Context']",
+                                                "CustomActionExecutionId": "@{action()['inputs']['headers']?['Request-Id']}"
+                                            },
+                                            "type": "Http"
+                                        }
+                                    },
+                                    "case": "callIntoUrl"
+                                },
+                                "Case_put_msg_on_Service_Bus": {
+                                    "actions": {
+                                        "Send_message": {
+                                            "inputs": {
+                                                "body": {
+                                                    "Properties": {
+                                                        "Correlation-Context": "@{replace(trigger()['outputs']['headers']?['Correlation-Context'], ' ', '')}",
+                                                        "Diagnostic-Id": "@{concat(split(trigger()['outputs']['headers']?['Request-Id'], '.')[0], '.', substring(string(guid()),0,8) ,'.')}"
+                                                    }
+                                                },
+                                                "host": {
+                                                    "connection": {
+                                                        "name": "@parameters('$connections')['servicebus']['connectionId']"
+                                                    }
+                                                },
+                                                "method": "post",
+                                                "path": "/@{encodeURIComponent(encodeURIComponent(parameters('serviceBusQueueName')))}/messages",
+                                                "queries": {
+                                                    "systemProperties": "None"
+                                                }
+                                            },
+                                            "runAfter": {
+                                            },
+                                            "trackedProperties": {
+                                                "Correlation-Context": "@trigger()['outputs']['headers']?['Correlation-Context']",
+                                                "CustomActionExecutionId": "@{action()['inputs']['body']['Properties']?['Diagnostic-Id']}"
+                                            },
+                                            "type": "ApiConnection"
+                                        }
+                                    },
+                                    "case": "callIntoServiceBus"
+                                }
+                            },
+                            "default": {
+                                "actions": {
+                                }
+                            },
+                            "expression": "@triggerBody()?['logicAppAction']",
+                            "runAfter": {
+                                "Initialize_variable": [
+                                    "Succeeded"
+                                ]
+                            },
+                            "type": "Switch"
+                        }
+                    },
+                    "contentVersion": "1.0.0.0",
+                    "outputs": {
+                    },
+                    "parameters": {
+                        "$connections": {
+                            "defaultValue": {
+                            },
+                            "type": "Object"
+                        },
+                        "serviceBusQueueName" :{
+                            "defaultValue": "[parameters('serviceBusQueueName')]",
+                            "type": "string"
+                        }
+                    },
+                    "triggers": {
+                        "manual": {
+                            "inputs": {
+                                "schema": {
+                                    "properties": {
+                                        "logicAppAction": {
+                                            "type": "string"
+                                        },
+                                        "url": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "kind": "Http",
+                            "type": "Request"
+                        }
+                    }
+                },
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "servicebus": {
+                                "connectionId": "[resourceId('Microsoft.Web/connections', parameters('serviceBusConnection'))]",
+                                "connectionName": "[parameters('serviceBusConnection')]",
+                                "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'servicebus')]"
+                            }
+                        }
+                    }
+                },
+                "state": "Enabled"
+            },
+            "scale": null,
+            "tags": {
+            },
+            "type": "Microsoft.Logic/workflows",
+            "resources": [
+                {
+                    "type": "providers/diagnosticSettings",
+                    "name": "[concat('Microsoft.Insights/', variables('logAnalyticsDiagSettingName'))]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Logic/workflows', parameters('name'))]"
+                    ],
+                    "apiVersion": "2017-05-01-preview",
+                    "properties": {
+                        "name": "[variables('logAnalyticsDiagSettingName')]",
+                        "workspaceId": "[parameters('logAnalyticsWorkspaceId')]",
+                        "logs": [
+                            {
+                                "category": "WorkflowRuntime",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "days": 0,
+                                    "enabled": false
+                                }
+                            }
+                        ],
+                        "metrics": [
+                            {
+                                "timeGrain": "PT1M",
+                                "enabled": true,
+                                "retentionPolicy": {
+                                    "enabled": false,
+                                    "days": 0
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "variables": {
+        "logAnalyticsDiagSettingName": "[concat(parameters('name'), '-laconnection')]"
+    },
+    "outputs": {
+        "logicAppAUrl": {
+            "type": "string",
+            "value": "[listCallbackURL(concat(resourceId('Microsoft.Logic/workflows/', parameters('name')), '/triggers/manual'), '2016-06-01').value]"
+        }
+    }
+}

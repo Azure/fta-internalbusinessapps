@@ -1,0 +1,296 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "_artifactsLocation": {
+            "type": "string",
+            "metadata": {
+                "description": "Location where nested templates are stored"
+            }
+        },
+        "_artifactsLocationSasToken": {
+            "type": "string",
+            "metadata": {
+                "description": "SAS token for use with location where nested templates are stored"
+            }
+        },
+        "resourcesPrefix": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "aciName": "[concat(parameters('resourcesPrefix'), '-', 'request-inspection')]",
+        "aciImage": "xstof/anyproxy",
+        "aciImagePort": "8080",
+        "eventGridSubscriberWapName": "[concat(parameters('resourcesPrefix'), '-', 'egsubscriber-wap')]",
+        "eventGridSubscriberAppName": "[concat(parameters('resourcesPrefix'), '-', 'egsubscriber-webapp')]",
+        "eventGridSubscriberWap-ai-Name": "[concat(parameters('resourcesPrefix'), '-', 'egsubscriber-webapp-ai')]",
+        "serviceBusNSName": "[concat(parameters('resourcesPrefix'), '-', 'svcbusns')]",
+        "serviceBusQueueName": "[concat(parameters('resourcesPrefix'), '-', 'svcbusqueue')]",
+        "functionAppName-A": "[concat(parameters('resourcesPrefix'), '-', 'fn-a')]",
+        "appInsightsName-A": "[concat(parameters('resourcesPrefix'), '-', 'fn-appinsights-a')]",
+        "functionAppName-B": "[concat(parameters('resourcesPrefix'), '-', 'fn-b')]",
+        "appInsightsName-B": "[concat(parameters('resourcesPrefix'), '-', 'fn-appinsights-b')]",
+        "logicAppName-A": "[concat(parameters('resourcesPrefix'), '-', 'logic-a')]",
+        "logicAppsLAWorkspace": "[concat(parameters('resourcesPrefix'), '-', 'logic-loganalytics')]",
+        "logAnalyticsWorkbookDisplayName": "[concat(parameters('resourcesPrefix'), '-', 'CrossComponentCorrelation')]",
+        "serviceBusConnection": "[concat(parameters('resourcesPrefix'), '-', 'svcbusconnection')]"
+    },
+    "resources": [
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2015-05-01",
+            "name": "[variables('eventGridSubscriberWap-ai-Name')]",
+            "location": "[resourceGroup().location]",
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web",
+                "Request_Source": "AppServiceEnablementCreate"
+            }
+        },
+        {
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Web/serverfarms",
+            "kind": "app",
+            "name": "[variables('eventGridSubscriberWapName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+            },
+            "dependsOn": [
+            ],
+            "sku": {
+                "name": "S1"
+            }
+        },
+        {
+            "apiVersion": "2018-11-01",
+            "type": "Microsoft.Web/sites",
+            "kind": "app",
+            "name": "[variables('eventGridSubscriberAppName')]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('eventGridSubscriberWapName'))]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference(resourceId('microsoft.insights/components/', variables('eventGridSubscriberWap-ai-Name')), '2015-05-01').InstrumentationKey]"
+                        }
+                    ]
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('eventGridSubscriberWapName'))]",
+                "[resourceId('microsoft.insights/components', variables('eventGridSubscriberWap-ai-Name'))]"
+            ]
+        },
+        {
+            "name": "nested-httpbin-aci-container",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/container-instance.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name": {
+                        "value": "[variables('aciName')]"
+                    },
+                    "image": {
+                        "value": "[variables('aciImage')]"
+                    },
+                    "port": {
+                        "value": "[variables('aciImagePort')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "nested-service-bus-queue",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/service-bus-queue.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "serviceBusNamespaceName": {
+                        "value": "[variables('serviceBusNSName')]"
+                    },
+                    "serviceBusQueueName": {
+                        "value": "[variables('serviceBusQueueName')]"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/connections",
+            "name": "[variables('serviceBusConnection')]",
+            "apiVersion": "2018-07-01-preview",
+            "location": "[resourceGroup().location]",
+            "dependsOn": [
+                "nested-service-bus-queue"
+            ],
+            "properties": {
+                "displayName": "[variables('serviceBusConnection')]",
+                "api": {
+                    "id": "[concat(subscription().id, '/providers/Microsoft.Web/locations/', resourceGroup().location, '/managedApis/', 'servicebus')]"
+                },
+                "parameterValues": {
+                    "connectionString": "[reference('nested-service-bus-queue').outputs.NamespaceConnectionString.value]"
+                }
+            }
+        },
+        {
+            "name": "nested-functions-b",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/functions.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appName": {
+                        "value": "[variables('functionAppName-B')]"
+                    },
+                    "applicationInsightsName": {
+                        "value": "[variables('appInsightsName-B')]"
+                    },
+                    "serviceBusConnString": {
+                        "value": "[reference('nested-service-bus-queue').outputs.NamespaceConnectionString.value]"
+                    },
+                    "serviceBusQueueName": {
+                        "value": "[variables('serviceBusQueueName')]"
+                    },
+                    "httpBinIp": {
+                        "value": "[reference('nested-httpbin-aci-container').outputs.containerIPv4Address.value]"
+                    },
+                    "httpProxyBaseUrl": {
+                        "value": "[reference('nested-httpbin-aci-container').outputs.proxyBaseAddress.value]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "nested-service-bus-queue",
+                "nested-httpbin-aci-container"
+            ]
+        },
+        {
+            "name": "[variables('logicAppsLAWorkspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "apiVersion": "2017-04-26-preview",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "sku": {
+                    "name": "standalone"
+                }
+            }
+        },
+        {
+            "name": "nested-loganalytics-workbook",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/workbook-tmp.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "workbookSourceId": {
+                        "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logicAppsLAWorkspace'))]"
+                    },
+                    "workbookDisplayName": {
+                        "value": "[variables('logAnalyticsWorkbookDisplayName')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[variables('logicAppsLAWorkspace')]"
+            ]
+        },
+        {
+            "name": "nested-logicapp-a",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/connections', variables('serviceBusConnection'))]",
+                "nested-functions-b"
+            ],
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/LogicAppA.definition.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "name": {
+                        "value": "[variables('logicAppName-A')]"
+                    },
+                    "logAnalyticsWorkspaceId": {
+                        "value": "[resourceId('Microsoft.OperationalInsights/workspaces', variables('logicAppsLAWorkspace'))]"
+                    },
+                    "serviceBusConnection": {
+                        "value": "[variables('serviceBusConnection')]"
+                    },
+                    "serviceBusQueueName": {
+                        "value": "[variables('serviceBusQueueName')]"
+                    }
+                }
+            }
+        },
+        {
+            "name": "nested-functions-a",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2016-09-01",
+            "properties": {
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[concat(parameters('_artifactsLocation'), '/nestedtemplates/functions.json?', parameters('_artifactsLocationSasToken'))]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+                    "appName": {
+                        "value": "[variables('functionAppName-A')]"
+                    },
+                    "applicationInsightsName": {
+                        "value": "[variables('appInsightsName-A')]"
+                    },
+                    "serviceBusConnString": {
+                        "value": "[reference('nested-service-bus-queue').outputs.NamespaceConnectionString.value]"
+                    },
+                    "serviceBusQueueName": {
+                        "value": "[variables('serviceBusQueueName')]"
+                    },
+                    "httpBinIp": {
+                        "value": "[reference('nested-httpbin-aci-container').outputs.containerIPv4Address.value]"
+                    },
+                    "logicAppAUrl": {
+                        "value": "[reference('nested-logicapp-a').outputs.logicAppAUrl.value]"
+                    },
+                    "functionAppBUrl": {
+                        "value": "[concat('https://',  variables('functionAppName-A'), '.azurewebsites.net')]"
+                    },
+                    "httpProxyBaseUrl": {
+                        "value": "[reference('nested-httpbin-aci-container').outputs.proxyBaseAddress.value]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "nested-service-bus-queue",
+                "nested-httpbin-aci-container",
+                "nested-logicapp-a"
+            ]
+        }
+    ],
+    "outputs": {
+    },
+    "functions": [
+    ]
+}
