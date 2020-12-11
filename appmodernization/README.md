@@ -8,10 +8,10 @@ See our [FastTrack for Azure landing page](https://github.com/Azure/FastTrackFor
 ## Walkthroughs
 
 * Internal business app on AppService
-    * [POC Scenario Contoso Expenses: Deploying Website on Azure PaaS](app-service/articles/function-app-service-static-ip.md)
+    * [POC Scenario Contoso Expenses: Deploying Website on Azure PaaS](app-service/articles/app-service.md)
     
  * Create an Azure Function hosted on App Services Plan
-   * [POC Scenario: Assign Dedicated Static Outbound IP](containers/articles/deploy-container-on-jenkins.md)
+   * [POC Scenario: Assign Dedicated Static Outbound IP]((app-service/articles/function-app-service-static-ip.md)
 
 * App Service Features
     * [DRAFT Walkthrough of App Service Web App and Api features](webapps-features-walkthrough/fta-webapp-features-demo.md)
