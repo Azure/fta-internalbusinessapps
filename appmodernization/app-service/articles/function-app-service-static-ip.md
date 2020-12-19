@@ -18,8 +18,8 @@ This pattern created below solves for this use case.
 
 ## Create an HTTP Trigger Function
 - Create an HTTP Triggger C# function with a nmae of your liking.
-- Use an App Service Hosting Plan SKU or Standard or Premimium, both support VNET integration. It is recommended to use Standard, as it is cheaper.
-- Replace the out of the box code for the HTTP Trigger with the folowing code
+- Use an App Service Hosting Plan SKU or Standard or Premimium, both support VNET integration. You may use Standard plan for this set up, as it is cheaper.
+- Replace the out of the box code for the HTTP Trigger with the folowing code.
 
 ```` C#
 #r "Newtonsoft.Json"
@@ -89,9 +89,6 @@ var streamTask = client.GetStreamAsync("https://api.github.com/orgs/dotnet/repos
 var repositories = await System.Text.Json.JsonSerializer.DeserializeAsync<List<Repository>>(await streamTask);
 return repositories;
 }
-
-
-
 // Ref URL - https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/file-system/how-to-read-from-a-text-file
 private void ReadTextFile(ILogger log)
 {
@@ -110,3 +107,10 @@ log.LogInformation("Exception = {0}", ex.Message);
 }
 
 ````
+ - Run the HTTP Trigger and see the Function run successfully
+
+## Configure Function's Application Setting
+- Create a Config Variable **WEBSITE_VNET_ROUTE_ALL** in Application settings for the function and set the value to **1**.
+![Screenshot](media/app-service-function-apps/Set-website-vnet-route-all-to-1-function-app-configuration.png)
+
+## Create a VNET and required subnets
