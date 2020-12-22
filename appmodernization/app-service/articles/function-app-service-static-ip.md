@@ -118,9 +118,9 @@ log.LogInformation("Exception = {0}", ex.Message);
 
 ![Screenshot](media/app-service-function-apps/VNET-with-AzureFirewallSubnet.png)
 
-![Screenshot](media/app-service-function-apps/Subnet-for-VNET-integration-resize.png)
+![Screenshot](media/app-service-function-apps/Subnet-for-VNET-integration-resized.png)
 
-![Screenshot](media/app-service-function-apps/VNET-integrationsubnet-delegate-subnet-to-server-farmpng-resize.png)
+![Screenshot](media/app-service-function-apps/VNET-integrationsubnet-delegate-subnet-to-server-farmpng-resized.png)
 
 - Ensure a subnet **AzureFirewallSubnet** is created, dedicated for the Azure Firewall.
 - In the subnet for VNET integratin, set the **Delegate subnet to a service** to **Microsoft.Web/serverFarms** for 
