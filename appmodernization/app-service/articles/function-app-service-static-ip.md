@@ -127,7 +127,7 @@ log.LogInformation("Exception = {0}", ex.Message);
 
 ## Create Simple NSG
 
-- Create an put of the box NSG rule and associate that to the VNET Integration Subnet
+- Create an out of the box NSG rule and associate that to the VNET Integration Subnet
 ![Screenshot](media/app-service-function-apps/InboundNSG-resized.png)
 ![Screenshot](media/app-service-function-apps/OutboundNSG-resized.png)
 
