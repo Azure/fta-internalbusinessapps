@@ -111,6 +111,18 @@ log.LogInformation("Exception = {0}", ex.Message);
 
 ## Configure Function's Application Setting
 - Create a Config Variable **WEBSITE_VNET_ROUTE_ALL** in Application settings for the function and set the value to **1**.
+
 ![Screenshot](media/app-service-function-apps/Set-website-vnet-route-all-to-1-function-app-configuration.png)
 
 ## Create a VNET and required subnets
+
+![Screenshot](media/app-service-function-apps/VNET-with-AzureFirewallSubnet.png)
+
+![Screenshot](media/app-service-function-apps/Subnet-for-VNET-integration.png)
+
+![Screenshot](media/app-service-function-apps/VNET-integrationsubnet-delegate-subnet-to-server-farmpng.png)
+
+- Ensure a subnet **AzureFirewallSubnet** is created, dedicated for the Azure Firewall.
+- In the subnet for VNET integratin, set the **Delegate subnet to a service** to **Microsoft.Web/serverFarms** for 
+
+
