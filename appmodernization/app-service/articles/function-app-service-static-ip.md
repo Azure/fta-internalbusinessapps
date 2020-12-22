@@ -138,7 +138,7 @@ log.LogInformation("Exception = {0}", ex.Message);
 
 ![Screenshot](media/app-service-function-apps/Create-route-table-resized.png)
 
-- Create a rule such that the next hop is for the **private IP** of the virtual appliacnce, in this case the private IP of the Azure Firewall
+- Create a route such that the next hop is for the **private IP** of the virtual appliacnce, in this case the private IP of the Azure Firewall
 ![Screenshot](media/app-service-function-apps/Set-route-for-route-table-resized.png)
 
 ## Test the scenario
@@ -146,4 +146,4 @@ log.LogInformation("Exception = {0}", ex.Message);
 
 - Now set the Application Rule in the Azurefirewall to Allow and run the Azure Function. The call is now successful, retrieving the GitHub repositories per the logic in the HTTP Trigger function, this is viewable in the output window. 
 
-- The public static outbound IP address of the Azure Firewall is the one to be shared with the Vendors or 3rd Software providers such that it can be whitelisted and calls can be made to the function via this public static IP.
+- The public static outbound IP address of the Azure Firewall is the one to be shared with the Vendors or 3rd Party Software providers such that it can be whitelisted and calls can be made to the function via this public static IP.
