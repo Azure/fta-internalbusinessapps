@@ -123,7 +123,7 @@ log.LogInformation("Exception = {0}", ex.Message);
 ![Screenshot](media/app-service-function-apps/VNET-integrationsubnet-delegate-subnet-to-server-farmpng-resized.png)
 
 - Ensure a subnet **AzureFirewallSubnet** is created, dedicated for the Azure Firewall.
-- In the subnet for VNET integratin, set the **Delegate subnet to a service** to **Microsoft.Web/serverFarms** for 
+- In the subnet for VNET integratin, set the **Delegate subnet to a service** to **Microsoft.Web/serverFarms**
 
 ## Create Simple NSG
 
@@ -139,7 +139,7 @@ log.LogInformation("Exception = {0}", ex.Message);
 ![Screenshot](media/app-service-function-apps/Create-route-table-resized.png)
 
 - Create a rule such that the next hop is for the **private IP** of the virtual appliacnce, in this case the private IP of the Azure Firewall
-![Screenshot](media/app-service-function-apps/Edit-Firewall-Rule-Deny-resized.png)
+![Screenshot](media/app-service-function-apps/Set-route-for-route-table-resized.png)
 
 ## Test the scenario
 - Set the application rule to Deny, and run the Azure Function. You will see the Function will respond with an error in the output window. This is because the Firewall is blocking the traffic via the outbound public static IP.
