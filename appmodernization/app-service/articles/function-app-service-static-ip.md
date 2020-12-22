@@ -125,4 +125,25 @@ log.LogInformation("Exception = {0}", ex.Message);
 - Ensure a subnet **AzureFirewallSubnet** is created, dedicated for the Azure Firewall.
 - In the subnet for VNET integratin, set the **Delegate subnet to a service** to **Microsoft.Web/serverFarms** for 
 
+## Create Simple NSG
 
+- Create an put of the box NSG rule and associate that to the VNET Integration Subnet
+![Screenshot](media/app-service-function-apps/InboundNSG-resized.png)
+![Screenshot](media/app-service-function-apps/OutboundNSG-resized.png)
+
+## Create an Azure Firewall
+- TO ADD ...
+
+## Create Route Table
+
+![Screenshot](media/app-service-function-apps/Create-route-table-resized.png)
+
+- Create a rule such that the next hop is for the **private IP** of the virtual appliacnce, in this case the private IP of the Azure Firewall
+![Screenshot](media/app-service-function-apps/Edit-Firewall-Rule-Deny-resized.png)
+
+## Test the scenario
+- Set the application rule to Deny, and run the Azure Function. You will see the Function will respond with an error in the output window. This is because the Firewall is blocking the traffic via the outbound public static IP.
+
+- Now set the Application Rule in the Azurefirewall to Allow and run the Azure Function. The call is now successful, retrieving the GitHub repositories per the logic in the HTTP Trigger function, this is viewable in the output window. 
+
+- The public static outbound IP address of the Azure Firewall is the one to be shared with the Vendors or 3rd Software providers such that it can be whitelisted and calls can be made to the function via this public static IP.
