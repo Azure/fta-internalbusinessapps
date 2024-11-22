@@ -33,14 +33,14 @@ namespace Contoso.Expense.API.Controllers
                     manager.ManagerName = "Igor";
                     manager.ManagerEmailAddress = "i@example.org";
                     break;
-                case "Randy Pagels":
-                case "Sam Portelli":
+                case "Randy":
+                case "Sam":
                     manager.EmployeeEmailAddress = employeeName;
                     manager.ManagerName = "Anusha";
                     manager.ManagerEmailAddress = "a@example.org";
                     break;
-                case "Jelle Druyts":
-                case "Lara Leite":
+                case "Jelle":
+                case "Lara":
                     manager.EmployeeEmailAddress = employeeName;
                     manager.ManagerName = "Kelly";
                     manager.ManagerEmailAddress = "k@example.org";
