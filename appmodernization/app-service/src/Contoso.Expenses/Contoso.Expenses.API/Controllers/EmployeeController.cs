@@ -30,13 +30,13 @@ namespace Contoso.Expenses.API.Controllers
                 case "Faisal":
                 case "Abhishek":
                     employeeManager.ManagerName = "John Doe";
-                    employeeManager.ManagerEmailAddress = "umarm@microsoft.com";
+                    employeeManager.ManagerEmailAddress = "john@example.org";
                     break;
                 case "Randy":
                 case "Sam":
                 case "Anuja":
                     employeeManager.ManagerName = "Jane Doe";
-                    employeeManager.ManagerEmailAddress = "faisalm@microsoft.com";
+                    employeeManager.ManagerEmailAddress = "jane@example.org";
                     break;
                 default:
                     employeeManager.ManagerName = "unknown";
