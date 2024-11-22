@@ -15,7 +15,7 @@ namespace ContosoCandies.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Contact Shareef @ reachumar@hotmail.com";
+            ViewData["Message"] = "Contact Me @ user@example.org";
 
             return View();
         }

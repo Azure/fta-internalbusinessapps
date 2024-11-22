@@ -30,7 +30,7 @@ namespace Contoso.Expenses.Functions
                                       IAsyncCollector<SendGridMessage> message)
         {
             var expense = JsonConvert.DeserializeObject<ExpenseExtended>(expenseItem);
-            var emailFrom = "Expense@ContosoExpenses.com";
+            var emailFrom = "Expense@example.org";
             var emailTo = expense.ApproverEmail;
             var emailSubject = $"New Expense for the amount of ${expense.Amount} submitted";
             var emailBody = $"Hello {expense.Approver}, <br/> New Expense report submitted for the purpose of: {expense.Purpose}. <br/> Please review as soon as possible. <br/> <br/> <br/> This is a auto generated email, please do not reply to this email";
