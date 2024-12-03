@@ -30,7 +30,7 @@ namespace Contoso.Expense.Functions
         {
             var expense = JsonConvert.DeserializeObject<Expense>(expenseItem);
 
-            var emailFrom = "Expense@ContosoExpense.com";
+            var emailFrom = "Expense@example.org";
             var emailTo = expense.ApproverEmail;
             var emailSubject = $"New Expense for the amount of ${expense.Amount} submitted";
 

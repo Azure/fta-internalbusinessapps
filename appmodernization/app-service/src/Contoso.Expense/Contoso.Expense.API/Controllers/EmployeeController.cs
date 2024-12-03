@@ -27,28 +27,28 @@ namespace Contoso.Expense.API.Controllers
 
             switch (employeeName)
             {
-                case "Umar Mohamed Usman":
-                case "Faisal Mustafa":
+                case "Umar":
+                case "Faisal":
                     manager.EmployeeEmailAddress = employeeName;
-                    manager.ManagerName = "Igor Katic";
-                    manager.ManagerEmailAddress = "umarm@microsoft.com";
+                    manager.ManagerName = "Igor";
+                    manager.ManagerEmailAddress = "i@example.org";
                     break;
-                case "Randy Pagels":
-                case "Sam Portelli":
+                case "Randy":
+                case "Sam":
                     manager.EmployeeEmailAddress = employeeName;
-                    manager.ManagerName = "Anusha Rangaswamy";
-                    manager.ManagerEmailAddress = "faisalm@microsoft.com";
+                    manager.ManagerName = "Anusha";
+                    manager.ManagerEmailAddress = "a@example.org";
                     break;
-                case "Jelle Druyts":
-                case "Lara Leite":
+                case "Jelle":
+                case "Lara":
                     manager.EmployeeEmailAddress = employeeName;
-                    manager.ManagerName = "Kelly Mondloch";
-                    manager.ManagerEmailAddress = "jelled@microsoft.com";
+                    manager.ManagerName = "Kelly";
+                    manager.ManagerEmailAddress = "k@example.org";
                     break;
                 default:
                     manager.EmployeeEmailAddress = employeeName;
                     manager.ManagerName = "unknown";
-                    manager.ManagerEmailAddress = "umarm@microsoft.com";
+                    manager.ManagerEmailAddress = "u@example.org";
                     break;
             }
 
